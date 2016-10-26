@@ -16,7 +16,7 @@ Ever tried to make a decision and ended up writing scores of entries in poorly-s
 - Each option-criteria pair is also assigned a score based on how well the user thinks that option fits the corresponding criterion.  For example, say computer 1 is very expensive so it gets a price score of 1 and computer 2 is more reasonably priced so it gets a price score of 6. The scores are relative to each other and are between **1 - 10**, where higher is better. The default score when a new option is added is **5** for all criteria in the table. A score of 0 is not allowed for options-criteria pairs.
 - The scores are displayed to the right in each cell, and the user can use the arrows to increase or decrease the score for that cell.
 - The entire table is displayed inside a scrollable section, so that the "Score Comparison!" and "Save Comparison" buttons are always at the bottom of the screen, visible. By clicking the "View Full Screen" icon, the table is popped up and stretched on the whole page.
-- The "Score Comparison!" button calculates the overall score for each of the options using the formula ![equation](http://latex.codecogs.com/gif.latex?S_%7BO_i%7D%20%3D%20%5Csum_%7Bj%7D%28S_%7BC_j%7D%5Ccdot%20S_%7BO_i%5Ctimes%20C_j%7D%29)
+- The "Score Comparison!" button calculates the overall score for each of the options using the formula ![equation](https://latex.codecogs.com/gif.latex?S_%7BO_%7Bi%7D%7D%3D%5Csum_%7Bj%7D%28S_%7BC_%7Bj%7D%7D%5Ccdot%20S_%7BO_%7Bi%7D%2CC_%7Bj%7D%7D%29)
 - When the comparison is scored, the rows (options) will be sorted by the total score calculated above. The 'winner' options will be highlighted, so if more options have the same score, they will all be highlighted.
 
 ### Thoughts for the future:
