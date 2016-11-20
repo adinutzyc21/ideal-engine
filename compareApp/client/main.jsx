@@ -1,5 +1,4 @@
-//import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
