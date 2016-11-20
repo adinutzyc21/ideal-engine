@@ -1,0 +1,15 @@
+{
+  "name": "compareApp",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "6.18.0",
+    "meteor-node-stubs": "~0.2.0",
+    "react": "^15.4.0",
+    "react-bootstrap-table": "^2.5.8",
+    "react-dom": "^15.4.0",
+    "react-widgets": "^3.4.4"
+  }
+}
