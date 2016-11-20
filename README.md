@@ -6,7 +6,7 @@ Ever tried to make a decision and ended up writing scores of entries in poorly-s
 ## Create Comparison Overview
 
 
-<img src="https://raw.githubusercontent.com/adinutzyc21/CompareApp/master/appDesign.png" width="640px">
+<img src="https://raw.githubusercontent.com/adinutzyc21/ideal-engine/master/appDesign.png" width="640px">
 
 - The column headers (Criterion 1, Criterion 2 etc.) represent the criteria by which sorting to occurs. E.g. price, square footage, location etc. These are added by the user, according to their preference.
 - Clicking on the '+' sign on the right adds a new column to the right of the table. By hovering over the column header, a gray tab appears. Dragging this gray tab moves the column left or right. Clicking on the 'X' on the gray tab deletes the column.
