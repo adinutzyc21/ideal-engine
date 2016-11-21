@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 import Button from './Button.jsx';
+import Table from './Table.jsx';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -26,30 +26,6 @@ export default class App extends Component {
         ]);
     }
 
-    renderCells() {
-        return this.getRowsData(quantity).map((task) => (
-            <Task key={task.id} task={task} />
-        ));
-    }
-
-    addColumn(cols) {
-        console.log('add col');
-        console.log(cols);
-    }
-
-    addRow(row) {
-        console.log('add row');
-        console.log(row);
-    }
-
-    deleteColumn() {
-        console.log('delete col');
-    }
-
-    deleteRow() {
-        console.log('delete row');
-    }
-
     render() {
         var data = this.getRowsData();
         return (
@@ -59,44 +35,20 @@ export default class App extends Component {
                 </header>
                 <br />
 
+                {/* Display the menu options - this will get better */}
                 <div className='col-xs-12 col-sm-6 col-md-6 col-lg-8'>
                     <div className='btn-group btn-group-sm' role='group'>
-                        <Button type='add' name='Row' tooltip='Add a row' callback={this.addRow} params={data}/>
-                        <Button type='add' name='Col' tooltip='Add a column' callback={this.addColumn} params={data}/>
+                        <Button type='add' level='row' name='Row' tooltip='Add a row' params={data}/>
+                        <Button type='add' level='col' name='Col' tooltip='Add a column' callback={this.addColumn} params={data}/>
                         <br/>
-                        <Button type='del' name='Row' tooltip='Delete a row' callback={this.deleteRow} />
-                        <Button type='del' name='Col' tooltip='Delete a column' callback={this.deleteColumn} />
+                        <Button type='del' level='row' name='Row' tooltip='Delete a row' callback={this.deleteRow} />
+                        <Button type='del' level='col' name='Col' tooltip='Delete a column' callback={this.deleteColumn} />
                     </div>
                 </div>
 
                 <div className='react-bs-container-body'>
-                    <table className='table table-bordered'>
-                        {/*this.displayHead()
-                        <Row type="thead" data={data[0]}/>*/}
-                        <thead>
-                            <tr>
-                                <th>blob</th>
-                                <th>blob</th>
-                                <th>blob</th>
-                            </tr>
-                        </thead>
-                        {/*this.displayData()
-                        <Row type="tbody" data={data.slice(1)}/>*/}
-                        <tbody>
-                            <tr>
-                                <td>blob</td>
-                                <td>blob</td>
-                                <td>blob</td>
-                            </tr></tbody>
-                    </table>
+                    <Table data={data}/>
                 </div>
-                {
-                // <BootstrapTable data={this.state.cellData}>
-                //     <TableHeaderColumn width='150px' dataField='name' isKey={true}>{/* Blank column for options */}</TableHeaderColumn>
-                //     <TableHeaderColumn width='150px' dataField='o_c1'>Product Name</TableHeaderColumn>
-                //     <TableHeaderColumn width='150px' dataField='o_c2'>Product Price</TableHeaderColumn>
-                // </BootstrapTable>
-                }
             </div>
         );
     }
