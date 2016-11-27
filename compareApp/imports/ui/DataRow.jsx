@@ -2,19 +2,23 @@ import React, { Component, PropTypes } from 'react';
 
 // DataRow component - displays the header of the table
 export default class DataRow extends Component {
-  renderRow() {
-    var row = this.props.rows[0];
-    return this.props.cols.map((column) => (
-      <td key={column}>{row.text}</td>
-    ));
+  renderRows() {
+    var self = this;
+    return this.props.rows.map(function (row) {
+      return React.DOM.tr({ key: row._id.valueOf() },
+        self.props.cols.map(function (col) {
+          var data = row[col];
+          if (!data) data = "";
+          else data = data.toString();
+          return React.DOM.td({ key: col }, data);
+        }));
+    });
   }
 
   render() {
     return (
       <tbody>
-        <tr>
-          {this.renderRow()}
-        </tr>
+        {this.renderRows()}
       </tbody>
     );
   }
