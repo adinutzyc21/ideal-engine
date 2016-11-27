@@ -19,6 +19,13 @@ export default class Button extends Component {
 
     deleteRow() {
         console.log('delete row');
+        {/* Display the menu options - this will get better
+        <Button type='add' level='row' name='' tooltip='Add a row' params={data} />
+        <Button type='add' level='col' name='' tooltip='Add a column' callback={this.addColumn} params={data} />
+        <br />
+        <Button type='del' level='row' name='' tooltip='Delete a row' callback={this.deleteRow} />
+        <Button type='del' level='col' name='' tooltip='Delete a column' callback={this.deleteColumn} />
+            */}
     }
 
     render() {
@@ -78,9 +85,9 @@ export default class Button extends Component {
   * params: parameters to callback function, can be undefined
   */
 Button.propTypes = {
-    type: React.PropTypes.oneOf(['add', 'del']).isRequired,
-    level: React.PropTypes.oneOf(['row', 'col']).isRequired,
-    name: React.PropTypes.string.isRequired,
-    tooltip: React.PropTypes.string.isRequired,
-    params: React.PropTypes.any
+    type:       PropTypes.oneOf(['add', 'del']).isRequired,
+    level:      PropTypes.oneOf(['row', 'col']).isRequired,
+    name:       PropTypes.string,
+    tooltip:    PropTypes.string.isRequired,
+    params:     PropTypes.any
 };
