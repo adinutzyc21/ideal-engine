@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-
 import Button from './Button.jsx';
 
 // CriteriaHeading component - displays the header of the table
 export default class CriteriaHeading extends Component {
-
   renderHeadings() {
     return this.props.cols.map((heading) => (
       <th key={heading}>{heading}</th>
