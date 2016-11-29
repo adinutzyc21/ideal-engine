@@ -1,27 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-
 import Spinner from 'react-spinkit';
 
 import TableDisplay from './TableDisplay.jsx';
+
 import { Items } from '../api/dataItems.js'
+
+import Button from './Button.jsx';
 
 // App component - represents the whole app
 class App extends Component {
-    /*
-    {
-    cols: ["Name", "Age"],
-    rows: [{
-        "Name": "Chase",
-        "Age": "27"
-    }],
-    */
-    parseColumns(data) {
+    /**
+     * Extract the column names from the information available in the database: 
+     * this is the union of all properties of each row object in the database
+     * E.g: 
+     * Input: [{"Name": "Chase","Age": "27"},
+     *         {"Name": "Joe", "Height": "5'7"'}],
+     * Output: ["Name", "Age", "Height"]
+     * @returns the union of all columns
+     */
+    parseColumns() {
         var cols = [];
-        for (var i = 0, len = data.length; i < len; i++) {
-            var row = data[i];
+        for (var i = 0, len = this.props.rows.length; i < len; i++) {
+            var row = this.props.rows[i];
             for (var property in row) {
-                if (property!="_id" && row.hasOwnProperty(property) && !cols.includes(property)) {
+                if (property != "_id" && row.hasOwnProperty(property) && !cols.includes(property)) {
                     cols.push(property);
                 }
             }
@@ -29,6 +32,9 @@ class App extends Component {
         return cols;
     }
 
+    /**
+     * Render the data
+     */
     render() {
         if (!this.props.rows) {
             // Render a spinner or something...
@@ -72,11 +78,9 @@ class App extends Component {
                     <h1>CompareApp Draft</h1>
                 </header>
 
-                <br />
-                <div className='react-bs-container-body'>
-                    <TableDisplay cols={this.parseColumns(this.props.rows)} rows={this.props.rows}/>
-                </div>
+                <TableDisplay cols={this.parseColumns()} rows={this.props.rows} />
             </div>
+
         );
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Items } from '../api/dataItems.js'
 
 // Button component - use to add a button
 export default class Button extends Component {
@@ -17,39 +18,51 @@ export default class Button extends Component {
         console.log('delete col');
     }
 
-    deleteRow() {
-        console.log('delete row');
-        {/* Display the menu options - this will get better
-        <Button type='add' level='row' name='' tooltip='Add a row' params={data} />
-        <Button type='add' level='col' name='' tooltip='Add a column' callback={this.addColumn} params={data} />
-        <br />
-        <Button type='del' level='row' name='' tooltip='Delete a row' callback={this.deleteRow} />
-        <Button type='del' level='col' name='' tooltip='Delete a column' callback={this.deleteColumn} />
-            */}
+    deleteRow(id) {
+        console.log('delete row '+ id);
+        Items.remove(id);
+    }
+
+    getColors() {
+        return {
+            white:  'btn btn-sm btn-default',
+            blue:   'btn btn-sm btn-primary',
+            green:  'btn btn-sm btn-success',
+            cyan:   'btn btn-sm btn-info',
+            orange: 'btn btn-sm btn-warning',
+            red:    'btn btn-sm btn-danger'
+        };
     }
 
     render() {
         var btnClass = '';
         var icon = '';
         var callback = null;
+        var colors = this.getColors();
         if (this.props.type === 'add') {
-            btnClass = 'btn btn-info btn-sm';
+            if (!this.props.color)
+                btnClass = colors.cyan;
+            else
+                btnClass = colors[this.props.color];
             icon = 'glyphicon glyphicon-plus';
-            if(this.props.level === 'row'){
-                callback=this.addRow;
+            if (this.props.level === 'row') {
+                callback = this.addRow;
             }
-            else if(this.props.level === 'col'){
-                callback=this.addColumn;
+            else if (this.props.level === 'col') {
+                callback = this.addColumn;
             }
         }
         else if (this.props.type === 'del') {
-            btnClass = 'btn btn-warning btn-sm';
+            if (!this.props.color) 
+                btnClass = colors.orange;
+            else
+                btnClass = colors[this.props.color];
             icon = 'glyphicon glyphicon-trash';
-            if(this.props.level === 'row'){
-                callback=this.deleteRow;
+            if (this.props.level === 'row') {
+                callback = this.deleteRow;
             }
-            else if(this.props.level === 'col'){
-                callback=this.deleteColumn;
+            else if (this.props.level === 'col') {
+                callback = this.deleteColumn;
             }
         }
 
@@ -83,11 +96,13 @@ export default class Button extends Component {
   * name: string
   * tooltip: string 
   * params: parameters to callback function, can be undefined
+  * color: color of the button
   */
 Button.propTypes = {
-    type:       PropTypes.oneOf(['add', 'del']).isRequired,
-    level:      PropTypes.oneOf(['row', 'col']).isRequired,
-    name:       PropTypes.string,
-    tooltip:    PropTypes.string.isRequired,
-    params:     PropTypes.any
+    type: PropTypes.oneOf(['add', 'del']).isRequired,
+    level: PropTypes.oneOf(['row', 'col']).isRequired,
+    name: PropTypes.string,
+    tooltip: PropTypes.string.isRequired,
+    params: PropTypes.any,
+    color: PropTypes.oneOf(['white', 'blue', 'green', 'cyan', 'orange', 'red'])
 };

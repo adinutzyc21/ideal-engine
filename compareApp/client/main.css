@@ -1,5 +1,49 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css";
-.adina{
-    width: 30px;
-    border:5px;
+.table-container{
+    min-width: 100%;
+    overflow:auto;
+}
+table {
+    margin-left:    40px;
+    margin-right:   40px;
+    margin-top:     40px;
+    border-spacing: 0;
+    border-collapse: collapse
+}
+th, td {
+    vertical-align: top;
+    padding: 5px;
+    border: 1px solid green;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+td.secondary-heading{
+    color: #4CAF50;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+span{
+    color: black;
+    font-weight: normal;
+}
+span.add-row {
+    float: left;
+    margin-top: 1px;
+    margin-left: 42px;
+}
+span.del-row {
+    float: left;
+    margin-left: -41px;
+}
+span.add-col {
+    float: right;
+    margin-right: -41px;
+}
+span.del-col {
+    float: left;
+    margin-top: -37px;
 }
