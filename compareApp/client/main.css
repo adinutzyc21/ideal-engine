@@ -16,11 +16,12 @@ th, td {
     border: 1px solid green;
 }
 th {
-    background-color: #4CAF50;
+    background-color: #006400;
     color: white;
 }
 td.secondary-heading{
-    color: #4CAF50;
+    background-color: #32CD32;
+    color:white;
     font-weight: bold;
 }
 tr:nth-child(even) {

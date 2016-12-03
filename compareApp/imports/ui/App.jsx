@@ -36,25 +36,7 @@ class App extends Component {
      * Render the data
      */
     render() {
-        if (!this.props.rows) {
-            // Render a spinner or something...
-            return (
-                <div className='container'>
-                    <header>
-                        <h1>CompareApp Draft</h1>
-                    </header>
-
-                    <br />
-
-                    <div className='react-bs-container-body'>
-                        <Spinner spinnerName='three-bounce' />
-                    </div>
-                </div>
-            );
-        }
-
-        // Gives you the opportunity to handle the case where the request
-        // completed but the result array is empty
+        // If the array is empty, show a spinner
         if (this.props.rows.length === 0) {
             return (
                 <div className='container'>
@@ -65,7 +47,8 @@ class App extends Component {
                     <br />
 
                     <div className='react-bs-container-body'>
-                        <Spinner spinnerName='three-bounce' />
+                        No data available. <br/>
+                        <Button type='add' level='row' name='Add a row' color='cyan' tooltip='Add a row' callback={this.addRow} />
                     </div>
                 </div>
             );

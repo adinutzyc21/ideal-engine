@@ -12,7 +12,7 @@ export default class TableDisplay extends Component {
       <div className='table-container'>
         <table>
           {/* Need a header of type CriteriaHeading */}
-          <CriteriaHeading cols={this.props.cols} />
+          <CriteriaHeading cols={this.props.cols} rows={this.props.rows} />
           {/* Need a bunch of rows of type  DataRow*/}
           <DataRow rows={this.props.rows} cols={this.props.cols} />
         </table>

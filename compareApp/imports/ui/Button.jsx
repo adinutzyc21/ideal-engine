@@ -14,23 +14,32 @@ export default class Button extends Component {
         console.log(row);
     }
 
-    deleteColumn() {
-        console.log('delete col');
+    deleteColumn(params) {
+        var rows = params.data;
+        var col = params.col.valueOf();
+        for (var i = 0, len = rows.length; i < len; i++) {
+            var row = rows[i];
+            Items.update(row._id, {
+                $unset: {
+                    [col]: ""
+                }
+            });
+        }
     }
 
     deleteRow(id) {
-        console.log('delete row '+ id);
+        console.log('delete row ' + id);
         Items.remove(id);
     }
 
     getColors() {
         return {
-            white:  'btn btn-sm btn-default',
-            blue:   'btn btn-sm btn-primary',
-            green:  'btn btn-sm btn-success',
-            cyan:   'btn btn-sm btn-info',
+            white: 'btn btn-sm btn-default',
+            blue: 'btn btn-sm btn-primary',
+            green: 'btn btn-sm btn-success',
+            cyan: 'btn btn-sm btn-info',
             orange: 'btn btn-sm btn-warning',
-            red:    'btn btn-sm btn-danger'
+            red: 'btn btn-sm btn-danger'
         };
     }
 
@@ -53,7 +62,7 @@ export default class Button extends Component {
             }
         }
         else if (this.props.type === 'del') {
-            if (!this.props.color) 
+            if (!this.props.color)
                 btnClass = colors.orange;
             else
                 btnClass = colors[this.props.color];
