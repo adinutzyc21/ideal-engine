@@ -3,10 +3,9 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinkit';
 
 import TableDisplay from './TableDisplay.jsx';
+import FormModal from './FormModal.jsx';
 
-import { Items } from '../api/dataItems.js'
-
-import Button from './Button.jsx';
+import { Items } from '../api/items.js'
 
 // App component - represents the whole app
 class App extends Component {
@@ -36,31 +35,26 @@ class App extends Component {
      * Render the data
      */
     render() {
-        // If the array is empty, show a spinner
-        if (this.props.rows.length === 0) {
-            return (
-                <div className='container'>
-                    <header>
-                        <h1>CompareApp Draft</h1>
-                    </header>
-
-                    <br />
-
-                    <div className='react-bs-container-body'>
-                        No data available. <br/>
-                        <Button type='add' level='row' name='Add a row' color='cyan' tooltip='Add a row' callback={this.addRow} />
-                    </div>
-                </div>
-            );
-            // return <div>No data</div>;
+        // <ButtonAdd level='row' name='Add a row' color='cyan' tooltip='Add a row' callback={this.addRow} />
+        // While the data is loading, show a spinner
+        if (this.props.loading) {
+            return <Spinner spinnerName='three-bounce' />;
         }
 
-        return (
-            <div className='container'>
-                <header>
-                    <h1>CompareApp Draft</h1>
-                </header>
+        // If the data is empty, show that there is no data available and allow row addition
+        if (this.props.rows.length === 0) {
+            return (
+                <div className='react-bs-container-body'>
+                    No data available. <br />
+                    <FormModal level="row" data={this.parseColumns()} color="cyan" tooltip="Add a row"/>
+                </div>
 
+            );
+        }
+
+        // Otherwise, show the table
+        return (
+            <div className='react-bs-container-body'>
                 <TableDisplay cols={this.parseColumns()} rows={this.props.rows} />
             </div>
 
@@ -69,12 +63,15 @@ class App extends Component {
 }
 
 App.propTypes = {
+    loading: PropTypes.bool.isRequired,
     rows: PropTypes.array.isRequired
 };
 
-export default createContainer(() => {
-    return {
-        rows: Items.find({}).fetch()
-    };
+export default createContainer(({ params }) => {
+    const subscription = Meteor.subscribe('items');
+    const loading = !subscription.ready();
+    const rows = Items.find().fetch();
+
+    return { loading, rows };
 }, App);
 

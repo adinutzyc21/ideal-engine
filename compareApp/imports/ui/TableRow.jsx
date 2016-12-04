@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import Button from './Button.jsx';
+import ButtonDelete from './ButtonDelete.jsx';
 
 // DataRow component - displays the cotents of the table
 export default class DataRow extends Component {
@@ -18,7 +18,7 @@ export default class DataRow extends Component {
           classN = "secondary-heading";
           html.push(
             <span key={col} className="del-row">
-              <Button type='del' level='row' color='orange' tooltip='Delete a row' callback={this.deleteRow} params={row._id} />
+              <ButtonDelete level='row' color='orange' tooltip='Delete a row' callback={this.deleteRow} params={row._id} />
             </span>
           );
         }
