@@ -1,6 +1,6 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css";
 @import "styles/tableStyles.css";
-@import "{}/imports/styles/formStyles.css";
+@import "styles/formStyles.css";
 span{
     color: black;
     font-weight: normal;

@@ -1,5 +1,5 @@
 
-div.modalStyle {
+.modalStyle {
     position: fixed;
     z-index: 1040;
     top: 10px;
@@ -7,7 +7,7 @@ div.modalStyle {
     left: 0;
     right: 0
 }
-div.dialogStyle {
+.dialogStyle {
     position: absolute;
     width: 400px;
     top: 10px;
@@ -17,4 +17,23 @@ div.dialogStyle {
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px
+}
+.input-text {
+    padding: 5px 5px 5px 0;
+    color: black;
+    font-weight: bolder;
+}
+.new-data input {
+  box-sizing: border-box;
+  padding: 5px;
+  background: transparent;
+  border: 2px solid gray;
+  border-radius: 2px;
+  width: 100%;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+ 
+.new-data input:focus{
+  outline: 0;
 }

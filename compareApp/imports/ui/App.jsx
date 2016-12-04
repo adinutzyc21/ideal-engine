@@ -13,9 +13,9 @@ class App extends Component {
      * Extract the column names from the information available in the database: 
      * this is the union of all properties of each row object in the database
      * E.g: 
-     * Input: [{"Name": "Chase","Age": "27"},
-     *         {"Name": "Joe", "Height": "5'7"'}],
-     * Output: ["Name", "Age", "Height"]
+     * Input: [{"Item": "Chase","Age": "27"},
+     *         {"Item": "Joe", "Height": "5'7"'}],
+     * Output: ["Item", "Age", "Height"]
      * @returns the union of all columns
      */
     parseColumns() {
@@ -46,7 +46,7 @@ class App extends Component {
             return (
                 <div className='react-bs-container-body'>
                     No data available. <br />
-                    <FormModal level="row" data={this.parseColumns()} color="cyan" tooltip="Add a row"/>
+                    <FormModal level="row" data={["Item"]} color="cyan" tooltip="Add a row"/>
                 </div>
 
             );

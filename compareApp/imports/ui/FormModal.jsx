@@ -5,6 +5,9 @@ import ButtonAdd from './ButtonAdd.jsx';
 
 // CriteriaHeading component - displays the header of the table
 export default class FormAdd extends Component {
+    /**
+     * Initialize showModal to false
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -12,11 +15,23 @@ export default class FormAdd extends Component {
         };
     }
 
-    handleSubmit() { }
+    // handleSubmit(event) {
+    //     event.preventDefault();
+
+    //     // Find the text field via the React ref
+    //     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+
+    //     Tasks.insert({
+    //         text,
+    //         createdAt: new Date(), // current time
+    //     });
+
+    //     // Clear form
+    //     ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    // }
 
     render() {
-        var btnClass = '';
-        var callback = null;
+        // set the color of the button based on the prop given
         var colors = {
             white: 'btn btn-sm btn-default',
             blue: 'btn btn-sm btn-primary',
@@ -25,10 +40,27 @@ export default class FormAdd extends Component {
             orange: 'btn btn-sm btn-warning',
             red: 'btn btn-sm btn-danger'
         };
-        if (!this.props.color)
-            btnClass = colors.blue;
-        else
-            btnClass = colors[this.props.color];
+        var color = 'blue';
+        if (this.props.color) { // whatever color was passed in the props
+            color = this.props.color;
+        }
+        btnClass = colors[color];
+
+        // Define the button based on the type of add (column/row)
+        var buttonHtml = [];
+        if (this.props.level === 'row') { // row
+            buttonHtml.push(<ButtonAdd key="button" level={this.props.level} name=" Add row" color={color} tooltip={this.props.tooltip} callback={this.addRow} />);
+        }
+        else { // column
+            buttonHtml.push(<ButtonAdd key="button" level={this.props.level} name=" Add column" color={color} tooltip={this.props.tooltip} callback={this.addColumn} />);
+        }
+
+        // Define the form data based on the data and level
+        var formHtml = [];
+        for (var i = 0, len = this.props.data.length; i < len; i++) {
+            formHtml.push(<span key={this.props.data[i] + "0"} className="input-text">{this.props.data[i]}:</span>);
+            formHtml.push(<input key={this.props.data[i]} type="text" ref="textInput" placeholder={"Type to add data for " + this.props.data[i]} />);
+        }
 
         return (
             <div>
@@ -46,12 +78,11 @@ export default class FormAdd extends Component {
 
                         <div className='dialogStyle'>
                             <form
-                                className="new-task"
+                                className="new-data"
                                 onSubmit={this.handleSubmit.bind(this)}>
-                                <input type="text" ref="textInput" placeholder="Type to add new tasks" />
+                                {formHtml}
                             </form>
-
-                            <ButtonAdd level='col' name="Add" color='blue' tooltip='Add a column' callback={this.addColumn} />
+                            {buttonHtml}
                         </div>
                     </Modal>
                 </div>
