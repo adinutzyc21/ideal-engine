@@ -8,6 +8,21 @@ export default class ButtonAdd extends Component {
     addColumn(cols) {
         console.log('add col');
         console.log(cols);
+
+
+        //     event.preventDefault();
+
+        //     // Find the text field via the React ref
+        //     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+
+        //     Tasks.insert({
+        //         text,
+        //         createdAt: new Date(), // current time
+        //     });
+
+        // Clear form
+    //     console.log("Handle submit");
+    //     ReactDOM.findDOMNode(this.refs.textInput).value = '';
     }
 
     addRow(row) {

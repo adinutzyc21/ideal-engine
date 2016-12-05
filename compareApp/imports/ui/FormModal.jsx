@@ -15,21 +15,62 @@ export default class FormAdd extends Component {
         };
     }
 
-    // handleSubmit(event) {
-    //     event.preventDefault();
+    /**
+     * Define the button based on the type of add (column/row)
+     * @param color the color of the button
+     * @returns the html to creat the button
+     */
+    createButton(color) {
+        var buttonHtml = [];
+        if (this.props.level === 'row') { // row
+            buttonHtml.push(<ButtonAdd key="button" level={this.props.level}
+                name=" Add row" color={color} tooltip={this.props.tooltip}
+                callback={this.addRow} />);
+        }
+        else { // column
+            buttonHtml.push(<ButtonAdd key="button" level={this.props.level}
+                name=" Add column" color={color} tooltip={this.props.tooltip}
+                callback={this.addColumn} />);
+        }
+        return buttonHtml;
+    }
 
-    //     // Find the text field via the React ref
-    //     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+    /**
+     * Define the form data based on the data and level
+     * @param the color of the submit button
+     * @returns the html for the form
+     */
+    createForm(color) {
+        var formHtml = [];
+        var items = this.props.data;
 
-    //     Tasks.insert({
-    //         text,
-    //         createdAt: new Date(), // current time
-    //     });
+        // column headers are unique
+        if (this.props.level === 'row') {
+            for (var i = 0, len = items.length; i < len; i++) {
+                formHtml.push(<span key={items[i] + "_text"} className="input-text">{items[i]}:</span>);
+                formHtml.push(<input key={items[i]} type="text" ref="textInput"
+                    placeholder={"Type to add data for " + items[i]} />);
+            }
+        }
+        // we have the ids for the input
+        else {
+            for (var i = 0, len = items.length; i < len; i++) {
+                formHtml.push(<span key={items[i].id + "_text"} className="input-text">{items[i].item}:</span>);
+                formHtml.push(<input key={items[i].id} type="text" ref="textInput"
+                    placeholder={"Type to add data for " + items[i].item} />);
+            }
+        }
 
-    //     // Clear form
-    //     ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    // }
+        return (
+            <div className="new-data">
+                {formHtml}
+                {this.createButton(color)}
+            </div>);
+    }
 
+    /**
+     * 
+     */
     render() {
         // set the color of the button based on the prop given
         var colors = {
@@ -46,22 +87,6 @@ export default class FormAdd extends Component {
         }
         btnClass = colors[color];
 
-        // Define the button based on the type of add (column/row)
-        var buttonHtml = [];
-        if (this.props.level === 'row') { // row
-            buttonHtml.push(<ButtonAdd key="button" level={this.props.level} name=" Add row" color={color} tooltip={this.props.tooltip} callback={this.addRow} />);
-        }
-        else { // column
-            buttonHtml.push(<ButtonAdd key="button" level={this.props.level} name=" Add column" color={color} tooltip={this.props.tooltip} callback={this.addColumn} />);
-        }
-
-        // Define the form data based on the data and level
-        var formHtml = [];
-        for (var i = 0, len = this.props.data.length; i < len; i++) {
-            formHtml.push(<span key={this.props.data[i] + "0"} className="input-text">{this.props.data[i]}:</span>);
-            formHtml.push(<input key={this.props.data[i]} type="text" ref="textInput" placeholder={"Type to add data for " + this.props.data[i]} />);
-        }
-
         return (
             <div>
                 <button type='button' className={btnClass}
@@ -77,12 +102,7 @@ export default class FormAdd extends Component {
                         onHide={this.close.bind(this)}>
 
                         <div className='dialogStyle'>
-                            <form
-                                className="new-data"
-                                onSubmit={this.handleSubmit.bind(this)}>
-                                {formHtml}
-                            </form>
-                            {buttonHtml}
+                            {this.createForm(color)}
                         </div>
                     </Modal>
                 </div>

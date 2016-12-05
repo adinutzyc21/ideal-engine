@@ -17,7 +17,9 @@ export default class CriteriaHeading extends Component {
     parseItems(list) {
         var items = [];
         for (var i = 0, len = list.length; i < len; i++) {
-          items.push(list[i].Item);
+          items.push({
+            id: list[i]._id,
+            item: list[i].Item});
         }
         return items;
     }
