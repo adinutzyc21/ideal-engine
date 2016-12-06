@@ -24,17 +24,23 @@
     color: black;
     font-weight: bolder;
 }
-.new-data input {
-  box-sizing: border-box;
-  padding: 5px;
-  background: transparent;
-  border: 2px solid gray;
-  border-radius: 2px;
-  width: 100%;
-  font-size: 1em;
-  margin-bottom: 10px;
+.header {
+    color:green;
 }
- 
+.new-data input {
+    box-sizing: border-box;
+    padding: 5px;
+    background: transparent;
+    border: 2px solid gray;
+    border-radius: 2px;
+    width: 100%;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
 .new-data input:focus{
-  outline: 0;
+    outline: 0;
+}
+.new-data input.header {
+    border: 3px solid green;
+    padding: 8px;
 }

@@ -5,31 +5,6 @@ import { Button } from 'react-bootstrap';
 // ButtonAdd component - use to add a button
 export default class ButtonAdd extends Component {
 
-    addColumn(cols) {
-        console.log('add col');
-        console.log(cols);
-
-
-        //     event.preventDefault();
-
-        //     // Find the text field via the React ref
-        //     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-        //     Tasks.insert({
-        //         text,
-        //         createdAt: new Date(), // current time
-        //     });
-
-        // Clear form
-    //     console.log("Handle submit");
-    //     ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    }
-
-    addRow(row) {
-        console.log('add row');
-        console.log(row);
-    }
-
     render() {
         var btnClass = '';
         var icon = '';
@@ -57,7 +32,7 @@ export default class ButtonAdd extends Component {
 
         if (this.props.params === undefined || this.props.params === null) {
             return (
-                <button type='button'
+                <button type='submit'
                     className={btnClass}
                     data-toggle='tooltip' data-placement='right' title={this.props.tooltip}
                     onClick={callback}>
@@ -66,15 +41,6 @@ export default class ButtonAdd extends Component {
                 </button>
             );
         }
-        else return (
-            <button type='button'
-                className={btnClass}
-                data-toggle='tooltip' data-placement='right' title={this.props.tooltip}
-                onClick={() => { callback(this.props.params); } }>
-                <i className='glyphicon glyphicon-plus' />
-                {this.props.name}
-            </button>
-        );
     }
 }
 /**
@@ -89,6 +55,5 @@ ButtonAdd.propTypes = {
     level: PropTypes.oneOf(['row', 'col']).isRequired,
     name: PropTypes.string,
     tooltip: PropTypes.string.isRequired,
-    params: PropTypes.any,
     color: PropTypes.oneOf(['white', 'blue', 'green', 'cyan', 'orange', 'red'])
 };

@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+
+import { Items } from '../api/items.js';
 
 import ButtonAdd from './ButtonAdd.jsx';
 
@@ -10,29 +13,64 @@ export default class FormAdd extends Component {
      */
     constructor(props) {
         super(props);
+
         this.state = {
-            showModal: false
+            showModal: false,
+            item: "",
+            option: ""
         };
+        this.handleChangeItem = this.handleChangeItem.bind(this);
+        this.handleChangeOption = this.handleChangeOption.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
     }
 
-    /**
-     * Define the button based on the type of add (column/row)
-     * @param color the color of the button
-     * @returns the html to creat the button
-     */
-    createButton(color) {
-        var buttonHtml = [];
-        if (this.props.level === 'row') { // row
-            buttonHtml.push(<ButtonAdd key="button" level={this.props.level}
-                name=" Add row" color={color} tooltip={this.props.tooltip}
-                callback={this.addRow} />);
+    createFormRow() {
+        var formHtml = [];
+        var items = this.props.data;
+        var i = 0;
+        // column headers are unique, so that can be the key
+
+        // request the "Items" header differently
+        formHtml.push(<span key={items[i] + "_text"} className="input-text header">New Item Name:</span>);
+        formHtml.push(<input key={items[i]} type="text" ref={"textInput" + i} className="header"
+            value={this.state.item} onChange={this.handleChangeItem} placeholder={"Type to add data for " + items[i]} />);
+
+        // request all the corresponding information
+        for (i = 1, len = items.length; i < len; i++) {
+            formHtml.push(<span key={items[i] + "_text"} className="input-text">{this.state.item + " " + items[i]}:</span>);
+            formHtml.push(<input key={items[i]} type="text" ref={"textInput" + i}
+                placeholder={"Type to add data for " + this.state.item + " " + items[i]} />);
         }
-        else { // column
-            buttonHtml.push(<ButtonAdd key="button" level={this.props.level}
-                name=" Add column" color={color} tooltip={this.props.tooltip}
-                callback={this.addColumn} />);
+        return formHtml;
+    }
+
+    handleChangeItem(event) {
+        this.setState({ item: event.target.value });
+    }
+
+    createFormCol() {
+        var formHtml = [];
+        var items = this.props.data;
+        // we have the ids for the input, so use that as a key (except for the column)
+
+        // request the column name differently
+        formHtml.push(<span key="colName_text" className="input-text header">New Column Name:</span>);
+        formHtml.push(<input key="colName" type="text" ref="colName" className="header"
+            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type the new column name" />);
+
+        // request all the corresponding information
+        for (var i = 0, len = items.length; i < len; i++) {
+            formHtml.push(<span key={items[i].id + "_text"} className="input-text">{items[i].item + " " + this.state.option}:</span>);
+            formHtml.push(<input key={items[i].id} type="text" ref={"textInput" + i}
+                placeholder={"Type to add data for " + items[i].item + " " + this.state.option} />);
         }
-        return buttonHtml;
+        return formHtml;
+    }
+
+    handleChangeOption(event) {
+        this.setState({ option: event.target.value });
     }
 
     /**
@@ -41,31 +79,69 @@ export default class FormAdd extends Component {
      * @returns the html for the form
      */
     createForm(color) {
+        var buttonText = " Add row";
         var formHtml = [];
-        var items = this.props.data;
-
-        // column headers are unique
         if (this.props.level === 'row') {
-            for (var i = 0, len = items.length; i < len; i++) {
-                formHtml.push(<span key={items[i] + "_text"} className="input-text">{items[i]}:</span>);
-                formHtml.push(<input key={items[i]} type="text" ref="textInput"
-                    placeholder={"Type to add data for " + items[i]} />);
-            }
+            formHtml = this.createFormRow();
         }
-        // we have the ids for the input
         else {
-            for (var i = 0, len = items.length; i < len; i++) {
-                formHtml.push(<span key={items[i].id + "_text"} className="input-text">{items[i].item}:</span>);
-                formHtml.push(<input key={items[i].id} type="text" ref="textInput"
-                    placeholder={"Type to add data for " + items[i].item} />);
-            }
+            buttonText = " Add column";
+            formHtml = this.createFormCol();
         }
 
         return (
-            <div className="new-data">
+            <form className="new-data"
+                onSubmit={this.handleSubmit}>
                 {formHtml}
-                {this.createButton(color)}
-            </div>);
+                <ButtonAdd key="button" level={this.props.level} name={buttonText} color={color} tooltip={this.props.tooltip} />
+            </form>);
+    }
+
+    addRow() {
+        var items = this.props.data;
+        var query = "";
+
+        // Find the text field via the React ref
+        for (var i = 0, len = items.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+            query += '"' + items[i] + '": "' + text + '"';
+            if (i < len - 1) {
+                query += ", ";
+            }
+        }
+        query = "{" + query + "}";
+
+        Items.insert(JSON.parse(query));
+    }
+
+    addColumn() {
+        var items = this.props.data;
+        var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
+        console.log(col);
+        // Find the text field via the React ref
+        for (var i = 0, len = items.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+
+            Items.update(items[i].id, {
+                $set: { [col]: [text]}
+            });
+        }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        if (this.props.level === "row") {
+            this.addRow();
+        }
+        else {
+            this.addColumn();
+        }
+
+        //  Close form
+        this.close();
     }
 
     /**
@@ -92,14 +168,14 @@ export default class FormAdd extends Component {
                 <button type='button' className={btnClass}
                     data-toggle='tooltip' data-placement='right'
                     title={this.props.tooltip}
-                    onClick={this.open.bind(this)}>
+                    onClick={this.open}>
                     <i className='glyphicon glyphicon-plus' /> {this.props.name}
                 </button>
 
                 <div className='modal-example'>
                     <Modal className='modalStyle'
                         show={this.state.showModal}
-                        onHide={this.close.bind(this)}>
+                        onHide={this.close}>
 
                         <div className='dialogStyle'>
                             {this.createForm(color)}
@@ -111,7 +187,7 @@ export default class FormAdd extends Component {
     }
 
     close() {
-        this.setState({ showModal: false });
+        this.setState({ showModal: false, item: "", option: "" });
     }
 
     open() {
@@ -132,6 +208,5 @@ FormAdd.propTypes = {
     level: PropTypes.oneOf(['row', 'col']).isRequired,
     name: PropTypes.string,
     tooltip: PropTypes.string,
-    // params: PropTypes.any.isRequired,
     color: PropTypes.oneOf(['white', 'blue', 'green', 'cyan', 'orange', 'red'])
 };
