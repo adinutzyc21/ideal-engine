@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import TableHeading from './TableHeading.jsx';
 import TableRow from './TableRow.jsx';
-import FormModal from './FormModal.jsx';
+import DataInsert from './DataInsert.jsx';
 
 // Column component - represents columns in the table
 export default class TableDisplay extends Component {
@@ -17,7 +17,7 @@ export default class TableDisplay extends Component {
         </table>
 
         <span className="add-row">
-          <FormModal level="row" data={this.props.cols} color="cyan" tooltip="Add a row"/>
+          <DataInsert level="row" data={this.props.cols} color="cyan" tooltip="Add a row"/>
         </span>
       </div>
     );

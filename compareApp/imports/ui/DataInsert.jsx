@@ -1,24 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
-
-import { Items } from '../api/items.js';
-
-import ButtonAdd from './ButtonAdd.jsx';
+import { Meteor } from 'meteor/meteor';
 
 // CriteriaHeading component - displays the header of the table
-export default class FormAdd extends Component {
+export default class DataInsert extends Component {
     /**
-     * Initialize showModal to false
+     * Initialize state variables and bind this to methods
      */
     constructor(props) {
         super(props);
 
+        // initialize state variables
         this.state = {
             showModal: false,
             item: "",
             option: ""
         };
+        // make this available in these methods
         this.handleChangeItem = this.handleChangeItem.bind(this);
         this.handleChangeOption = this.handleChangeOption.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +25,32 @@ export default class FormAdd extends Component {
         this.close = this.close.bind(this);
     }
 
-    createFormRow() {
+    insertRow() {
+        var items = this.props.data;
+        var query = {};
+
+        // Find the text field via the React ref
+        for (var i = 0, len = items.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+            query[items[i]] = text;
+        }
+        Meteor.call('items.insertRow', query);
+    }
+
+    insertColumn() {
+        var items = this.props.data;
+        var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
+
+        for (var i = 0, len = items.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+            Meteor.call('items.insertColumn', col, { "id": items[i].id, "text": text });
+        }
+
+    }
+
+    createFormRow(btnClass) {
         var formHtml = [];
         var items = this.props.data;
         var i = 0;
@@ -43,6 +67,13 @@ export default class FormAdd extends Component {
             formHtml.push(<input key={items[i]} type="text" ref={"textInput" + i}
                 placeholder={"Type to add data for " + this.state.item + " " + items[i]} />);
         }
+
+        // add the submit button
+        formHtml.push(
+            <button key="button" type='submit' className={btnClass} data-toggle='tooltip' data-placement='right' title={this.props.tooltip}>
+                <i className='glyphicon glyphicon-plus' /> Add row
+            </button>);
+
         return formHtml;
     }
 
@@ -50,7 +81,7 @@ export default class FormAdd extends Component {
         this.setState({ item: event.target.value });
     }
 
-    createFormCol() {
+    createFormColumn(btnClass) {
         var formHtml = [];
         var items = this.props.data;
         // we have the ids for the input, so use that as a key (except for the column)
@@ -66,6 +97,11 @@ export default class FormAdd extends Component {
             formHtml.push(<input key={items[i].id} type="text" ref={"textInput" + i}
                 placeholder={"Type to add data for " + items[i].item + " " + this.state.option} />);
         }
+        // add the submit button
+        formHtml.push(
+            <button key="button" type='submit' className={btnClass} data-toggle='tooltip' data-placement='right' title={this.props.tooltip}>
+                <i className='glyphicon glyphicon-plus' /> Add column
+            </button>);
         return formHtml;
     }
 
@@ -78,66 +114,30 @@ export default class FormAdd extends Component {
      * @param the color of the submit button
      * @returns the html for the form
      */
-    createForm(color) {
-        var buttonText = " Add row";
+    createForm(btnClass) {
         var formHtml = [];
         if (this.props.level === 'row') {
-            formHtml = this.createFormRow();
+            formHtml = this.createFormRow(btnClass);
         }
         else {
-            buttonText = " Add column";
-            formHtml = this.createFormCol();
+            formHtml = this.createFormColumn(btnClass);
         }
 
         return (
             <form className="new-data"
                 onSubmit={this.handleSubmit}>
                 {formHtml}
-                <ButtonAdd key="button" level={this.props.level} name={buttonText} color={color} tooltip={this.props.tooltip} />
             </form>);
-    }
-
-    addRow() {
-        var items = this.props.data;
-        var query = "";
-
-        // Find the text field via the React ref
-        for (var i = 0, len = items.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-            query += '"' + items[i] + '": "' + text + '"';
-            if (i < len - 1) {
-                query += ", ";
-            }
-        }
-        query = "{" + query + "}";
-
-        Items.insert(JSON.parse(query));
-    }
-
-    addColumn() {
-        var items = this.props.data;
-        var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
-        console.log(col);
-        // Find the text field via the React ref
-        for (var i = 0, len = items.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-
-            Items.update(items[i].id, {
-                $set: { [col]: [text]}
-            });
-        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
         if (this.props.level === "row") {
-            this.addRow();
+            this.insertRow();
         }
         else {
-            this.addColumn();
+            this.insertColumn();
         }
 
         //  Close form
@@ -157,11 +157,10 @@ export default class FormAdd extends Component {
             orange: 'btn btn-sm btn-warning',
             red: 'btn btn-sm btn-danger'
         };
-        var color = 'blue';
+        var btnClass = colors.blue;
         if (this.props.color) { // whatever color was passed in the props
-            color = this.props.color;
+            btnClass = colors[this.props.color];
         }
-        btnClass = colors[color];
 
         return (
             <div>
@@ -178,7 +177,7 @@ export default class FormAdd extends Component {
                         onHide={this.close}>
 
                         <div className='dialogStyle'>
-                            {this.createForm(color)}
+                            {this.createForm(btnClass)}
                         </div>
                     </Modal>
                 </div>
@@ -203,7 +202,7 @@ export default class FormAdd extends Component {
   * //params: parameters to callback function, can be undefined
   * color: color of the button
   */
-FormAdd.propTypes = {
+DataInsert.propTypes = {
     data: PropTypes.array.isRequired,
     level: PropTypes.oneOf(['row', 'col']).isRequired,
     name: PropTypes.string,

@@ -1,5 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
- 
+import { check } from 'meteor/check';
+
 export const Items = new Mongo.Collection('items');
 
 if (Meteor.isServer) {
@@ -8,3 +10,36 @@ if (Meteor.isServer) {
     return Items.find();
   });
 }
+
+Meteor.methods({
+
+  'items.removeRow'(taskId) {
+    check(taskId, String);
+
+    Items.remove(taskId);
+  },
+
+  'items.removeColumn'(column) {
+    check(column, String);
+
+    Items.update({},
+      { $unset: { [column]: "" } },
+      { multi: true }
+    );
+  },
+
+  'items.insertRow'(data) {
+    check(data, Object);
+
+    Items.insert(data);
+  },
+
+  'items.insertColumn'(column, value) {
+    check(column, String);
+    check(value, Object);
+
+    Items.update(value.id, {
+      $set: { [column]: [value.text] }
+    });
+  }
+});

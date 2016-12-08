@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinkit';
 
 import TableDisplay from './TableDisplay.jsx';
-import FormModal from './FormModal.jsx';
+import DataInsert from './DataInsert.jsx';
 
 import { Items } from '../api/items.js'
 
@@ -13,9 +13,9 @@ class App extends Component {
      * Extract the column names from the information available in the database: 
      * this is the union of all properties of each row object in the database
      * E.g: 
-     * Input: [{"Item": "Chase","Age": "27"},
-     *         {"Item": "Joe", "Height": "5'7"'}],
-     * Output: ["Item", "Age", "Height"]
+     * Input: [{"Item": "Apt 1","Price": "$725"},
+     *         {"Item": "Apt 2", "Surface": "500 sq. ft."}],
+     * Output: ["Item", "Price", "Surface"]
      * @returns the union of all columns
      */
     parseColumns() {
@@ -23,6 +23,7 @@ class App extends Component {
         for (var i = 0, len = this.props.rows.length; i < len; i++) {
             var row = this.props.rows[i];
             for (var property in row) {
+                // only add non-_id columns that aren't already in the collection
                 if (property != "_id" && row.hasOwnProperty(property) && !cols.includes(property)) {
                     cols.push(property);
                 }
@@ -46,7 +47,7 @@ class App extends Component {
             return (
                 <div className='react-bs-container-body'>
                     No data available. <br />
-                    <FormModal level="row" data={["Item"]} color="cyan" tooltip="Add a row"/>
+                    <DataInsert level="row" data={["Item"]} color="cyan" tooltip="Add a row"/>
                 </div>
 
             );

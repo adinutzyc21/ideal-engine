@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import ButtonDelete from './ButtonDelete.jsx';
-import FormModal from './FormModal.jsx';
+import DataDelete from './DataDelete.jsx';
+import DataInsert from './DataInsert.jsx';
 
 // CriteriaHeading component - displays the header of the table
 export default class CriteriaHeading extends Component {
@@ -33,11 +33,7 @@ export default class CriteriaHeading extends Component {
       if (col !== "Item") {
         html.push(
           <span key={col} className="del-col">
-            <ButtonDelete level='col' color='red' tooltip='Delete a column' callback={this.deleteColumn} 
-            params={{
-              "col": col,
-              "data": self.props.rows
-              }} />
+            <DataDelete level='col' color='red' tooltip='Delete a column' callback={this.deleteColumn} params={col} />
           </span>);
 
       }
@@ -45,7 +41,7 @@ export default class CriteriaHeading extends Component {
       if (idx === array.length - 1) {
         html.push(
           <span  key={col+"2"} className="add-col">
-            <FormModal level="col" data={items} color="blue" tooltip="Add a column"/>
+            <DataInsert level="col" data={items} color="blue" tooltip="Add a column"/>
           </span>);
       }
       // add the data to display

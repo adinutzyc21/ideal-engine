@@ -1,32 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import { Items } from '../api/items.js';
+import { Meteor } from 'meteor/meteor';
 
 // ButtonDelete component - use to add a delete button and perform delete operations
-export default class ButtonDelete extends Component {
+export default class DataDelete extends Component {
     /**
      * Delete a column from the Items collection:
      * Go through all the items and delete the column based on ID (to avoid security error)
-     * @param params {rows, col} where 
-     *      params.rows is the data in the table and 
-     *      params.col is the name of the column we're deleting
+     * @param column is the name of the column we're deleting
      */
-    deleteColumn(params) {
-        var rows = params.data;
-        var col = params.col;
-        for (var i = 0, len = rows.length; i < len; i++) {
-            var row = rows[i];
-            Items.update(row._id, {
-                $unset: { [col]: "" }
-            });
-        }
+    deleteColumn(column) {
+        Meteor.call('items.removeColumn', column);
     }
 
     /**
      * Delete a row from the Items collection, given its id
-     * @param id
+     * @param id the id of the column
      */
     deleteRow(id) {
-        Items.remove(id);
+        Meteor.call('items.removeRow', id);
     }
 
     /**
@@ -72,7 +63,7 @@ export default class ButtonDelete extends Component {
   * params: parameters to callback function
   * color: color of the button
   */
-ButtonDelete.propTypes = {
+DataDelete.propTypes = {
     level: PropTypes.oneOf(['row', 'col']).isRequired,
     name: PropTypes.string,
     tooltip: PropTypes.string,
