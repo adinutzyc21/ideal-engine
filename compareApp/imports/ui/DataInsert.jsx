@@ -47,7 +47,6 @@ export default class DataInsert extends Component {
             var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
             Meteor.call('items.insertColumn', col, { "id": items[i].id, "text": text });
         }
-
     }
 
     createFormRow(btnClass) {

@@ -6,6 +6,9 @@ import TableDisplay from './TableDisplay.jsx';
 import DataInsert from './DataInsert.jsx';
 
 import { Items } from '../api/items.js'
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
+import { Meteor } from 'meteor/meteor';
 
 // App component - represents the whole app
 class App extends Component {
@@ -47,7 +50,7 @@ class App extends Component {
             return (
                 <div className='react-bs-container-body'>
                     No data available. <br />
-                    <DataInsert level="row" data={["Item"]} color="cyan" tooltip="Add a row"/>
+                    <DataInsert level="row" data={["Item"]} color="cyan" tooltip="Add a row" />
                 </div>
 
             );
@@ -56,6 +59,7 @@ class App extends Component {
         // Otherwise, show the table
         return (
             <div className='react-bs-container-body'>
+                <AccountsUIWrapper />
                 <TableDisplay cols={this.parseColumns()} rows={this.props.rows} />
             </div>
 
@@ -65,7 +69,8 @@ class App extends Component {
 
 App.propTypes = {
     loading: PropTypes.bool.isRequired,
-    rows: PropTypes.array.isRequired
+    rows: PropTypes.array.isRequired,
+    currentUser: PropTypes.object,
 };
 
 export default createContainer(({ params }) => {
@@ -73,6 +78,9 @@ export default createContainer(({ params }) => {
     const loading = !subscription.ready();
     const rows = Items.find().fetch();
 
-    return { loading, rows };
+    return {
+        loading, rows,
+        currentUser: Meteor.user(),
+    };
 }, App);
 
