@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
@@ -162,13 +162,8 @@ export default class DataInsert extends Component {
         }
 
         return (
-            <div>
-                <button type='button' className={btnClass}
-                    data-toggle='tooltip' data-placement='right'
-                    title={this.props.tooltip}
-                    onClick={this.open}>
-                    <i className='glyphicon glyphicon-plus' /> {this.props.name}
-                </button>
+            <li>
+                <a href="#" onClick={this.open}>{this.props.name}</a>
 
                 <div className='modal-example'>
                     <Modal className='modalStyle'
@@ -180,7 +175,7 @@ export default class DataInsert extends Component {
                         </div>
                     </Modal>
                 </div>
-            </div>
+            </li>
         );
     }
 

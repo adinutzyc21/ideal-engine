@@ -2,23 +2,19 @@ import React, { Component, PropTypes } from 'react';
 
 import TableHeading from './TableHeading.jsx';
 import TableRow from './TableRow.jsx';
-import DataInsert from './DataInsert.jsx';
 
 // Column component - represents columns in the table
 export default class TableDisplay extends Component {
   render() {
+    // otherwise render data
     return (
       <div className='table-container'>
         <table>
           {/* Need a header of type TableHeading */}
-          <TableHeading cols={this.props.cols} rows={this.props.rows} />
+          <TableHeading cols={this.props.cols} />
           {/* Need a bunch of rows of type  TableRow*/}
           <TableRow rows={this.props.rows} cols={this.props.cols} />
         </table>
-
-        <span className="add-row">
-          <DataInsert level="row" data={this.props.cols} color="cyan" tooltip="Add a row"/>
-        </span>
       </div>
     );
   }

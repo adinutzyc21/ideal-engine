@@ -1,0 +1,23 @@
+
+#login-dropdown-list {
+    position: absolute;
+    top: 30px;
+    left: -180px;
+}
+
+#login-buttons a  {
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.navbar-header .navbar-text {
+    color:#337ab7;
+    font-weight: bolder;
+    margin-left: -8px;
+}
+
+.navbar {
+    max-height: 50px;
+    color:#337ab7;
+    font-weight: bolder;
+}

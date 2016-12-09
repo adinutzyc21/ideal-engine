@@ -10,7 +10,6 @@ Meteor.startup(() => {
   render(
     <div className='container'>
       <header>
-        <h1>CompareApp Draft</h1>
       </header>
       <App />
     </div>,

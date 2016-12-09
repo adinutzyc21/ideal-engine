@@ -6,9 +6,9 @@ import TableDisplay from './TableDisplay.jsx';
 import DataInsert from './DataInsert.jsx';
 
 import { Items } from '../api/items.js'
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 import { Meteor } from 'meteor/meteor';
+import MenuBar from './MenuBar.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -45,24 +45,26 @@ class App extends Component {
             return <Spinner spinnerName='three-bounce' />;
         }
 
-        // If the data is empty, show that there is no data available and allow row addition
+        // If the data is empty, show that there is no data available 
         if (this.props.rows.length === 0) {
             return (
                 <div className='react-bs-container-body'>
-                    No data available. <br />
-                    <DataInsert level="row" data={["Item"]} color="cyan" tooltip="Add a row" />
+                    <MenuBar cols={this.parseColumns()} rows={this.props.rows} />
+                    <table>
+                        <tbody>
+                            <tr><td>No data available. Use the menu to add data.</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-
             );
         }
 
         // Otherwise, show the table
         return (
             <div className='react-bs-container-body'>
-                <AccountsUIWrapper />
+                <MenuBar cols={this.parseColumns()} rows={this.props.rows} />
                 <TableDisplay cols={this.parseColumns()} rows={this.props.rows} />
             </div>
-
         );
     }
 }
