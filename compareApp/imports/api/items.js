@@ -6,22 +6,24 @@ export const Items = new Mongo.Collection('items');
 
 if (Meteor.isServer) {
   // This code only runs on the server
-  Meteor.publish('items', () => Items.find());
+  Meteor.publish('items', function itemsPublication() {
+    return Items.find();
+  });
 }
 
 Meteor.methods({
 
-  'items.removeRow'(taskId) {
-    check(taskId, String);
+  'items.removeRow'(id) {
+    check(id, Meteor.Collection.ObjectID);
 
-    Items.remove(taskId);
+    Items.remove(id);
   },
 
   'items.removeColumn'(column) {
     check(column, String);
 
     Items.update({},
-      { $unset: { [column]: '' } },
+      { $unset: { [column]: "" } },
       { multi: true }
     );
   },
@@ -37,7 +39,7 @@ Meteor.methods({
     check(value, Object);
 
     Items.update(value.id, {
-      $set: { [column]: [value.text] },
+      $set: { [column]: [value.text] }
     });
-  },
+  }
 });

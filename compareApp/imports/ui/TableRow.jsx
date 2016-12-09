@@ -18,7 +18,7 @@ export default class DataRow extends Component {
           classN = "secondary-heading";
           html.push(
             <span key={col} className="del-row">
-              <DataDelete level='row' color='orange' tooltip='Delete a row' callback={this.deleteRow} params={row._id.valueOf()} />
+              <DataDelete level='row' color='orange' tooltip='Delete a row' callback={this.deleteRow} params={row._id} />
             </span>
           );
         }
