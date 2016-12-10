@@ -5,6 +5,10 @@
     left: -180px;
 }
 
+#login-buttons .login-button, .accounts-dialog .login-button {
+    background-color: #337ab7
+}
+
 #login-buttons a  {
     text-decoration: none;
     font-weight: bolder;
@@ -29,5 +33,5 @@ li>a.disabled, li>a.disabled>a:hover {
 }
 .dropdown-menu{
     min-width: 100px;
-    padding: 2px 0;
+    padding: 10px 0;
 }

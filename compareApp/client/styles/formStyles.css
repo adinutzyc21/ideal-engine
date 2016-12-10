@@ -24,9 +24,6 @@
     color: black;
     font-weight: bolder;
 }
-.header {
-    color:green;
-}
 .new-data input {
     box-sizing: border-box;
     padding: 5px;
@@ -40,7 +37,18 @@
 .new-data input:focus{
     outline: 0;
 }
-.new-data input.header {
-    border: 3px solid green;
+
+.header-criterion {
+    color: #337ab7;
+}
+.new-data input.header-criterion {
+    border: 3px solid #337ab7;
+    padding: 8px;
+}
+.header-option {
+    color: #5bc0de;
+}
+.new-data input.header-option {
+    border: 3px solid #5bc0de;
     padding: 8px;
 }

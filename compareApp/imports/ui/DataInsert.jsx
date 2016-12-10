@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-// CriteriaHeading component - displays the header of the table
+// DataInsert component - open modal and allow data insertion in table
 export default class DataInsert extends Component {
     /**
      * Initialize state variables and bind this to methods
@@ -35,14 +35,14 @@ export default class DataInsert extends Component {
         // set the name / tooltip
         if (this.props.level === "col") {
             this.setState({
-                btnClass: 'btn btn-sm btn-primary',
-                title: 'Add Criterion'
+                btnClass: 'btn btn-primary',
+                title: ' Add Criterion'
             });
         }
         else {
             this.setState({
-                btnClass: 'btn btn-sm btn-info',
-                title: 'Add Option'
+                btnClass: 'btn btn-info',
+                title: ' Add Option'
             });
         }
     }
@@ -80,8 +80,8 @@ export default class DataInsert extends Component {
         var rows = this.props.data;
 
         // request the "Option" header differently
-        formHtml.push(<span key="header_text" className="input-text header">New Option Name:</span>);
-        formHtml.push(<input key="header" type="text" ref="textInput0" className="header"
+        formHtml.push(<span key="header_text" className="input-text header-option" >New Option Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="textInput0" className="header-option"
             value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" autoFocus/>);
 
         // column headers are unique, so that can be the key
@@ -107,8 +107,8 @@ export default class DataInsert extends Component {
         var cols = this.props.data;
 
         // request the column name differently
-        formHtml.push(<span key="header_text" className="input-text header">New Criterion Name:</span>);
-        formHtml.push(<input key="header" type="text" ref="colName" className="header"
+        formHtml.push(<span key="header_text" className="input-text header-criterion">New Criterion Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="colName" className="header-criterion"
             value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" autoFocus/>);
 
         // we have the ids for the input, so use that as a key 

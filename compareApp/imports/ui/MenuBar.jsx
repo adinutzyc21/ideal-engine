@@ -51,6 +51,12 @@ export default class MenuBar extends Component {
                         <DataInsert key="row" hasNoData={hasNoData} level="row" data={this.props.cols} />
                         <DataInsert key="col" hasNoData={hasNoData} level="col" data={this.parseOptions(this.props.rows)} />
                         <li role="separator" className="divider"></li>
+                        <li><a href="#">Load from CSV</a></li>
+                        <li><a href="#">Export to CSV</a></li>
+                        <li role="separator" className="divider"></li>
+                        <li><a href="#">Delete comparison</a></li>
+                        <li role="separator" className="divider"></li>
+                        <li><a href="#">Populate table</a></li>
                     </ul>
                 </li>
             </ul>

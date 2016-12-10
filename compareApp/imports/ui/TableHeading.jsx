@@ -15,9 +15,12 @@ export default class CriteriaHeading extends Component {
         html.push(
           <DataDelete key="del" level='col'  params={col} />
         );
+        html.push(col);
       }
       // add the data to display
-      html.push(col);
+      else{
+        html.push("Option Name");
+      }
 
       // return a heading with column names and ButtonDeletes
       return <th key={col} className={classN}>{html}</th>
