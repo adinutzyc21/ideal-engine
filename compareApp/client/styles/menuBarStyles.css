@@ -21,3 +21,13 @@
     color:#337ab7;
     font-weight: bolder;
 }
+li>a.disabled, li>a.disabled>a:hover {
+   pointer-events: none;
+   cursor: default;
+   background-color: white;
+   color: lightslategray;
+}
+.dropdown-menu{
+    min-width: 100px;
+    padding: 2px 0;
+}

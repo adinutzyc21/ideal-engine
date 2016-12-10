@@ -5,28 +5,28 @@ import DataInsert from './DataInsert.jsx';
 
 // Column component - represents columns in the table
 export default class MenuBar extends Component {
-  /**
-     * Extract the option names from the information available in the database: 
-     * this is the union of all properties of each row object in the database
-     * E.g: 
-     * Input: [{"Item": "Chase","Age": "27"},
-     *         {"Item": "Joe", "Height": "5'7"'}],
-     * Output: ["Chase", "Joe"]
-     * @returns all the items in the database
-     */
-    parseItems(list) {
-        var items = [];
-        for (var i = 0, len = list.length; i < len; i++) {
-          items.push({
-            id: list[i]._id,
-            item: list[i].Item});
+    /**
+       * Extract the option names from the information available in the database: 
+       * this is the union of all properties of each row object in the database
+       * E.g: 
+       * Input: [{"Option": "Chase","Age": "27"},
+       *         {"Option": "Joe", "Height": "5'7"'}],
+       * Output: ["Chase", "Joe"]
+       * @returns all the options (item names) in the database
+       */
+    parseOptions(optionList) {
+        var options = [];
+        for (var i = 0, len = optionList.length; i < len; i++) {
+            options.push({
+                id: optionList[i]._id,
+                name: optionList[i].Option
+            });
         }
-        return items;
+        return options;
     }
 
     createHtml() {
-        {/* Brand and toggle get grouped for better mobile display */ }
-        var brandAndToggle =
+        var brandAndTitle =
             <div className="navbar-header">
                 <a className="navbar-brand" href="#">
                     <img alt="Brand" src="/logo.png" height="25px" />
@@ -34,8 +34,12 @@ export default class MenuBar extends Component {
                 <p className="navbar-text title">compareApp</p>
             </div>
 
+        var hasNoData = false;
+        if (this.props.cols.length === 0) {
+            // disable the add column option
+            hasNoData = true;
+        }
 
-        {/* Collect the nav links, forms, and other content for toggling */ }
         var actionsMenu =
             <ul className="nav navbar-nav">
                 <li className="dropdown">
@@ -44,9 +48,9 @@ export default class MenuBar extends Component {
                         <span className="caret"></span>
                     </a>
                     <ul className="dropdown-menu">
-                        <DataInsert key="col" level="col" data={this.parseItems(this.props.rows)} color="blue" name="Add a column" tooltip="Add a column"/>
+                        <DataInsert key="row" hasNoData={hasNoData} level="row" data={this.props.cols} />
+                        <DataInsert key="col" hasNoData={hasNoData} level="col" data={this.parseOptions(this.props.rows)} />
                         <li role="separator" className="divider"></li>
-                        <DataInsert key="row" level="row" data={this.props.cols} color="cyan" name="Add a row" tooltip="Add a row"/>
                     </ul>
                 </li>
             </ul>
@@ -58,7 +62,7 @@ export default class MenuBar extends Component {
 
         return (
             <div className="container">
-                {brandAndToggle}
+                {brandAndTitle}
                 {actionsMenu}
                 {loginOption}
             </div>
@@ -76,7 +80,6 @@ export default class MenuBar extends Component {
 }
 
 MenuBar.propTypes = {
-  // This component gets the items to display through a React prop.
-  cols: PropTypes.array.isRequired,
-  rows: PropTypes.array.isRequired,
+    cols: PropTypes.array.isRequired,
+    rows: PropTypes.array.isRequired,
 };

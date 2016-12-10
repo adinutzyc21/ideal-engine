@@ -8,8 +8,8 @@ export default class CriteriaHeading extends Component {
   renderHeadings() {
     return this.props.cols.map(function (col, idx, array) {
       var html = [];
-      // allow column deletion for all columns except "Item" column
-      if (col !== "Item") {
+      // allow column deletion for all columns except "Option" column
+      if (col !== "Option") {
         html.push(
           <span key={col} className="del-col">
             <DataDelete level='col' color='red' tooltip='Delete a column' 
@@ -37,6 +37,5 @@ export default class CriteriaHeading extends Component {
 }
 
 CriteriaHeading.propTypes = {
-  // This component gets the items to display through a React prop.
   cols: PropTypes.array.isRequired,
 };

@@ -14,7 +14,7 @@ export default class DataRow extends Component {
       if (row[col]) {
         var classN = "";
         // display the first column as a header and show the delete button to the left
-        if (col === "Item") {
+        if (col === "Option") {
           classN = "secondary-heading";
           html.push(
             <span key={col} className="del-row">
@@ -32,9 +32,9 @@ export default class DataRow extends Component {
 
   renderRows() {
     var self = this;
-    return this.props.rows.map(function (row, idx, array) {
+    return this.props.rows.map(function (row) {
       return (
-        <tr key={row._id.valueOf()}>
+        <tr key={row._id}>
           {self.renderRow(row)}
         </tr>
       )
@@ -51,7 +51,6 @@ export default class DataRow extends Component {
 }
 
 DataRow.propTypes = {
-  // This component gets the items to display through a React prop.
   cols: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
 };

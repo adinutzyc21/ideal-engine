@@ -1,1 +1,1 @@
-import '../imports/api/items.js';
+import '../imports/api/comparison.js';

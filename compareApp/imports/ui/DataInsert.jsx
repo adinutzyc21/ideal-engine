@@ -14,121 +14,135 @@ export default class DataInsert extends Component {
         // initialize state variables
         this.state = {
             showModal: false,
-            item: "",
-            option: ""
+            btnClass: "",
+            title: "",
+            option: "",
+            criterion: ""
         };
         // make this available in these methods
-        this.handleChangeItem = this.handleChangeItem.bind(this);
         this.handleChangeOption = this.handleChangeOption.bind(this);
+        this.handleChangeCriterion = this.handleChangeCriterion.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
     }
 
-    insertRow() {
-        var items = this.props.data;
-        var query = {};
-
-        // Find the text field via the React ref
-        for (var i = 0, len = items.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-            query[items[i]] = text;
+    /**
+     * Set state variables that depend on level
+     */
+    componentDidMount() {
+        // set the color of the button based on level
+        // set the name / tooltip
+        if (this.props.level === "col") {
+            this.setState({
+                btnClass: 'btn btn-sm btn-primary',
+                title: 'Add Criterion'
+            });
         }
-        Meteor.call('items.insertRow', query);
-    }
-
-    insertColumn() {
-        var items = this.props.data;
-        var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
-
-        for (var i = 0, len = items.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-            Meteor.call('items.insertColumn', col, { "id": items[i].id, "text": text });
+        else {
+            this.setState({
+                btnClass: 'btn btn-sm btn-info',
+                title: 'Add Option'
+            });
         }
-    }
-
-    createFormRow(btnClass) {
-        var formHtml = [];
-        var items = this.props.data;
-        var i = 0;
-        // column headers are unique, so that can be the key
-
-        // request the "Items" header differently
-        formHtml.push(<span key={items[i] + "_text"} className="input-text header">New Item Name:</span>);
-        formHtml.push(<input key={items[i]} type="text" ref={"textInput" + i} className="header"
-            value={this.state.item} onChange={this.handleChangeItem} placeholder={"Type to add data for " + items[i]} />);
-
-        // request all the corresponding information
-        for (i = 1, len = items.length; i < len; i++) {
-            formHtml.push(<span key={items[i] + "_text"} className="input-text">{this.state.item + " " + items[i]}:</span>);
-            formHtml.push(<input key={items[i]} type="text" ref={"textInput" + i}
-                placeholder={"Type to add data for " + this.state.item + " " + items[i]} />);
-        }
-
-        // add the submit button
-        formHtml.push(
-            <button key="button" type='submit' className={btnClass} data-toggle='tooltip' data-placement='right' title={this.props.tooltip}>
-                <i className='glyphicon glyphicon-plus' /> Add row
-            </button>);
-
-        return formHtml;
-    }
-
-    handleChangeItem(event) {
-        this.setState({ item: event.target.value });
-    }
-
-    createFormColumn(btnClass) {
-        var formHtml = [];
-        var items = this.props.data;
-        // we have the ids for the input, so use that as a key (except for the column)
-
-        // request the column name differently
-        formHtml.push(<span key="colName_text" className="input-text header">New Column Name:</span>);
-        formHtml.push(<input key="colName" type="text" ref="colName" className="header"
-            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type the new column name" />);
-
-        // request all the corresponding information
-        for (var i = 0, len = items.length; i < len; i++) {
-            formHtml.push(<span key={items[i].id + "_text"} className="input-text">{items[i].item + " " + this.state.option}:</span>);
-            formHtml.push(<input key={items[i].id} type="text" ref={"textInput" + i}
-                placeholder={"Type to add data for " + items[i].item + " " + this.state.option} />);
-        }
-        // add the submit button
-        formHtml.push(
-            <button key="button" type='submit' className={btnClass} data-toggle='tooltip' data-placement='right' title={this.props.tooltip}>
-                <i className='glyphicon glyphicon-plus' /> Add column
-            </button>);
-        return formHtml;
-    }
-
-    handleChangeOption(event) {
-        this.setState({ option: event.target.value });
     }
 
     /**
      * Define the form data based on the data and level
-     * @param the color of the submit button
      * @returns the html for the form
      */
-    createForm(btnClass) {
+    createForm() {
         var formHtml = [];
         if (this.props.level === 'row') {
-            formHtml = this.createFormRow(btnClass);
+            formHtml = this.createFormRow();
         }
         else {
-            formHtml = this.createFormColumn(btnClass);
+            formHtml = this.createFormColumn();
         }
 
         return (
             <form className="new-data"
                 onSubmit={this.handleSubmit}>
                 {formHtml}
+
+                <button key="button" type='submit' className={this.state.btnClass}
+                    data-toggle='tooltip' data-placement='right' title={this.state.title}>
+                    <i className='glyphicon glyphicon-plus' />{this.state.title}
+                </button>
             </form>);
     }
 
+    /**
+     * Create the form for adding a new row based on the data that we have
+     */
+    createFormRow() {
+        var formHtml = [];
+        var rows = this.props.data;
+
+        // request the "Option" header differently
+        formHtml.push(<span key="header_text" className="input-text header">New Option Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="textInput0" className="header"
+            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" />);
+
+        // column headers are unique, so that can be the key
+        // request all the corresponding information
+        for (var i = 1, len = rows.length; i < len; i++) {
+            var inputInfo = rows[i];
+            if (this.state.option.trim().length !== 0) {
+                inputInfo = rows[i] + " for " + this.state.option;
+            }
+            formHtml.push(<span key={rows[i] + "_text"} className="input-text">{inputInfo}:</span>);
+            formHtml.push(<input key={rows[i]} type="text" ref={"textInput" + i}
+                placeholder={"Type to add data for " + inputInfo} />);
+        }
+
+        return formHtml;
+    }
+
+    /**
+     * Create the form for adding a new column based on the data that we have
+     */
+    createFormColumn() {
+        var formHtml = [];
+        var cols = this.props.data;
+
+        // request the column name differently
+        formHtml.push(<span key="header_text" className="input-text header">New Criterion Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="colName" className="header"
+            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" />);
+
+        // we have the ids for the input, so use that as a key 
+        // request all the corresponding information
+        for (var i = 0, len = cols.length; i < len; i++) {
+            var inputInfo = cols[i].name;
+            if (this.state.criterion.trim().length !== 0) {
+                inputInfo = this.state.criterion + " for " + cols[i].name;
+            }
+            formHtml.push(<span key={cols[i].id + "_text"} className="input-text">{inputInfo}:</span>);
+            formHtml.push(<input key={cols[i].id} type="text" ref={"textInput" + i}
+                placeholder={"Type to add data for " + inputInfo} />);
+        }
+        return formHtml;
+    }
+
+    /**  
+     * Change the option name in the form dynamically
+     */
+    handleChangeOption(event) {
+        this.setState({ option: event.target.value });
+    }
+
+    /** 
+     * Change the criterion name in the form dynamically 
+     */
+    handleChangeCriterion(event) {
+        this.setState({ criterion: event.target.value });
+    }
+
+    /**
+     * Handle the submit event of the form
+     * triggers insertRow or insertColumn functions depending on level
+     */
     handleSubmit(event) {
         event.preventDefault();
 
@@ -147,23 +161,14 @@ export default class DataInsert extends Component {
      * 
      */
     render() {
-        // set the color of the button based on the prop given
-        var colors = {
-            white: 'btn btn-sm btn-default',
-            blue: 'btn btn-sm btn-primary',
-            green: 'btn btn-sm btn-success',
-            cyan: 'btn btn-sm btn-info',
-            orange: 'btn btn-sm btn-warning',
-            red: 'btn btn-sm btn-danger'
-        };
-        var btnClass = colors.blue;
-        if (this.props.color) { // whatever color was passed in the props
-            btnClass = colors[this.props.color];
+        // if there's no data
+        if (this.props.hasNoData && this.props.level === "col") {
+            return <li><a className="disabled">{this.state.title}</a></li>
         }
 
         return (
             <li>
-                <a href="#" onClick={this.open}>{this.props.name}</a>
+                <a role="button" onClick={this.open}>{this.state.title}</a>
 
                 <div className='modal-example'>
                     <Modal className='modalStyle'
@@ -171,7 +176,7 @@ export default class DataInsert extends Component {
                         onHide={this.close}>
 
                         <div className='dialogStyle'>
-                            {this.createForm(btnClass)}
+                            {this.createForm()}
                         </div>
                     </Modal>
                 </div>
@@ -179,27 +184,62 @@ export default class DataInsert extends Component {
         );
     }
 
-    close() {
-        this.setState({ showModal: false, item: "", option: "" });
+    /**
+     * Open the modal window
+     */
+    open(event) {
+        this.setState({ showModal: true });
     }
 
-    open() {
-        this.setState({ showModal: true });
+    /**
+     * Close the modal window
+     */
+    close() {
+        this.setState({ showModal: false, option: "", criterion: "" });
+    }
+
+    /**
+     * Insert the row data from the form into the table
+     */
+    insertRow() {
+        var rows = this.props.data;
+        var query = {};
+
+        // get the header separately
+        query['Option'] = ReactDOM.findDOMNode(this.refs.textInput0).value.trim();
+
+        // Find the text field via the React ref
+        for (var i = 1, len = rows.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+            query[rows[i]] = text;
+        }
+        Meteor.call('comparison.insertRow', query);
+    }
+
+    /**
+     * Insert the column data from the form into the table
+     * only gets triggered when there's data in the table previously
+     */
+    insertColumn() {
+        var cols = this.props.data;
+        var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
+
+        for (var i = 0, len = cols.length; i < len; i++) {
+            var textInput = "textInput" + i;
+            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
+            Meteor.call('comparison.insertColumn', col, { "id": cols[i].id, "text": text });
+        }
     }
 }
 
 /**
   * data: provides form input
   * level: column/row
-  * name: string
-  * tooltip: string
-  * //params: parameters to callback function, can be undefined
-  * color: color of the button
+  * hasNoData: is there data already in the database
   */
 DataInsert.propTypes = {
     data: PropTypes.array.isRequired,
     level: PropTypes.oneOf(['row', 'col']).isRequired,
-    name: PropTypes.string,
-    tooltip: PropTypes.string,
-    color: PropTypes.oneOf(['white', 'blue', 'green', 'cyan', 'orange', 'red'])
+    hasNoData: PropTypes.bool.isRequired
 };

@@ -4,20 +4,19 @@ import { Meteor } from 'meteor/meteor';
 // ButtonDelete component - use to add a delete button and perform delete operations
 export default class DataDelete extends Component {
     /**
-     * Delete a column from the Items collection:
-     * Go through all the items and delete the column based on ID (to avoid security error)
+     * Delete a column from the Comparison collection given its name
      * @param column is the name of the column we're deleting
      */
     deleteColumn(column) {
-        Meteor.call('items.removeColumn', column);
+        Meteor.call('comparison.removeColumn', column);
     }
 
     /**
-     * Delete a row from the Items collection, given its id
+     * Delete a row from the Comparison collection, given its id
      * @param id the id of the column
      */
     deleteRow(id) {
-        Meteor.call('items.removeRow', id);
+        Meteor.call('comparison.removeRow', id);
     }
 
     /**

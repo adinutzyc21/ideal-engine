@@ -2,43 +2,43 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Items = new Mongo.Collection('items');
+export const Comparison = new Mongo.Collection('comparison');
 
 if (Meteor.isServer) {
   // This code only runs on the server
-  Meteor.publish('items', function itemsPublication() {
-    return Items.find();
+  Meteor.publish('comparison', function comparisonPublication() {
+    return Comparison.find();
   });
 }
 
 Meteor.methods({
 
-  'items.removeRow'(id) {
-    check(id, Meteor.Collection.ObjectID);
+  'comparison.removeRow'(id) {
+    check(id, String);
 
-    Items.remove(id);
+    Comparison.remove(id);
   },
 
-  'items.removeColumn'(column) {
+  'comparison.removeColumn'(column) {
     check(column, String);
 
-    Items.update({},
+    Comparison.update({},
       { $unset: { [column]: "" } },
       { multi: true }
     );
   },
 
-  'items.insertRow'(data) {
+  'comparison.insertRow'(data) {
     check(data, Object);
 
-    Items.insert(data);
+    Comparison.insert(data);
   },
 
-  'items.insertColumn'(column, value) {
+  'comparison.insertColumn'(column, value) {
     check(column, String);
     check(value, Object);
 
-    Items.update(value.id, {
+    Comparison.update(value.id, {
       $set: { [column]: [value.text] }
     });
   }

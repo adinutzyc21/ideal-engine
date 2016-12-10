@@ -21,7 +21,7 @@ export default class TableDisplay extends Component {
 }
 
 /**
-  * items: items
+  * 
   */
 TableDisplay.propTypes = {
   cols: PropTypes.array.isRequired,

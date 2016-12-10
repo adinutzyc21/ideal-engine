@@ -5,7 +5,7 @@ import Spinner from 'react-spinkit';
 import TableDisplay from './TableDisplay.jsx';
 import DataInsert from './DataInsert.jsx';
 
-import { Items } from '../api/items.js'
+import { Comparison } from '../api/comparison.js'
 
 import { Meteor } from 'meteor/meteor';
 import MenuBar from './MenuBar.jsx';
@@ -16,9 +16,9 @@ class App extends Component {
      * Extract the column names from the information available in the database: 
      * this is the union of all properties of each row object in the database
      * E.g: 
-     * Input: [{"Item": "Apt 1","Price": "$725"},
-     *         {"Item": "Apt 2", "Surface": "500 sq. ft."}],
-     * Output: ["Item", "Price", "Surface"]
+     * Input: [{"Option": "Apt 1","Price": "$725"},
+     *         {"Option": "Apt 2", "Surface": "500 sq. ft."}],
+     * Output: ["Option", "Price", "Surface"]
      * @returns the union of all columns
      */
     parseColumns() {
@@ -76,9 +76,9 @@ App.propTypes = {
 };
 
 export default createContainer(({ params }) => {
-    const subscription = Meteor.subscribe('items');
+    const subscription = Meteor.subscribe('comparison');
     const loading = !subscription.ready();
-    const rows = Items.find().fetch();
+    const rows = Comparison.find().fetch();
 
     return {
         loading, rows,
