@@ -8,20 +8,19 @@ export default class CriteriaHeading extends Component {
   renderHeadings() {
     return this.props.cols.map(function (col, idx, array) {
       var html = [];
+      var classN = "";
       // allow column deletion for all columns except "Option" column
       if (col !== "Option") {
+        classN = "divdelete";
         html.push(
-          <span key={col} className="del-col">
-            <DataDelete level='col' color='red' tooltip='Delete a column' 
-            callback={this.deleteColumn} params={col} />
-          </span>);
-
+          <DataDelete key="del" level='col'  params={col} />
+        );
       }
       // add the data to display
       html.push(col);
 
       // return a heading with column names and ButtonDeletes
-      return <th key={col}>{html}</th>
+      return <th key={col} className={classN}>{html}</th>
     });
   }
 

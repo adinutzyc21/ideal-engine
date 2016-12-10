@@ -1,17 +1,17 @@
 .table-container{
     min-width: 100%;
-    overflow:auto;
+    overflow: auto;
 }
 table {
-    margin-left:    40px;
+    margin-left:    0px;
     margin-right:   0px;
-    margin-top:     90px;
+    margin-top:     60px;
     border-spacing: 0;
     border-collapse: collapse
 }
 th, td {
-    vertical-align: top;
-    padding: 5px;
+    vertical-align: middle;
+    padding: 10px;
     border: 1px solid green;
 }
 th {
@@ -26,14 +26,22 @@ td.secondary-heading{
 tr:nth-child(even) {
     background-color: #f2f2f2
 }
-.delete-data {
-    cursor:pointer;
+
+.divdelete a {
+    display: none; /* Hide button */
 }
-span.del-row {
-    float: left;
-    margin-left: -41px;
+a.red {
+    color:red;
 }
-span.del-col {
-    float: left;
-    margin-top: -37px;
+a.orange {
+    color:orange;
+}
+.divdelete:hover a {
+    display: block; /* On :hover of div show button */
+    cursor: pointer;
+    float:left;
+    text-decoration: none;
+}
+.delbutton {
+    width:0px;
 }

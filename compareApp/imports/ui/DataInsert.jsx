@@ -82,7 +82,7 @@ export default class DataInsert extends Component {
         // request the "Option" header differently
         formHtml.push(<span key="header_text" className="input-text header">New Option Name:</span>);
         formHtml.push(<input key="header" type="text" ref="textInput0" className="header"
-            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" />);
+            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" autoFocus/>);
 
         // column headers are unique, so that can be the key
         // request all the corresponding information
@@ -109,7 +109,7 @@ export default class DataInsert extends Component {
         // request the column name differently
         formHtml.push(<span key="header_text" className="input-text header">New Criterion Name:</span>);
         formHtml.push(<input key="header" type="text" ref="colName" className="header"
-            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" />);
+            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" autoFocus/>);
 
         // we have the ids for the input, so use that as a key 
         // request all the corresponding information
