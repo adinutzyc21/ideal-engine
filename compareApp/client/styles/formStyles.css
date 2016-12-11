@@ -17,12 +17,16 @@
     border: 1px solid #e5e5e5;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    padding: 20px
+    padding: 20px;
 }
 
 .input-text {
     padding: 5px 5px 5px 0;
     color: black;
+}
+
+span.input-text {
+    display: block;
     font-weight: bolder;
 }
 
@@ -32,9 +36,10 @@
     background: transparent;
     border: 2px solid gray;
     border-radius: 2px;
-    width: 100%;
+    width: 270px;
     font-size: 1em;
     margin-bottom: 10px;
+    margin-right: 6px;
 }
 
 .new-data input:focus {
@@ -54,4 +59,35 @@
     max-height: 400px;
     overflow: auto;
     margin-bottom: 10px;
+}
+
+input[type=number] {
+    width: 60px;
+    font-size: 1em;
+}
+
+input[type=text].score-display {
+    width: 60px;
+    font-size: 1em;
+    font-weight: bolder;
+    color: white;
+    background-color: lightgray;
+    text-shadow: #337ab7 1px 1px 3px;
+    text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: block;
+    color: #333;
+    text-align: center;
+    background: #fff url('http://i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;
+    opacity: 1;
+    width: 14px;
+    height: 14px;
+    padding: 2px;
+    position: relative;
+    right: 0px;
+    border-radius: 28px;
 }

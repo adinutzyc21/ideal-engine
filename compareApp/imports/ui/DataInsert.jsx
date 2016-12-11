@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 
 // DataInsert component - open modal and allow data insertion in table
 export default class DataInsert extends Component {
+    
     /**
      * Initialize state variables and bind this to methods
      */
@@ -15,7 +16,8 @@ export default class DataInsert extends Component {
         this.state = {
             showModal: false,
             option: "",
-            criterion: ""
+            criterion: "",
+            optScore: 5
         };
         // make this available in these methods
         this.handleChangeOption = this.handleChangeOption.bind(this);
@@ -31,11 +33,18 @@ export default class DataInsert extends Component {
      */
     createForm(title) {
         var formHtml = [];
+        var classN = "";
         if (this.props.level === 'row') {
             formHtml = this.createFormOption();
+            if (this.state.option.trim().length === 0) {
+                classN = "disabled";
+            }
         }
         else {
             formHtml = this.createFormCriterion();
+            if (this.state.criterion.trim().length === 0) {
+                classN = "disabled";
+            }
         }
 
         return (
@@ -44,7 +53,7 @@ export default class DataInsert extends Component {
                 <div className="content-form">
                     {formHtml}
                 </div>
-                <button key="button" type='submit' className='btn btn-primary'
+                <button key="button" type='submit' className={'btn btn-primary ' + classN}
                     data-toggle='tooltip' data-placement='right' title={title}>
                     <i className='glyphicon glyphicon-plus' />{title}
                 </button>
@@ -61,16 +70,21 @@ export default class DataInsert extends Component {
         // request the "Option" header differently
         formHtml.push(<span key="header_text" className="input-text form-header" >New Option Name:</span>);
         formHtml.push(<input key="header" type="text" ref="textInput0" className="form-header"
-            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" autoFocus />);
+            value={this.state.option} onChange={this.handleChangeOption} 
+            placeholder="Type to add new option name" autoFocus />);
+        formHtml.push(<input type="text" name="score" key="header_score" className="form-header score-display"
+            value={this.state.optScore} autoComplete="off" readOnly="true" />);
 
         // column headers are unique, so that can be the key
         // request all the corresponding information
         if (this.state.option.trim().length !== 0) {
             for (var i = 1, len = rows.length; i < len; i++) {
-                var inputInfo = rows[i] + " for " + this.state.option;
+                var inputInfo = rows[i].capitalizeFirstLetter() + " for " + this.state.option.capitalizeFirstLetter();
                 formHtml.push(<span key={rows[i] + "_text"} className="input-text">{inputInfo}:</span>);
                 formHtml.push(<input key={rows[i]} type="text" ref={"textInput" + i}
                     placeholder={"Type to add data for " + inputInfo} />);
+                formHtml.push(<input type="number" name="score" key={rows[i] + "_score"} className="input-text"
+                    min="1" max="10" autoComplete="off" defaultValue="5" />);
             }
         }
 
@@ -87,16 +101,21 @@ export default class DataInsert extends Component {
         // request the column name differently
         formHtml.push(<span key="header_text" className="input-text form-header">New Criterion Name:</span>);
         formHtml.push(<input key="header" type="text" ref="colName" className="form-header"
-            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" autoFocus />);
+            value={this.state.criterion} onChange={this.handleChangeCriterion}
+            placeholder="Type the new criteria name" autoFocus />);
+        formHtml.push(<input type="number" name="score" key="header_score" className="form-header"
+            min="0" max="10" defaultValue="5" autoComplete="off" />);
 
         // we have the ids for the input, so use that as a key 
         // request all the corresponding information
         if (this.state.criterion.trim().length !== 0) {
             for (var i = 0, len = cols.length; i < len; i++) {
-                var inputInfo = this.state.criterion + " for " + cols[i].name;
+                var inputInfo = this.state.criterion.capitalizeFirstLetter() + " for " + cols[i].name.capitalizeFirstLetter();
                 formHtml.push(<span key={cols[i].id + "_text"} className="input-text">{inputInfo}:</span>);
                 formHtml.push(<input key={cols[i].id} type="text" ref={"textInput" + i}
                     placeholder={"Type to add data for " + inputInfo} />);
+                formHtml.push(<input type="number" name="score" key={cols[i].id + "_score"} className="input-text"
+                    min="1" max="10" defaultValue="5" autoComplete="off" />);
             }
         }
         return formHtml;
