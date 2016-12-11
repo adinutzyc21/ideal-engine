@@ -1,45 +1,69 @@
-.table-container{
-    width: 100%;
-    overflow: auto;
-}
 table {
-    width:100%;
-    margin: 60px 0 0 0;
+    min-width: 100%;
     border-collapse: collapse;
-    border: 1px solid #448bca;
 }
-th, td {
+
+th,
+td {
     vertical-align: middle;
     padding: 10px;
-    border-left: 1px solid #448bca;
+    border-left: 1px solid #0099cc;
 }
+
 th {
     background-color: #004d66;
     color: white;
     text-transform: capitalize;
     font-variant: small-caps;
 }
-td.secondary-heading{
-    background-color: #448bc8;
-    color:white;
+
+th:first-child {
+    border-left: 0px;
+}
+
+td.secondary-heading {
+    color: #004d66;
     font-weight: bold;
     text-transform: capitalize;
-    font-variant: small-caps;
+    border-left: 0px;
 }
+
 tr:nth-child(even) {
     background-color: #e2f2ff
 }
-tr:nth-child(even) > td.secondary-heading {
-    background-color: #337ab7
-}
+
 .divdelete a {
-    color:lightgray;
-    padding-right:20px;
+    color: lightgray;
+    padding-right: 20px;
 }
+
 .divdelete:hover a {
     cursor: pointer;
     text-decoration: none;
 }
+
 .delbutton {
-    width:10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #004d66;
+    ;
+    box-shadow: 0 0 10px #337ab7;
+    -webkit-box-shadow: 0 0 10px #337ab7;
+}
+
+.del-highlight {
+    background-color: #ffcccc;
+}
+
+th.del-highlight {
+    background-color: #ff4d4d;
 }

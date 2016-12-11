@@ -14,7 +14,7 @@ export default class DataRow extends Component {
       if (row[col]) {
         var classN = "";
         // display the first column as a header and show the delete button to the left
-        if (col === "Option") {
+        if (col === "option") {
           classN = "secondary-heading divdelete";
           html.push(
               <DataDelete key="del" level='row' params={row._id} />
@@ -24,7 +24,7 @@ export default class DataRow extends Component {
         html.push(row[col].valueOf());
       }
       // return a row with data and buttons
-      return <td key={col} className={classN}>{html}</td>;
+      return <td key={col} className={classN+" "+row._id+" "+col}>{html}</td>;
     })
   }
 

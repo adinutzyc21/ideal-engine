@@ -163,7 +163,7 @@ export default class DataInsert extends Component {
     render() {
         // if there's no data
         if (this.props.hasNoData && this.props.level === "col") {
-            return <li><a className="disabled">{this.state.title}</a></li>
+            return <li className="disabled"><a>{this.state.title}</a></li>
         }
 
         return (
@@ -206,7 +206,7 @@ export default class DataInsert extends Component {
         var query = {};
 
         // get the header separately
-        query['Option'] = ReactDOM.findDOMNode(this.refs.textInput0).value.trim();
+        query['option'] = ReactDOM.findDOMNode(this.refs.textInput0).value.trim();
 
         // Find the text field via the React ref
         for (var i = 1, len = rows.length; i < len; i++) {

@@ -1,5 +1,19 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css";
-.adin{
-    color: black;
-    font-weight: normal;
+.table-container {
+    overflow: auto;
+    margin: 60px 0px 60px;
+    border: solid 1px #0099cc;
+}
+
+.table-container-no-data {
+    border: 0px;
+    overflow: auto;
+    margin: 80px 0px 60px;
+    text-align: center;
+    font-weight: bold;
+    color: #004d66;
+}
+
+.pager {
+    margin: 10px 0;
 }

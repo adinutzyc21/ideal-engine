@@ -10,20 +10,20 @@ export default class CriteriaHeading extends Component {
       var html = [];
       var classN = "";
       // allow column deletion for all columns except "Option" column
-      if (col !== "Option") {
+      if (col !== "option") {
         classN = "divdelete";
         html.push(
-          <DataDelete key="del" level='col'  params={col} />
+          <DataDelete key="del" level='col' params={col} />
         );
         html.push(col);
       }
       // add the data to display
-      else{
+      else {
         html.push("Option Name");
       }
 
       // return a heading with column names and ButtonDeletes
-      return <th key={col} className={classN}>{html}</th>
+      return <th key={col} className={classN + " " + col}>{html}</th>
     });
   }
 

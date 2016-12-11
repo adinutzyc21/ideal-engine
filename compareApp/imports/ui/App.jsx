@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import Spinner from 'react-spinkit';
 
 import TableDisplay from './TableDisplay.jsx';
 import DataInsert from './DataInsert.jsx';
@@ -8,7 +7,7 @@ import DataInsert from './DataInsert.jsx';
 import { Comparison } from '../api/comparison.js'
 
 import { Meteor } from 'meteor/meteor';
-import MenuBar from './MenuBar.jsx';
+import NavBar from './NavBar.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -39,31 +38,21 @@ class App extends Component {
      * Render the data
      */
     render() {
-        // <ButtonAdd level='row' name='Add a row' color='cyan' tooltip='Add a row' callback={this.addRow} />
-        // While the data is loading, show a spinner
-        if (this.props.loading) {
-            return <Spinner spinnerName='three-bounce' />;
-        }
-
-        // If the data is empty, show that there is no data available 
-        if (this.props.rows.length === 0) {
-            return (
-                <div className='react-bs-container-body'>
-                    <MenuBar cols={this.parseColumns()} rows={this.props.rows} />
-                    <table>
-                        <tbody>
-                            <tr><td>No data available. Use the menu to add data.</td></tr>
-                        </tbody>
-                    </table>
+        var year = new Date().getFullYear() + " ";
+        if (year > 2016) year = "2016 -" + year + " ";
+        var footer =
+            <nav className="navbar navbar-default navbar-fixed-bottom">
+                <div className="container" className="pager">
+                    Copyright &#169; {year}Adina Stoica. All rights reserved. 
                 </div>
-            );
-        }
+            </nav>
 
-        // Otherwise, show the table
+        // Show the app
         return (
             <div className='react-bs-container-body'>
-                <MenuBar cols={this.parseColumns()} rows={this.props.rows} />
-                <TableDisplay cols={this.parseColumns()} rows={this.props.rows} />
+                <NavBar cols={this.parseColumns()} rows={this.props.rows} loading={this.props.loading} />
+                <TableDisplay cols={this.parseColumns()} rows={this.props.rows} loading={this.props.loading} />
+                {footer}
             </div>
         );
     }

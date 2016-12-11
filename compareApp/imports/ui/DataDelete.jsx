@@ -9,32 +9,19 @@ export default class DataDelete extends Component {
     constructor(props) {
         super(props);
 
-        // initialize state variables
-        this.state = {
-            color: "",
-            title: "",
-        };
+        // make this available in these methods
+        this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.handleMouseIn = this.handleMouseIn.bind(this);
     }
 
-    /**
-     * Set state variables that depend on level
-     */
-    componentDidMount() {
-        // set the color of the button based on level
-        // set the color / title
-        if (this.props.level === "col") {
-            this.setState({
-                color: 'orange',
-                title: 'Delete Criterion'
-            });
-        }
-        else {
-            this.setState({
-                color: 'red',
-                title: 'Delete Option'
-            });
-        }
+    handleMouseOut() {
+        $("." + this.props.params).removeClass("del-highlight");
     }
+
+    handleMouseIn() {
+        $("." + this.props.params).addClass("del-highlight");
+    }
+
     /**
      * Delete a column from the Comparison collection given its name
      * @param column is the name of the column we're deleting
@@ -57,15 +44,21 @@ export default class DataDelete extends Component {
     render() {
         // set the callback depending on the type of delete (row/col)
         var callback = this.deleteRow; //row
+        var title = 'Delete Option';
         if (this.props.level === 'col') { //column
             callback = this.deleteColumn;
+            title = 'Delete Criterion'
         }
 
         // display the button
         return (
-            <a role="button" data-toggle="tooltip" title={this.state.title}
-            className={'glyphicon glyphicon-remove delbutton '+this.state.color}
-                onClick={() => { callback(this.props.params); } }></a>
+            <a role="button" data-toggle="tooltip" title={title}
+                className={'glyphicon glyphicon-remove delbutton'}
+                onClick={() => { callback(this.props.params); } }
+                ref="delbutton"
+                onMouseEnter={this.handleMouseIn}
+                onMouseLeave={this.handleMouseOut}
+                ></a>
         );
     }
 }
@@ -75,5 +68,5 @@ export default class DataDelete extends Component {
   */
 DataDelete.propTypes = {
     level: PropTypes.oneOf(['row', 'col']).isRequired,
-    params: PropTypes.any.isRequired
+    params: PropTypes.string.isRequired
 };
