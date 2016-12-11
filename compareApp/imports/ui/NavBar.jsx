@@ -20,7 +20,7 @@ export default class NavBar extends Component {
         for (var i = 0, len = optionList.length; i < len; i++) {
             options.push({
                 id: optionList[i]._id,
-                name: optionList[i].Option
+                name: optionList[i].option
             });
         }
         return options;
@@ -59,7 +59,8 @@ export default class NavBar extends Component {
                         </a>
                         <ul className="dropdown-menu">
                             <DataInsert key="row" hasNoData={hasNoData} level="row" data={this.props.cols} />
-                            <DataInsert key="col" hasNoData={hasNoData} level="col" data={this.parseOptions(this.props.rows)} />
+                            <DataInsert key="col" hasNoData={hasNoData} level="col" 
+                                data={this.parseOptions(this.props.rows)} />
                             <li role="separator" className="divider"></li>
                             <DataMenuItems key="del" type="del" emptyTable={emptyTable} />
                             <DataMenuItems key="pop" type="pop" emptyTable={emptyTable} />

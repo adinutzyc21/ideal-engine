@@ -14,8 +14,6 @@ export default class DataInsert extends Component {
         // initialize state variables
         this.state = {
             showModal: false,
-            btnClass: "",
-            title: "",
             option: "",
             criterion: ""
         };
@@ -28,46 +26,27 @@ export default class DataInsert extends Component {
     }
 
     /**
-     * Set state variables that depend on level
-     */
-    componentDidMount() {
-        // set the color of the button based on level
-        // set the name / tooltip
-        if (this.props.level === "col") {
-            this.setState({
-                btnClass: 'btn btn-primary',
-                title: ' Add Criterion'
-            });
-        }
-        else {
-            this.setState({
-                btnClass: 'btn btn-info',
-                title: ' Add Option'
-            });
-        }
-    }
-
-    /**
      * Define the form data based on the data and level
      * @returns the html for the form
      */
-    createForm() {
+    createForm(title) {
         var formHtml = [];
         if (this.props.level === 'row') {
-            formHtml = this.createFormRow();
+            formHtml = this.createFormOption();
         }
         else {
-            formHtml = this.createFormColumn();
+            formHtml = this.createFormCriterion();
         }
 
         return (
             <form className="new-data"
                 onSubmit={this.handleSubmit}>
-                {formHtml}
-
-                <button key="button" type='submit' className={this.state.btnClass}
-                    data-toggle='tooltip' data-placement='right' title={this.state.title}>
-                    <i className='glyphicon glyphicon-plus' />{this.state.title}
+                <div className="content-form">
+                    {formHtml}
+                </div>
+                <button key="button" type='submit' className='btn btn-primary'
+                    data-toggle='tooltip' data-placement='right' title={title}>
+                    <i className='glyphicon glyphicon-plus' />{title}
                 </button>
             </form>);
     }
@@ -75,25 +54,24 @@ export default class DataInsert extends Component {
     /**
      * Create the form for adding a new row based on the data that we have
      */
-    createFormRow() {
+    createFormOption() {
         var formHtml = [];
         var rows = this.props.data;
 
         // request the "Option" header differently
-        formHtml.push(<span key="header_text" className="input-text header-option" >New Option Name:</span>);
-        formHtml.push(<input key="header" type="text" ref="textInput0" className="header-option"
-            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" autoFocus/>);
+        formHtml.push(<span key="header_text" className="input-text form-header" >New Option Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="textInput0" className="form-header"
+            value={this.state.option} onChange={this.handleChangeOption} placeholder="Type to add new option name" autoFocus />);
 
         // column headers are unique, so that can be the key
         // request all the corresponding information
-        for (var i = 1, len = rows.length; i < len; i++) {
-            var inputInfo = rows[i];
-            if (this.state.option.trim().length !== 0) {
-                inputInfo = rows[i] + " for " + this.state.option;
+        if (this.state.option.trim().length !== 0) {
+            for (var i = 1, len = rows.length; i < len; i++) {
+                var inputInfo = rows[i] + " for " + this.state.option;
+                formHtml.push(<span key={rows[i] + "_text"} className="input-text">{inputInfo}:</span>);
+                formHtml.push(<input key={rows[i]} type="text" ref={"textInput" + i}
+                    placeholder={"Type to add data for " + inputInfo} />);
             }
-            formHtml.push(<span key={rows[i] + "_text"} className="input-text">{inputInfo}:</span>);
-            formHtml.push(<input key={rows[i]} type="text" ref={"textInput" + i}
-                placeholder={"Type to add data for " + inputInfo} />);
         }
 
         return formHtml;
@@ -102,25 +80,24 @@ export default class DataInsert extends Component {
     /**
      * Create the form for adding a new column based on the data that we have
      */
-    createFormColumn() {
+    createFormCriterion() {
         var formHtml = [];
         var cols = this.props.data;
 
         // request the column name differently
-        formHtml.push(<span key="header_text" className="input-text header-criterion">New Criterion Name:</span>);
-        formHtml.push(<input key="header" type="text" ref="colName" className="header-criterion"
-            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" autoFocus/>);
+        formHtml.push(<span key="header_text" className="input-text form-header">New Criterion Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="colName" className="form-header"
+            value={this.state.criterion} onChange={this.handleChangeCriterion} placeholder="Type the new criteria name" autoFocus />);
 
         // we have the ids for the input, so use that as a key 
         // request all the corresponding information
-        for (var i = 0, len = cols.length; i < len; i++) {
-            var inputInfo = cols[i].name;
-            if (this.state.criterion.trim().length !== 0) {
-                inputInfo = this.state.criterion + " for " + cols[i].name;
+        if (this.state.criterion.trim().length !== 0) {
+            for (var i = 0, len = cols.length; i < len; i++) {
+                var inputInfo = this.state.criterion + " for " + cols[i].name;
+                formHtml.push(<span key={cols[i].id + "_text"} className="input-text">{inputInfo}:</span>);
+                formHtml.push(<input key={cols[i].id} type="text" ref={"textInput" + i}
+                    placeholder={"Type to add data for " + inputInfo} />);
             }
-            formHtml.push(<span key={cols[i].id + "_text"} className="input-text">{inputInfo}:</span>);
-            formHtml.push(<input key={cols[i].id} type="text" ref={"textInput" + i}
-                placeholder={"Type to add data for " + inputInfo} />);
         }
         return formHtml;
     }
@@ -161,14 +138,20 @@ export default class DataInsert extends Component {
      * 
      */
     render() {
+        // set the name / tooltip
+        var title = ' Add Option';
+        if (this.props.level === 'col') {
+            title = ' Add Criterion';
+        }
+
         // if there's no data
         if (this.props.hasNoData && this.props.level === "col") {
-            return <li className="disabled"><a>{this.state.title}</a></li>
+            return <li className="disabled"><a>{title}</a></li>
         }
 
         return (
             <li>
-                <a role="button" onClick={this.open}>{this.state.title}</a>
+                <a role="button" onClick={this.open}>{title}</a>
 
                 <div className='modal-example'>
                     <Modal className='modalStyle'
@@ -176,7 +159,7 @@ export default class DataInsert extends Component {
                         onHide={this.close}>
 
                         <div className='dialogStyle'>
-                            {this.createForm()}
+                            {this.createForm(title)}
                         </div>
                     </Modal>
                 </div>

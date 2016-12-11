@@ -1,4 +1,3 @@
-
 .modalStyle {
     position: fixed;
     z-index: 1040;
@@ -7,6 +6,7 @@
     left: 0;
     right: 0
 }
+
 .dialogStyle {
     position: absolute;
     width: 400px;
@@ -19,11 +19,13 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 20px
 }
+
 .input-text {
     padding: 5px 5px 5px 0;
     color: black;
     font-weight: bolder;
 }
+
 .new-data input {
     box-sizing: border-box;
     padding: 5px;
@@ -34,21 +36,22 @@
     font-size: 1em;
     margin-bottom: 10px;
 }
-.new-data input:focus{
+
+.new-data input:focus {
     outline: 0;
 }
 
-.header-criterion {
+.form-header {
     color: #337ab7;
 }
-.new-data input.header-criterion {
+
+.new-data input.form-header {
     border: 3px solid #337ab7;
     padding: 8px;
 }
-.header-option {
-    color: #5bc0de;
-}
-.new-data input.header-option {
-    border: 3px solid #5bc0de;
-    padding: 8px;
+
+.content-form {
+    max-height: 400px;
+    overflow: auto;
+    margin-bottom: 10px;
 }
