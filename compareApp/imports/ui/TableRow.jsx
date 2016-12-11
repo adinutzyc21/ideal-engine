@@ -21,7 +21,8 @@ export default class DataRow extends Component {
           );
         }
         // add the data to display
-        html.push(row[col].valueOf());
+        html.push(<span key="name-display">{row[col].value.valueOf()}</span>);
+        html.push(<span key="score-display" className="score-display">{row[col].score.valueOf()}</span>);
       }
       // return a row with data and buttons
       return <td key={col} className={classN+" "+row._id+" "+col}>{html}</td>;

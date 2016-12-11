@@ -37,9 +37,10 @@ tr:nth-child(even) {
     padding-right: 20px;
 }
 
-.divdelete:hover a {
+.divdelete a:hover {
     cursor: pointer;
     text-decoration: none;
+    color: darkred;
 }
 
 .delbutton {
@@ -62,8 +63,30 @@ tr:nth-child(even) {
 
 .del-highlight {
     background-color: #ffcccc;
+    opacity: 0.8;
 }
 
 th.del-highlight {
     background-color: #ff4d4d;
+}
+
+.score-display {
+    opacity: 0.5;
+    font-size: 10px;
+    padding: 2px 0;
+    float: right;
+    width: 20px;
+    border: 1px solid gray;
+    background-color: ghostwhite;
+    text-align: center;
+}
+
+.score-display:hover {
+    opacity: 1;
+}
+
+.secondary-heading .score-display {
+    color: white;
+    background-color: lightgray;
+    text-shadow: #337ab7 1px 1px 3px;
 }

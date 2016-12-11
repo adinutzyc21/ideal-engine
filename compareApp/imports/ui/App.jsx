@@ -4,10 +4,10 @@ import { createContainer } from 'meteor/react-meteor-data';
 import TableDisplay from './TableDisplay.jsx';
 import DataInsert from './DataInsert.jsx';
 
-import { Comparison } from '../api/comparison.js'
+import { Option, Criterion } from '../api/comparison.js'
 
 import { Meteor } from 'meteor/meteor';
-import NavBar from './NavBar.jsx';
+import MenuBar from './MenuBar.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -40,19 +40,19 @@ class App extends Component {
     render() {
         var year = new Date().getFullYear() + " ";
         if (year > 2016) year = "2016 -" + year + " ";
-        var footer =
-            <nav className="navbar navbar-default navbar-fixed-bottom">
-                <div className="container" className="pager">
-                    Copyright &#169; {year}Adina Stoica. All rights reserved. 
-                </div>
-            </nav>
+        console.log(this.parseColumns());
+        console.log(this.props.cols);
 
         // Show the app
         return (
             <div className='react-bs-container-body'>
-                <NavBar cols={this.parseColumns()} rows={this.props.rows} loading={this.props.loading} />
+                <MenuBar cols={this.parseColumns()} rows={this.props.rows} loading={this.props.loading} />
                 <TableDisplay cols={this.parseColumns()} rows={this.props.rows} loading={this.props.loading} />
-                {footer}
+                <nav className="navbar navbar-default navbar-fixed-bottom">
+                    <div className="container" className="pager">
+                        Copyright &#169; {year}Adina Stoica. All rights reserved.
+                </div>
+                </nav>
             </div>
         );
     }
@@ -61,16 +61,23 @@ class App extends Component {
 App.propTypes = {
     loading: PropTypes.bool.isRequired,
     rows: PropTypes.array.isRequired,
+    cols: PropTypes.array.isRequired,
     currentUser: PropTypes.object,
 };
 
 export default createContainer(({ params }) => {
-    const subscription = Meteor.subscribe('comparison');
-    const loading = !subscription.ready();
-    const rows = Comparison.find().fetch();
+    const subscriptionR = Meteor.subscribe('option');
+    const loadingR = !subscriptionR.ready();
+    const rows = Option.find().fetch();
+
+    const subscriptionC = Meteor.subscribe('criterion');
+    const loadingC = !subscriptionC.ready();
+    const cols = Criterion.find().fetch();
+
+    const loading = loadingR && loadingC;
 
     return {
-        loading, rows,
+        loading, rows, cols,
         currentUser: Meteor.user(),
     };
 }, App);

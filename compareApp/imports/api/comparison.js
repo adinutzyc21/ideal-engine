@@ -2,31 +2,43 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Comparison = new Mongo.Collection('comparison');
+export const Option = new Mongo.Collection('option');
 
 if (Meteor.isServer) {
     // This code only runs on the server
-    Meteor.publish('comparison', function comparisonPublication() {
-        return Comparison.find();
+    Meteor.publish('option', function optionPublication() {
+        return Option.find();
+    });
+}
+
+/**
+ * Criteria are the columns 
+ */
+export const Criterion = new Mongo.Collection('criterion');
+
+if (Meteor.isServer) {
+    // This code only runs on the server
+    Meteor.publish('criterion', function criterionPublication() {
+        return Criterion.find();
     });
 }
 
 Meteor.methods({
 
     'comparison.deleteAll' () {
-        Comparison.remove({});
+        Option.remove({});
     },
 
     'comparison.removeRow' (id) {
         check(id, String);
 
-        Comparison.remove(id);
+        Option.remove(id);
     },
 
     'comparison.removeColumn' (column) {
         check(column, String);
 
-        Comparison.update({}, {
+        Option.update({}, {
             $unset: {
                 [column]: ""
             }
@@ -36,16 +48,16 @@ Meteor.methods({
     'comparison.insertRow' (data) {
         check(data, Object);
 
-        Comparison.insert(data);
+        Option.insert(data);
     },
 
     'comparison.insertColumn' (column, value) {
         check(column, String);
         check(value, Object);
 
-        Comparison.update(value.id, {
+        Option.update(value.id, {
             $set: {
-                [column]: [value.text]
+                [column]: value.query
             }
         });
     },

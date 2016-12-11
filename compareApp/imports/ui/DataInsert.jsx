@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 
 // DataInsert component - open modal and allow data insertion in table
 export default class DataInsert extends Component {
-    
+
     /**
      * Initialize state variables and bind this to methods
      */
@@ -35,7 +35,7 @@ export default class DataInsert extends Component {
         var formHtml = [];
         var classN = "";
         if (this.props.level === 'row') {
-            formHtml = this.createFormOption();
+            formHtml = this.createFormForOption();
             if (this.state.option.trim().length === 0) {
                 classN = "disabled";
             }
@@ -63,28 +63,28 @@ export default class DataInsert extends Component {
     /**
      * Create the form for adding a new row based on the data that we have
      */
-    createFormOption() {
+    createFormForOption() {
         var formHtml = [];
         var rows = this.props.data;
 
         // request the "Option" header differently
         formHtml.push(<span key="header_text" className="input-text form-header" >New Option Name:</span>);
         formHtml.push(<input key="header" type="text" ref="textInput0" className="form-header"
-            value={this.state.option} onChange={this.handleChangeOption} 
+            value={this.state.option} onChange={this.handleChangeOption}
             placeholder="Type to add new option name" autoFocus />);
-        formHtml.push(<input type="text" name="score" key="header_score" className="form-header score-display"
-            value={this.state.optScore} autoComplete="off" readOnly="true" />);
+        formHtml.push(<input type="text" name="score" key="header_score" ref="textInput0_score"
+            className="form-header score-display" value={this.state.optScore} autoComplete="off" readOnly="true" />);
 
         // column headers are unique, so that can be the key
         // request all the corresponding information
         if (this.state.option.trim().length !== 0) {
             for (var i = 1, len = rows.length; i < len; i++) {
-                var inputInfo = rows[i].capitalizeFirstLetter() + " for " + this.state.option.capitalizeFirstLetter();
+                var inputInfo = rows[i] + " for " + this.state.option;
                 formHtml.push(<span key={rows[i] + "_text"} className="input-text">{inputInfo}:</span>);
                 formHtml.push(<input key={rows[i]} type="text" ref={"textInput" + i}
                     placeholder={"Type to add data for " + inputInfo} />);
-                formHtml.push(<input type="number" name="score" key={rows[i] + "_score"} className="input-text"
-                    min="1" max="10" autoComplete="off" defaultValue="5" />);
+                formHtml.push(<input type="number" name="score" key={rows[i] + "_score"} ref={"textInput" + i + "_score"}
+                    className="input-text" min="1" max="10" autoComplete="off" defaultValue="5" />);
             }
         }
 
@@ -103,19 +103,19 @@ export default class DataInsert extends Component {
         formHtml.push(<input key="header" type="text" ref="colName" className="form-header"
             value={this.state.criterion} onChange={this.handleChangeCriterion}
             placeholder="Type the new criteria name" autoFocus />);
-        formHtml.push(<input type="number" name="score" key="header_score" className="form-header"
-            min="0" max="10" defaultValue="5" autoComplete="off" />);
+        formHtml.push(<input type="number" name="score" key="header_score" ref="colName_score"
+            className="form-header" min="0" max="10" defaultValue="5" autoComplete="off" />);
 
         // we have the ids for the input, so use that as a key 
         // request all the corresponding information
         if (this.state.criterion.trim().length !== 0) {
             for (var i = 0, len = cols.length; i < len; i++) {
-                var inputInfo = this.state.criterion.capitalizeFirstLetter() + " for " + cols[i].name.capitalizeFirstLetter();
+                var inputInfo = this.state.criterion + " for " + cols[i].name.value;
                 formHtml.push(<span key={cols[i].id + "_text"} className="input-text">{inputInfo}:</span>);
                 formHtml.push(<input key={cols[i].id} type="text" ref={"textInput" + i}
                     placeholder={"Type to add data for " + inputInfo} />);
-                formHtml.push(<input type="number" name="score" key={cols[i].id + "_score"} className="input-text"
-                    min="1" max="10" defaultValue="5" autoComplete="off" />);
+                formHtml.push(<input type="number" name="score" key={cols[i].id + "_score"} ref={"textInput" + i + "_score"}
+                    className="input-text" min="1" max="10" defaultValue="5" autoComplete="off" />);
             }
         }
         return formHtml;
@@ -143,10 +143,10 @@ export default class DataInsert extends Component {
         event.preventDefault();
 
         if (this.props.level === "row") {
-            this.insertRow();
+            this.addNewOption();
         }
         else {
-            this.insertColumn();
+            this.addNewCriterion();
         }
 
         //  Close form
@@ -203,18 +203,22 @@ export default class DataInsert extends Component {
     /**
      * Insert the row data from the form into the table
      */
-    insertRow() {
+    addNewOption() {
         var rows = this.props.data;
         var query = {};
 
         // get the header separately
-        query['option'] = ReactDOM.findDOMNode(this.refs.textInput0).value.trim();
+        query['option'] = {
+            value: ReactDOM.findDOMNode(this.refs.textInput0).value.trim(),
+            score: ReactDOM.findDOMNode(this.refs.textInput0_score).value.trim()
+        };
 
         // Find the text field via the React ref
         for (var i = 1, len = rows.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-            query[rows[i]] = text;
+            query[rows[i]] = {
+                value: ReactDOM.findDOMNode(this.refs["textInput" + i]).value.trim(),
+                score: ReactDOM.findDOMNode(this.refs["textInput" + i + "_score"]).value.trim()
+            };
         }
         Meteor.call('comparison.insertRow', query);
     }
@@ -223,14 +227,18 @@ export default class DataInsert extends Component {
      * Insert the column data from the form into the table
      * only gets triggered when there's data in the table previously
      */
-    insertColumn() {
+    addNewCriterion() {
         var cols = this.props.data;
+
         var col = ReactDOM.findDOMNode(this.refs.colName).value.trim();
 
         for (var i = 0, len = cols.length; i < len; i++) {
-            var textInput = "textInput" + i;
-            var text = ReactDOM.findDOMNode(this.refs[textInput]).value.trim();
-            Meteor.call('comparison.insertColumn', col, { "id": cols[i].id, "text": text });
+            var query = {
+                value: ReactDOM.findDOMNode(this.refs["textInput" + i]).value.trim(),
+                score: ReactDOM.findDOMNode(this.refs["textInput" + i + "_score"]).value.trim()
+            };
+
+            Meteor.call('comparison.insertColumn', col, { "id": cols[i].id, "query": query });
         }
     }
 }

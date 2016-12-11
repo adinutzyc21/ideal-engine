@@ -5,7 +5,7 @@ import DataInsert from './DataInsert.jsx';
 import DataMenuItems from './DataMenuItems.jsx'
 
 // Column component - represents columns in the table
-export default class NavBar extends Component {
+export default class MenuBar extends Component {
     /**
        * Extract the option names from the information available in the database: 
        * this is the union of all properties of each row object in the database
@@ -98,7 +98,7 @@ export default class NavBar extends Component {
     }
 }
 
-NavBar.propTypes = {
+MenuBar.propTypes = {
     cols: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     loading: PropTypes.bool
