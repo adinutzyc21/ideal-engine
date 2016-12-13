@@ -6,16 +6,16 @@ import DataDelete from './DataDelete.jsx';
 export default class CriteriaHeading extends Component {
 
   renderHeadings() {
-    return this.props.cols.map(function (col, idx, array) {
+    return this.props.cols.map(function (col, idx) {
       var html = [];
       var classN = "";
       // allow column deletion for all columns except "Option" column
-      if (col !== "option") {
+      if (idx !== 0) {
         classN = "divdelete";
         html.push(
-          <DataDelete key="del" level='col' params={col} />
+          <DataDelete key="del" level='col' params={col._id} />
         );
-        html.push(col);
+        html.push(col.name);
       }
       // add the data to display
       else {
@@ -23,7 +23,7 @@ export default class CriteriaHeading extends Component {
       }
 
       // return a heading with column names and ButtonDeletes
-      return <th key={col} className={classN + " " + col}>{html}</th>
+      return <th key={col._id} className={classN + " " + col._id}>{html}</th>
     });
   }
 

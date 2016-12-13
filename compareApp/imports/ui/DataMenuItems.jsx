@@ -72,36 +72,55 @@ export default class DataMenuItems extends Component {
      * Create the table (for testing purposes)
      */
     populateDocument() {
-        var query = [
-            {
-                option: { value: "Apartment 1", score: 5 },
-                rent: { value: "$800", score: 10 }, 
-                deposit: {value: "$200", score: 3},
-                rating: {value: "70%", score: 2}, 
-                distance: {value: "10 mi", score: 4}, 
-                size: {value: "720 sqft", score: 7}
-            },
-            {
-                option: { value: "Apartment 1", score: 5 },
-                rent: { value: "$800", score: 10 }, 
-                deposit: {value: "$200", score: 3},
-                rating: {value: "70%", score: 2}, 
-                distance: {value: "10 mi", score: 4}, 
-                size: {value: "720 sqft", score: 7}
-            },
-            {
-                option: { value: "Apartment 1", score: 5 },
-                rent: { value: "$800", score: 10 }, 
-                deposit: {value: "$200", score: 3},
-                rating: {value: "70%", score: 2}, 
-                distance: {value: "10 mi", score: 4}, 
-                size: {value: "720 sqft", score: 7}
-            },
+        var rows = [
+            [
+                { value: "Apartment 1", score: 5 },
+                { value: "$800", score: 10 },
+                { value: "$200", score: 3 },
+                { value: "70%", score: 2 },
+                { value: "10 mi", score: 4 },
+                { value: "720 sqft", score: 7 }
+            ],[
+                { value: "Apartment 2", score: 5 },
+                { value: "$780", score: 10 },
+                { value: "$100", score: 3 },
+                { value: "78%", score: 2 },
+                { value: "12 mi", score: 4 },
+                { value: "780 sqft", score: 7 }
+            ],[
+                { value: "Apartment 3", score: 5 },
+                { value: "$720", score: 9 },
+                { value: "$50", score: 4 },
+                { value: "79%", score: 4 },
+                { value: "2 mi", score: 10 },
+                { value: "780 sqft", score: 7 }
+            ],[
+                { value: "Apartment 4", score: 5 },
+                { value: "$700", score: 10 },
+                { value: "$0", score: 3 },
+                { value: "58%", score: 2 },
+                { value: "2 mi", score: 4 },
+                { value: "780 sqft", score: 7 }
+            ],[
+                { value: "Apartment 5", score: 5 },
+                { value: "$700", score: 10 },
+                { value: "$150", score: 3 },
+                { value: "89%", score: 2 },
+                { value: "15 mi", score: 4 },
+                { value: "880 sqft", score: 7 }
+            ]
         ];
 
-        for (var i = 0, len = query.length; i < len; i++) {
-            Meteor.call('comparison.insertRow', query[i]);
-        }
+        var cols = [
+            { name: "Option Name" },
+            { name: "The Rent", score: 9 },
+            { name: "My Deposit", score: 2 },
+            { name: "Rating", score: 7 },
+            { name: "Distance to Work", score: 5 },
+            { name: "Size", score: 8 },
+        ];
+
+        Meteor.call('comparison.populateTables', cols, rows);
     }
 
 }

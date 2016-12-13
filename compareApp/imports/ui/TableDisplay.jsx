@@ -4,6 +4,7 @@ import Spinner from 'react-spinkit';
 
 import TableHeading from './TableHeading.jsx';
 import TableRow from './TableRow.jsx';
+import { Meteor } from 'meteor/meteor';
 
 // Column component - represents columns in the table
 export default class TableDisplay extends Component {
@@ -54,6 +55,9 @@ export default class TableDisplay extends Component {
 
         // If the data is empty, show that there is no data available 
         else if (this.props.rows.length === 0) {
+            // clear the residual columns
+            Meteor.call('comparison.deleteAll');
+            
             return (
                 <div className='table-container table-container-no-data'>
                     <div>No data available. Use the menu to add data.</div>

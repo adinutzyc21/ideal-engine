@@ -7,25 +7,25 @@ export default class DataRow extends Component {
 
   renderRow(row) {
     // for each column
-    return this.props.cols.map(function (col) {
+    return this.props.cols.map(function (col, idx) {
       var html = [];
 
       // if the current column is populated
-      if (row[col]) {
+      if (row[col._id]) {
         var classN = "";
         // display the first column as a header and show the delete button to the left
-        if (col === "option") {
+        if (idx===0) {
           classN = "secondary-heading divdelete";
           html.push(
               <DataDelete key="del" level='row' params={row._id} />
           );
         }
         // add the data to display
-        html.push(<span key="name-display">{row[col].value.valueOf()}</span>);
-        html.push(<span key="score-display" className="score-display">{row[col].score.valueOf()}</span>);
+        html.push(<span key="name-display">{row[col._id].value.valueOf()}</span>);
+        html.push(<span key="score-display" className="score-display">{row[col._id].score.valueOf()}</span>);
       }
       // return a row with data and buttons
-      return <td key={col} className={classN+" "+row._id+" "+col}>{html}</td>;
+      return <td key={col._id} className={classN+" "+row._id+" "+col._id}>{html}</td>;
     })
   }
 

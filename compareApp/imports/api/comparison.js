@@ -24,9 +24,35 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+    'comparison.populateTables' (cols, rows) {
+        var colIds = [];
+        // create the row
+        for (var i = 0, len = cols.length; i < len; i++) {
+            // Create a new ObjectID for the column
+            var colId = new Meteor.Collection.ObjectID()._str;
+            // create the column
+            var colData = cols[i];
+            colData._id = colId;
+
+            colIds.push(colId);
+            // insert the column
+            Criterion.insert(colData);
+        }
+
+        // insert the corresponding row
+        for (var i = 0, len = rows.length; i < len; i++) {
+            var rowData = {};
+            for (var j = 0, len2 = colIds.length; j < len2; j++) {
+                rowData[colIds[j]] = rows[i][j];
+            }
+            Option.insert(rowData);
+        }
+
+    },
 
     'comparison.deleteAll' () {
         Option.remove({});
+        Criterion.remove({});
     },
 
     'comparison.removeRow' (id) {
@@ -43,6 +69,15 @@ Meteor.methods({
                 [column]: ""
             }
         }, { multi: true });
+
+        Criterion.remove(column);
+    },
+
+    'comparison.insertFirstColumn' (id) {
+        check(id, String);
+
+        var data = { _id: id, name: "Option Name" }
+        Criterion.insert(data);
     },
 
     'comparison.insertRow' (data) {
@@ -51,13 +86,22 @@ Meteor.methods({
         Option.insert(data);
     },
 
-    'comparison.insertColumn' (column, value) {
-        check(column, String);
-        check(value, Object);
+    'comparison.insertColumn' (colQuery, colId) {
+        check(colQuery, Object);
+        check(colId, String);
 
-        Option.update(value.id, {
+        colQuery._id = colId;
+        Criterion.insert(colQuery);
+    },
+
+    'comparison.updateColumn' (dataQuery, colId, rowId) {
+        check(dataQuery, Object);
+        check(colId, String);
+        check(rowId, String);
+
+        Option.update(rowId, {
             $set: {
-                [column]: value.query
+                [colId]: dataQuery
             }
         });
     },

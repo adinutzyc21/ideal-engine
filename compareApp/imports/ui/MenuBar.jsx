@@ -6,26 +6,10 @@ import DataMenuItems from './DataMenuItems.jsx'
 
 // Column component - represents columns in the table
 export default class MenuBar extends Component {
-    /**
-       * Extract the option names from the information available in the database: 
-       * this is the union of all properties of each row object in the database
-       * E.g: 
-       * Input: [{"Option": "Chase","Age": "27"},
-       *         {"Option": "Joe", "Height": "5'7"'}],
-       * Output: ["Chase", "Joe"]
-       * @returns all the options (item names) in the database
-       */
-    parseOptions(optionList) {
-        var options = [];
-        for (var i = 0, len = optionList.length; i < len; i++) {
-            options.push({
-                id: optionList[i]._id,
-                name: optionList[i].option
-            });
-        }
-        return options;
+    getOptionNameId() {
+        if (this.props.cols.length === 0) return "";
+        return this.props.cols[0]._id;
     }
-
     createHtml() {
         var brandAndTitle =
             <div className="navbar-header">
@@ -59,14 +43,15 @@ export default class MenuBar extends Component {
                         </a>
                         <ul className="dropdown-menu">
                             <DataInsert key="row" hasNoData={hasNoData} level="row" data={this.props.cols} />
-                            <DataInsert key="col" hasNoData={hasNoData} level="col" 
-                                data={this.parseOptions(this.props.rows)} />
+                            <DataInsert key="col" hasNoData={hasNoData} level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} />
                             <li role="separator" className="divider"></li>
                             <DataMenuItems key="del" type="del" emptyTable={emptyTable} />
                             <DataMenuItems key="pop" type="pop" emptyTable={emptyTable} />
+                            {/*
                             <li role="separator" className="divider"></li>
                             <DataMenuItems key="imp" type="imp" emptyTable={emptyTable} />
                             <DataMenuItems key="exp" type="exp" emptyTable={emptyTable} />
+                            */}
                         </ul>
                     </li>
                 </ul>
