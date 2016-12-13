@@ -14,18 +14,21 @@ export default class DataRow extends Component {
       if (row[col._id]) {
         var classN = "";
         // display the first column as a header and show the delete button to the left
-        if (idx===0) {
+        if (idx === 0) {
           classN = "secondary-heading divdelete";
           html.push(
-              <DataDelete key="del" level='row' params={row._id} />
+            <DataDelete key="del" level='row' params={row._id} />
           );
+          html.push(<span key="score-display" className="score-display">{row.score}</span>);
+        }
+        else {
+          html.push(<span key="score-display" className="score-display">{row[col._id].score}</span>);
         }
         // add the data to display
-        html.push(<span key="name-display">{row[col._id].value.valueOf()}</span>);
-        html.push(<span key="score-display" className="score-display">{row[col._id].score.valueOf()}</span>);
+        html.push(<span key="name-display">{row[col._id].value}</span>);
       }
       // return a row with data and buttons
-      return <td key={col._id} className={classN+" "+row._id+" "+col._id}>{html}</td>;
+      return <td key={col._id} className={classN + " " + row._id + " " + col._id}>{html}</td>;
     })
   }
 

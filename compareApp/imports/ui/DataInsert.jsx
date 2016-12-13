@@ -28,71 +28,18 @@ export default class DataInsert extends Component {
     }
 
     /**
-     * Create the form for adding a new column based on the data that we have
-     */
-    createFormForCriterion() {
-        var formHtml = [];
-        var rows = this.props.data;
-
-        // request the column name differently
-        formHtml.push(<span key="header_text" className="input-text form-header">New Criterion Name:</span>);
-        formHtml.push(<input key="header" type="text" ref="colName" className="form-header"
-            value={this.state.criterion} onChange={this.handleChangeCriterion}
-            placeholder="Type the new criteria name" autoFocus />);
-        formHtml.push(<input type="number" name="score" key="header_score" ref="colName_score"
-            className="form-header" min="0" max="10" defaultValue="5" autoComplete="off" />);
-
-        // we have the ids for the input, so use that as a key 
-        // request all the corresponding information
-        if (this.state.criterion.trim().length !== 0) {
-            for (var i = 0, len = rows.length; i < len; i++) {
-                var inputInfo = this.state.criterion + " for " + rows[i][this.props.optionIdx].value;
-                formHtml.push(<span key={rows[i]._id + "_text"} className="input-text">{inputInfo}:</span>);
-                formHtml.push(<input key={rows[i]._id} type="text" ref={"textInput" + i}
-                    placeholder={"Type to add data for " + inputInfo} />);
-                formHtml.push(<input type="number" name="score" key={rows[i]._id + "_score"} ref={"textInput" + i + "_score"}
-                    className="input-text" min="1" max="10" defaultValue="5" autoComplete="off" />);
-            }
-        }
-        return formHtml;
-    }
-
-    /**
-     * Insert the column data from the form into the table
-     * only gets triggered when there's data in the table previously
-     */
-    addNewCriterion() {
-        var rows = this.props.data;
-
-        var colQuery = {
-            name: ReactDOM.findDOMNode(this.refs.colName).value.trim(),
-            score: ReactDOM.findDOMNode(this.refs.colName_score).value.trim()
-        }
-
-        var colId = new Meteor.Collection.ObjectID()._str;
-        Meteor.call('comparison.insertColumn', colQuery, colId);
-
-        for (var i = 0, len = rows.length; i < len; i++) {
-            var dataQuery = {
-                value: ReactDOM.findDOMNode(this.refs["textInput" + i]).value.trim(),
-                score: ReactDOM.findDOMNode(this.refs["textInput" + i + "_score"]).value.trim()
-            };
-            Meteor.call('comparison.updateColumn', dataQuery, colId, rows[i]._id);
-        }
-    }
-
-    /**
-     * 
+     * Main entry point
      */
     render() {
-        // set the name / tooltip
+        // set the name / title
         var title = ' Add Option';
+
         if (this.props.level === 'col') {
             title = ' Add Criterion';
         }
 
         // if there's no data
-        if (this.props.hasNoData && this.props.level === "col") {
+        if (this.props.columnsEmpty) {
             return <li className="disabled"><a>{title}</a></li>
         }
 
@@ -129,6 +76,24 @@ export default class DataInsert extends Component {
     }
 
     /**
+     * Handle the submit event of the form
+     * triggers insertRow or insertColumn functions depending on level
+     */
+    handleSubmit(event) {
+        event.preventDefault();
+
+        if (this.props.level === "row") {
+            this.addNewOption();
+        }
+        else {
+            this.addNewCriterion();
+        }
+
+        //  Close form
+        this.close();
+    }
+
+    /**
      * Define the form data based on the data and level
      * @returns the html for the form
      */
@@ -155,10 +120,71 @@ export default class DataInsert extends Component {
                     {formHtml}
                 </div>
                 <button key="button" type='submit' className={'btn btn-primary ' + classN}
-                    data-toggle='tooltip' data-placement='right' title={title}>
+                    data-toggle='title' data-placement='right' title={title}>
                     <i className='glyphicon glyphicon-plus' />{title}
                 </button>
             </form>);
+    }
+
+    /**
+     * Create the form for adding a new column based on the data that we have
+     */
+    createFormForCriterion() {
+        var formHtml = [];
+        var rows = this.props.data;
+
+        // request the column name differently
+        formHtml.push(<span key="header_text" className="input-text form-header">New Criterion Name:</span>);
+        formHtml.push(<input key="header" type="text" ref="colName" className="form-header"
+            value={this.state.criterion} onChange={this.handleChangeCriterion}
+            placeholder="Type the new criteria name" autoFocus />);
+        formHtml.push(<input type="number" name="score" key="header_score" ref="colName_score"
+            className="form-header" min="0" max="10" defaultValue="5" autoComplete="off" />);
+
+        // we have the ids for the input, so use that as a key 
+        // request all the corresponding information
+        if (this.state.criterion.trim().length !== 0) {
+            for (var i = 0, len = rows.length; i < len; i++) {
+                var inputInfo = this.state.criterion + " for " + rows[i][this.props.optionIdx].value;
+                formHtml.push(<span key={rows[i]._id + "_text"} className="input-text">{inputInfo}:</span>);
+                formHtml.push(<input key={rows[i]._id} type="text" ref={"textInput" + i}
+                    placeholder={"Type to add data for " + inputInfo} />);
+                formHtml.push(<input type="number" name="score" key={rows[i]._id + "_score"} ref={"textInput" + i + "_score"}
+                    className="input-text" min="1" max="10" defaultValue="5" autoComplete="off" />);
+            }
+        }
+        return formHtml;
+    }
+
+    /** 
+     * Change the criterion name in the form dynamically 
+     */
+    handleChangeCriterion(event) {
+        this.setState({ criterion: event.target.value });
+    }
+
+    /**
+     * Insert the column data from the form into the table
+     * only gets triggered when there's data in the table previously
+     */
+    addNewCriterion() {
+        var rows = this.props.data;
+
+        var colQuery = {
+            name: ReactDOM.findDOMNode(this.refs.colName).value.trim(),
+            score: ReactDOM.findDOMNode(this.refs.colName_score).value.trim()
+        }
+
+        var colId = new Meteor.Collection.ObjectID()._str;
+        Meteor.call('comparison.insertColumn', colQuery, colId);
+
+        for (var i = 0, len = rows.length; i < len; i++) {
+            var dataQuery = {
+                value: ReactDOM.findDOMNode(this.refs["textInput" + i]).value.trim(),
+                score: ReactDOM.findDOMNode(this.refs["textInput" + i + "_score"]).value.trim()
+            };
+            Meteor.call('comparison.updateColumn', dataQuery, colId, rows[i]._id);
+        }
     }
 
     /**
@@ -193,6 +219,13 @@ export default class DataInsert extends Component {
         return formHtml;
     }
 
+    /**  
+     * Change the option name in the form dynamically
+     */
+    handleChangeOption(event) {
+        this.setState({ option: event.target.value });
+    }
+
     /**
      * Insert the row data from the form into the table
      */
@@ -209,10 +242,10 @@ export default class DataInsert extends Component {
             Meteor.call('comparison.insertFirstColumn', headerId);
         }
 
+        query.score = ReactDOM.findDOMNode(this.refs.textInput0_score).value.trim();
         // get the header separately
         query[headerId] = {
-            value: ReactDOM.findDOMNode(this.refs.textInput0).value.trim(),
-            score: ReactDOM.findDOMNode(this.refs.textInput0_score).value.trim()
+            value: ReactDOM.findDOMNode(this.refs.textInput0).value.trim()
         };
 
         // Find the text field via the React ref
@@ -224,49 +257,17 @@ export default class DataInsert extends Component {
         }
         Meteor.call('comparison.insertRow', query);
     }
-
-    /**  
-     * Change the option name in the form dynamically
-     */
-    handleChangeOption(event) {
-        this.setState({ option: event.target.value });
-    }
-
-    /** 
-     * Change the criterion name in the form dynamically 
-     */
-    handleChangeCriterion(event) {
-        this.setState({ criterion: event.target.value });
-    }
-
-    /**
-     * Handle the submit event of the form
-     * triggers insertRow or insertColumn functions depending on level
-     */
-    handleSubmit(event) {
-        event.preventDefault();
-
-        if (this.props.level === "row") {
-            this.addNewOption();
-        }
-        else {
-            this.addNewCriterion();
-        }
-
-        //  Close form
-        this.close();
-    }
 }
 
 /**
   * data: provides form input
   * level: column/row
-  * hasNoData: is there data already in the database
+  * columnsEmpty: is there data already in the database?
   * optionIdx: the index of the options item in cols
   */
 DataInsert.propTypes = {
     data: PropTypes.array.isRequired,
     level: PropTypes.oneOf(['row', 'col']).isRequired,
-    hasNoData: PropTypes.bool.isRequired,
+    columnsEmpty: PropTypes.bool,
     optionIdx: PropTypes.string
 };

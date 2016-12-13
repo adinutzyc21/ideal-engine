@@ -43,7 +43,7 @@ App.propTypes = {
 export default createContainer(({ params }) => {
     const subscriptionR = Meteor.subscribe('option');
     const loadingR = !subscriptionR.ready();
-    const rows = Option.find().fetch();
+    const rows = Option.find({}, { sort: { score: 1 } }).fetch();
 
     const subscriptionC = Meteor.subscribe('criterion');
     const loadingC = !subscriptionC.ready();

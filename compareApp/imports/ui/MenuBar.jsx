@@ -2,14 +2,22 @@ import React, { Component, PropTypes } from 'react';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import DataInsert from './DataInsert.jsx';
-import DataMenuItems from './DataMenuItems.jsx'
+import DataHelperMenu from './DataHelperMenu.jsx'
+
+import ScoreComparison from './ScoreComparison.jsx'
 
 // Column component - represents columns in the table
 export default class MenuBar extends Component {
+    isColumnsEmpty() {
+        return this.props.cols.length === 0;
+    }
+
     getOptionNameId() {
         if (this.props.cols.length === 0) return "";
         return this.props.cols[0]._id;
     }
+
+
     createHtml() {
         var brandAndTitle =
             <div className="navbar-header">
@@ -26,35 +34,33 @@ export default class MenuBar extends Component {
                 <p className="navbar-text title">compareApp</p>
             </div>
 
-        var hasNoData = false;
-        if (this.props.cols.length === 0) {
-            // disable the add column option
-            hasNoData = true;
-        }
         var actionsMenu = <div></div>;
+        var calcScoreButton = <div></div>;
         if (!this.props.loading) {
-            var emptyTable = this.props.cols.length === 0;
+
             actionsMenu =
                 <ul className="nav navbar-nav">
                     <li className="dropdown">
-                        <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
-                            Menu
-                        <span className="caret"></span>
+                        <a className="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span className="glyphicon glyphicon-menu-hamburger"></span> Menu
                         </a>
                         <ul className="dropdown-menu">
-                            <DataInsert key="row" hasNoData={hasNoData} level="row" data={this.props.cols} />
-                            <DataInsert key="col" hasNoData={hasNoData} level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} />
+                            <DataInsert key="row" level="row" data={this.props.cols} />
+                            <DataInsert key="col" columnsEmpty={this.isColumnsEmpty()} level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} />
                             <li role="separator" className="divider"></li>
-                            <DataMenuItems key="del" type="del" emptyTable={emptyTable} />
-                            <DataMenuItems key="pop" type="pop" emptyTable={emptyTable} />
+                            <DataHelperMenu key="del" type="del" columnsEmpty={this.isColumnsEmpty()} />
+                            <DataHelperMenu key="pop" type="pop" columnsEmpty={this.isColumnsEmpty()} />
                             {/*
                             <li role="separator" className="divider"></li>
-                            <DataMenuItems key="imp" type="imp" emptyTable={emptyTable} />
-                            <DataMenuItems key="exp" type="exp" emptyTable={emptyTable} />
+                            <DataHelperMenu key="imp" type="imp" columnsEmpty={this.isColumnsEmpty()} />
+                            <DataHelperMenu key="exp" type="exp" columnsEmpty={this.isColumnsEmpty()} />
                             */}
                         </ul>
                     </li>
-                </ul>
+                </ul>;
+
+
+            calcScoreButton = <ScoreComparison rows={this.props.rows} cols={this.props.cols} optionIdx={this.getOptionNameId()} />
         }
 
         var loginOption =
@@ -67,6 +73,7 @@ export default class MenuBar extends Component {
                 {brandAndTitle}
                 <div className="collapse navbar-collapse" id="collapsed-menu">
                     {actionsMenu}
+                    {calcScoreButton}
                     {loginOption}
                 </div>
             </div>

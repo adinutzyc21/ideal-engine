@@ -79,6 +79,7 @@ th.del-highlight {
     border: 1px solid gray;
     background-color: ghostwhite;
     text-align: center;
+    color: black;
 }
 
 .score-display:hover {
@@ -86,7 +87,5 @@ th.del-highlight {
 }
 
 .secondary-heading .score-display {
-    color: white;
     background-color: lightgray;
-    text-shadow: #337ab7 1px 1px 3px;
 }

@@ -44,6 +44,7 @@ Meteor.methods({
             var rowData = {};
             for (var j = 0, len2 = colIds.length; j < len2; j++) {
                 rowData[colIds[j]] = rows[i][j];
+                rowData.score = 5;
             }
             Option.insert(rowData);
         }
@@ -84,6 +85,19 @@ Meteor.methods({
         check(data, Object);
 
         Option.insert(data);
+    },
+
+    'comparison.writeScores' (colId, rowId, score) {
+        check(colId, String);
+        check(rowId, String);
+        check(score, Number);
+
+        Option.update(rowId, {
+            $set: {
+                score: score
+            }
+        });
+
     },
 
     'comparison.insertColumn' (colQuery, colId) {
