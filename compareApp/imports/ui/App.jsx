@@ -16,7 +16,7 @@ class App extends Component {
      */
     render() {
         var year = new Date().getFullYear() + " ";
-        if (year > 2016) year = "2016 -" + year + " ";
+        if (year > 2016) year = "2016 -" + year;
 
         // Show the app
         return (
@@ -43,7 +43,7 @@ App.propTypes = {
 export default createContainer(({ params }) => {
     const subscriptionR = Meteor.subscribe('option');
     const loadingR = !subscriptionR.ready();
-    const rows = Option.find({}, { sort: { score: 1 } }).fetch();
+    const rows = Option.find({}, { sort: { score: -1 } }).fetch();
 
     const subscriptionC = Meteor.subscribe('criterion');
     const loadingC = !subscriptionC.ready();

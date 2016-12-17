@@ -21,14 +21,20 @@ export default class MenuBar extends Component {
         var cols = this.props.cols;
         var rows = this.props.rows;
 
+        var maxScore = 0;
+        var score = [];
         //for all rows i
         for (var i = 0, lenR = rows.length; i < lenR; i++) {
-            var score = 0;
+            score[i] = 0;
             // for all columns j
             for (var j = 1, lenC = cols.length; j < lenC; j++) {
-                score += rows[i][cols[j]._id].score * cols[j].score;
+                score[i] += rows[i][cols[j]._id].score * cols[j].score;
             }
-            Meteor.call('comparison.writeScores', this.props.optionIdx, rows[i]._id, score);
+            if (score[i] > maxScore) maxScore = score[i];
+        }
+        for (var i = 0, lenR = rows.length; i < lenR; i++) {
+            score[i] = Math.round(score[i] / maxScore * 100) / 10;
+            Meteor.call('comparison.writeScores', this.props.optionIdx, rows[i]._id, score[i]);
         }
     }
 
