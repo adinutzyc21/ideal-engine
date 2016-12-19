@@ -18,6 +18,10 @@ class App extends Component {
         var year = new Date().getFullYear() + " ";
         if (year > 2016) year = "2016 -" + year;
 
+        if (!this.props.loading){
+            console.log("you are " + this.props.user.username);
+        }
+
         // Show the app
         return (
             <div className='react-bs-container-body'>
@@ -26,7 +30,7 @@ class App extends Component {
                 <nav className="navbar navbar-default navbar-fixed-bottom">
                     <div className="container" className="pager">
                         Copyright &#169; {year}Adina Stoica. All rights reserved.
-                </div>
+                    </div>
                 </nav>
             </div>
         );
@@ -37,7 +41,7 @@ App.propTypes = {
     loading: PropTypes.bool.isRequired,
     rows: PropTypes.array.isRequired,
     cols: PropTypes.array.isRequired,
-    currentUser: PropTypes.object,
+    user: PropTypes.object,
 };
 
 export default createContainer(({ params }) => {
@@ -49,11 +53,14 @@ export default createContainer(({ params }) => {
     const loadingC = !subscriptionC.ready();
     const cols = Criterion.find().fetch();
 
-    const loading = loadingR && loadingC;
+    const user = Meteor.user();
+    const loadingU = Meteor.user() === undefined;
+
+    const loading = loadingR || loadingC || loadingU;
 
     return {
         loading, rows, cols,
-        currentUser: Meteor.user(),
+        user,
     };
 }, App);
 
