@@ -12,7 +12,7 @@ export default class MenuBar extends Component {
         return this.props.cols.length === 0;
     }
 
-    getOptionNameId() {
+    getOptionNameIdx() {
         if (this.props.cols.length === 0) return "";
         return this.props.cols[0]._id;
     }
@@ -37,7 +37,6 @@ export default class MenuBar extends Component {
         var actionsMenu = <div></div>;
         var calcScoreButton = <div></div>;
         if (!this.props.loading) {
-
             actionsMenu =
                 <ul className="nav navbar-nav">
                     <li className="dropdown">
@@ -46,7 +45,7 @@ export default class MenuBar extends Component {
                         </a>
                         <ul className="dropdown-menu">
                             <DataInsert key="row" level="row" data={this.props.cols} />
-                            <DataInsert key="col" columnsEmpty={this.isColumnsEmpty()} level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} />
+                            <DataInsert key="col" columnsEmpty={this.isColumnsEmpty()} level="col" data={this.props.rows} optionIdx={this.getOptionNameIdx()} />
                             <li role="separator" className="divider"></li>
                             <DataHelperMenu key="del" type="del" columnsEmpty={this.isColumnsEmpty()} />
                             <DataHelperMenu key="pop" type="pop" columnsEmpty={this.isColumnsEmpty()} />
@@ -60,7 +59,7 @@ export default class MenuBar extends Component {
                 </ul>;
 
 
-            calcScoreButton = <ScoreComparison rows={this.props.rows} cols={this.props.cols} optionIdx={this.getOptionNameId()} />
+            calcScoreButton = <ScoreComparison rows={this.props.rows} cols={this.props.cols} optionIdx={this.getOptionNameIdx()} />
         }
 
         var loginOption =
@@ -91,7 +90,7 @@ export default class MenuBar extends Component {
 }
 
 MenuBar.propTypes = {
-    cols: PropTypes.array.isRequired,
-    rows: PropTypes.array.isRequired,
+    cols: PropTypes.array,
+    rows: PropTypes.array,
     loading: PropTypes.bool
 };

@@ -2,14 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Option = new Mongo.Collection('option');
+/**
+ * Table containing all the names
+ */
+export const Option = new Mongo.Collection('tables');
 
-if (Meteor.isServer) {
-    // This code only runs on the server
-    Meteor.publish('option', function optionPublication() {
-        return Option.find();
-    });
-}
+/**
+ * Options are for the rows
+ */
+export const Option = new Mongo.Collection('option');
 
 /**
  * Criteria are the columns 
@@ -18,8 +19,16 @@ export const Criterion = new Mongo.Collection('criterion');
 
 if (Meteor.isServer) {
     // This code only runs on the server
+    Meteor.publish('option', function optionPublication() {
+        return Option.find();
+    });
+
     Meteor.publish('criterion', function criterionPublication() {
         return Criterion.find();
+    });
+
+    Meteor.publish('tables', function tablesPublication() {
+        return Tables.find();
     });
 }
 
@@ -97,7 +106,6 @@ Meteor.methods({
                 score: score
             }
         });
-
     },
 
     'comparison.insertColumn' (colQuery, colId) {
@@ -120,3 +128,20 @@ Meteor.methods({
         });
     },
 });
+
+export default createContainer(({ params }) => {
+    const subscriptionR = Meteor.subscribe('option');
+    const loadingR = !subscriptionR.ready();
+    const rows = Option.find({}, { sort: { score: -1 } }).fetch();
+
+    const subscriptionC = Meteor.subscribe('criterion');
+    const loadingC = !subscriptionC.ready();
+    const cols = Criterion.find().fetch();
+
+    const loading = loadingR || loadingC;
+
+    return {
+        loading, rows, cols,
+        user,
+    };
+}, App);
