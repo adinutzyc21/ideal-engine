@@ -34,14 +34,15 @@ export default class MenuBar extends Component {
                 <p className="navbar-text title">compareApp</p>
             </div>
 
-        var actionsMenu = <div></div>;
+        var fileMenu = <div></div>;
+        var editMenu = <div></div>;
         var calcScoreButton = <div></div>;
         if (!this.props.loading) {
-            actionsMenu =
+            editMenu =
                 <ul className="nav navbar-nav">
                     <li className="dropdown">
                         <a className="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <span className="glyphicon glyphicon-menu-hamburger"></span> Menu
+                            <span className="glyphicon glyphicon-pencil"></span> Edit
                         </a>
                         <ul className="dropdown-menu">
                             <DataInsert key="row" level="row" data={this.props.cols} />
@@ -49,15 +50,27 @@ export default class MenuBar extends Component {
                             <li role="separator" className="divider"></li>
                             <DataHelperMenu key="del" type="del" columnsEmpty={this.isColumnsEmpty()} />
                             <DataHelperMenu key="pop" type="pop" columnsEmpty={this.isColumnsEmpty()} />
-                            {/*
-                            <li role="separator" className="divider"></li>
-                            <DataHelperMenu key="imp" type="imp" columnsEmpty={this.isColumnsEmpty()} />
-                            <DataHelperMenu key="exp" type="exp" columnsEmpty={this.isColumnsEmpty()} />
-                            */}
                         </ul>
                     </li>
                 </ul>;
 
+            fileMenu =
+                <ul className="nav navbar-nav">
+                    <li className="dropdown">
+                        <a className="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span className="glyphicon glyphicon-menu-hamburger"></span> File
+                        </a>
+                        <ul className="dropdown-menu">
+                            <li><a>Load Table</a></li>
+                            <li><a>New Table</a></li>
+                            <li role="separator" className="divider"></li>
+                            <li><a>Delete Table</a></li>
+                            <li role="separator" className="divider"></li>
+                            <DataHelperMenu key="imp" type="imp" columnsEmpty={this.isColumnsEmpty()} />
+                            <DataHelperMenu key="exp" type="exp" columnsEmpty={this.isColumnsEmpty()} />
+                        </ul>
+                    </li>
+                </ul>;
 
             calcScoreButton = <ScoreComparison rows={this.props.rows} cols={this.props.cols} optionIdx={this.getOptionNameIdx()} />
         }
@@ -71,7 +84,8 @@ export default class MenuBar extends Component {
             <div className="container">
                 {brandAndTitle}
                 <div className="collapse navbar-collapse" id="collapsed-menu">
-                    {actionsMenu}
+                    {fileMenu}
+                    {editMenu}
                     {calcScoreButton}
                     {loginOption}
                 </div>

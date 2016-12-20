@@ -34,7 +34,7 @@ export default class DataHelperMenu extends Component {
                 callBack = this.populateDocument;
                 break;
             case "del":
-                title = "Delete table";
+                title = "Empty table";
                 callBack = this.deleteDocument;
                 break;
         }

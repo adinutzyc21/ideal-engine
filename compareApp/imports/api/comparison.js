@@ -3,11 +3,6 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
 /**
- * Table containing all the names
- */
-export const Option = new Mongo.Collection('tables');
-
-/**
  * Options are for the rows
  */
 export const Option = new Mongo.Collection('option');
@@ -25,10 +20,6 @@ if (Meteor.isServer) {
 
     Meteor.publish('criterion', function criterionPublication() {
         return Criterion.find();
-    });
-
-    Meteor.publish('tables', function tablesPublication() {
-        return Tables.find();
     });
 }
 
@@ -128,20 +119,3 @@ Meteor.methods({
         });
     },
 });
-
-export default createContainer(({ params }) => {
-    const subscriptionR = Meteor.subscribe('option');
-    const loadingR = !subscriptionR.ready();
-    const rows = Option.find({}, { sort: { score: -1 } }).fetch();
-
-    const subscriptionC = Meteor.subscribe('criterion');
-    const loadingC = !subscriptionC.ready();
-    const cols = Criterion.find().fetch();
-
-    const loading = loadingR || loadingC;
-
-    return {
-        loading, rows, cols,
-        user,
-    };
-}, App);
