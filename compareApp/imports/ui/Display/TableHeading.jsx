@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import DataDelete from './DataDelete.jsx';
+import DataDelete from '../Menu/DataDelete.jsx';
 
 // CriteriaHeading component - displays the header of the table
 export default class CriteriaHeading extends Component {

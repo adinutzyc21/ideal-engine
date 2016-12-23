@@ -18,20 +18,22 @@ export default class TableDelete extends Component {
     render() {
         // set the callback depending on the type of delete (row/col)
         var callback = this.deleteTable; //row
-        var title = 'Delete Table';
+        var title = 'Delete Table ';
+        if (this.props.name !== undefined){
+            title += this.props.name;
+        }
 
         // display the button
         return (
             <a role="button" data-toggle="tooltip" title={title}
                 className={'btn btn-danger glyphicon glyphicon-trash'}
-                onClick={() => { callback(this.props.params); } }>
+                onClick={() => { callback(this.props.id); } }>
             </a>
         );
     }
 }
-/**
-  * params: parameters to callback function
-  */
+
 TableDelete.propTypes = {
-    params: PropTypes.object.isRequired
+    id: PropTypes.object.isRequired,
+    name: PropTypes.string
 };

@@ -38,14 +38,8 @@ export default class DataInsert extends Component {
             title = ' Add Criterion';
         }
 
-        // if there's no data
-        if (this.props.columnsEmpty) {
-            return <li className="disabled"><a>{title}</a></li>
-        }
-
         return (
-            <li>
-                <a role="button" onClick={this.open}>{title}</a>
+                <a role="button" onClick={this.open}>{title}
 
                 <div className='modal-example'>
                     <Modal className='modalStyle'
@@ -57,7 +51,7 @@ export default class DataInsert extends Component {
                         </div>
                     </Modal>
                 </div>
-            </li>
+            </a>
         );
     }
 
@@ -262,12 +256,10 @@ export default class DataInsert extends Component {
 /**
   * data: provides form input
   * level: column/row
-  * columnsEmpty: is there data already in the database?
   * optionIdx: the index of the options item in cols
   */
 DataInsert.propTypes = {
     data: PropTypes.array.isRequired,
     level: PropTypes.oneOf(['row', 'col']).isRequired,
-    columnsEmpty: PropTypes.bool,
     optionIdx: PropTypes.string
 };

@@ -4,7 +4,9 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 
 import '../imports/startup/accounts-config.js';
-import LandingPage from '../imports/ui/TableSelection/LandingPage.jsx';
+
+import TableSelection from '../imports/ui/Select/TableSelect.jsx';
+import MenuBar from '../imports/ui/Menu/MenuBar.jsx';
 
 Meteor.startup(() => {
 
@@ -13,14 +15,23 @@ Meteor.startup(() => {
 
   render(
     <div className='container'>
-      <header>
-      </header>
-      <LandingPage />
-      <nav className="navbar navbar-default navbar-fixed-bottom">
-        <div className="container" className="pager">
-          Copyright &#169; {year}Adina Stoica. All rights reserved.
-        </div>
-      </nav>
+    
+      <div id="header-container">
+        <MenuBar />
+      </div>
+
+      <div id="app-container">
+        <TableSelection />
+      </div>
+
+      <div id="footer-container">
+        <nav className="navbar navbar-default navbar-fixed-bottom">
+          <div className="container" className="pager">
+            Copyright &#169; {year}Adina Stoica. All rights reserved.
+          </div>
+        </nav>
+      </div>
+
     </div>,
     document.getElementById('render-target'));
 });

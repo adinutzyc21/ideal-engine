@@ -5,12 +5,12 @@ import { check } from 'meteor/check';
 /**
  * Options are for the rows
  */
-export const Option = new Mongo.Collection('option');
+export var Option = new Mongo.Collection('option');
 
 /**
  * Criteria are the columns 
  */
-export const Criterion = new Mongo.Collection('criterion');
+export var Criterion = new Mongo.Collection('criterion');
 
 if (Meteor.isServer) {
     // This code only runs on the server

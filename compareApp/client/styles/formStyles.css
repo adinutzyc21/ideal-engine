@@ -43,8 +43,15 @@ span.input-text {
     margin-right: 6px;
 }
 
-.new-data input:focus {
-    outline: 0;
+.new-table input {
+    box-sizing: border-box;
+    padding: 5px;
+    background: transparent;
+    border: 2px solid gray;
+    border-radius: 2px;
+    width: 100%;
+    font-size: 1em;
+    margin-bottom: 10px;
 }
 
 .form-header {
@@ -91,4 +98,8 @@ input[type=number]::-webkit-inner-spin-button {
     position: relative;
     right: 0px;
     border-radius: 28px;
+}
+
+textarea {
+    width: 100%;
 }
