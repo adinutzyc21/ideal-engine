@@ -55,10 +55,9 @@ export default class DataDelete extends Component {
             <a role="button" data-toggle="tooltip" title={title}
                 className={'glyphicon glyphicon-remove delbutton'}
                 onClick={() => { callback(this.props.params); } }
-                ref="delbutton"
                 onMouseEnter={this.handleMouseIn}
-                onMouseLeave={this.handleMouseOut}
-                ></a>
+                onMouseLeave={this.handleMouseOut} >
+            </a>
         );
     }
 }

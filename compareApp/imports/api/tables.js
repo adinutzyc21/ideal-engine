@@ -16,7 +16,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 
-    'tables.deleteTable' (id) {
+    'tables.removeTable' (id) {
         check(id, Meteor.Collection.ObjectID);
 
         Tables.remove(id);

@@ -2,14 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import Spinner from 'react-spinkit';
 
-import { Meteor } from 'meteor/meteor';
+import TableDelete from "./TableDelete.jsx"
 
 // Column component - represents columns in the table
 export default class AllTables extends Component {
-
-    deleteTable(id) {
-        Meteor.call('tables.deleteTable', id);
-    }
 
     render() {
         // While the data is loading, show a spinner
@@ -42,9 +38,8 @@ export default class AllTables extends Component {
                 spanCls = "glyphicon glyphicon-eye-open";
                 title = "This is a public scene";
             }
-            var id = this.props.tables[i]._id;//._str;
             html.push(
-                <div key={id} className="col-xs-6 col-md-3">
+                <div key={this.props.tables[i]._id} className="col-xs-6 col-md-3">
                     <div className={"thumbnail " + cls}>
                         <div className="caption">
                             <span className={spanCls} title={title}></span>
@@ -53,8 +48,7 @@ export default class AllTables extends Component {
                         </div>
                         <div>
                             <a role="button" className="btn btn-success glyphicon glyphicon-ok" />
-                            <a role="button" className="btn btn-danger glyphicon glyphicon-trash"
-                                onClick={() => { this.deleteTable(id) } } />
+                            <TableDelete key="del" params={this.props.tables[i]._id} />
                         </div>
                     </div>
                 </div>);
