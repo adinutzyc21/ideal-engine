@@ -48,17 +48,10 @@ class TableDisplay extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.rows !== undefined) {
-            ReactDOM.render(<MenuBar currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols}/>, document.getElementById('header-container'));
-        }
+        ReactDOM.render(<MenuBar currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols} tableId={this.props.tableId} />, document.getElementById('header-container'));
     }
 
     render() {
-        // if (!this.props.loading) {
-        //     console.log("you are " + this.props.user.username);
-        // }
-
-        console.log(this.props.tableId);
         $(".table-container").css('max-height', this.state.height + "px");
         // While the data is loading, show a spinner
         if (this.props.loading) {
@@ -77,7 +70,7 @@ class TableDisplay extends Component {
         // If the data is empty, show that there is no data available 
         else if (this.props.rows.length === 0) {
             // clear the residual columns
-            Meteor.call('comparison.deleteAll');
+            Meteor.call('comparison.deleteAll', this.props.tableId);
 
             return (
                 <div className='react-bs-container-body'>
@@ -111,14 +104,16 @@ TableDisplay.propTypes = {
     user: PropTypes.object,
 };
 
-export default createContainer(({ params }) => {
+export default TableDisplayContainer = createContainer(props => {
+    console.log(props.tableId);
     const subscriptionR = Meteor.subscribe('option');
     const loadingR = !subscriptionR.ready();
-    const rows = Option.find({}, { sort: { score: -1 } }).fetch();
+    const rows = Option.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
 
     const subscriptionC = Meteor.subscribe('criterion');
     const loadingC = !subscriptionC.ready();
-    const cols = Criterion.find().fetch();
+
+    const cols = Criterion.find({ tableId: props.tableId }).fetch();
 
     const user = Meteor.user();
     const loadingU = Meteor.user() === undefined;

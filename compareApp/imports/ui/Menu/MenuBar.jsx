@@ -25,6 +25,8 @@ export default class MenuBar extends Component {
         this.isActive = this.isActive.bind(this);
         this.loadTable = this.loadTable.bind(this);
         this.isDisabled = this.isDisabled.bind(this);
+        this.populateDocument = this.populateDocument.bind(this);
+        this.deleteDocument = this.deleteDocument.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +45,7 @@ export default class MenuBar extends Component {
     }
 
     isEmpty() {
-        return this.props.cols.length === 0 && this.props.rows.length === 0;
+        return this.props.cols === undefined || this.props.rows === undefined || (this.props.cols.length === 0 && this.props.rows.length === 0);
     }
 
     getOptionNameId() {
@@ -71,7 +73,7 @@ export default class MenuBar extends Component {
     }
 
     deleteDocument() {
-        Meteor.call('comparison.deleteAll');
+        Meteor.call('comparison.deleteAll', this.props.tableId);
     }
     /**
      * Create the table (for testing purposes)
@@ -125,7 +127,7 @@ export default class MenuBar extends Component {
             { name: "Size", score: 8 },
         ];
 
-        Meteor.call('comparison.populateTables', cols, rows);
+        Meteor.call('comparison.populateTables', cols, rows, this.props.tableId);
     }
 
     createHtml() {
@@ -161,6 +163,9 @@ export default class MenuBar extends Component {
                         <li role="button" className={this.isActive("loadTable")}>
                             <a role="button" onClick={this.loadTable}>Load Table</a></li>
                         <li role="button" className={this.isActive("newTable")}><TableCreate /></li>
+                        <li role="separator" className="divider"></li>
+                        <li className={this.isDisabled("populateTable")}><a role="button" onClick={this.populateDocument}>Populate table</a></li>
+                        <li className={this.isDisabled("emptyTable")}><a role="button" onClick={this.deleteDocument}>Empty table</a></li>
                     </ul>
                 </li>
             </ul>;
@@ -183,9 +188,6 @@ export default class MenuBar extends Component {
                         <ul className="dropdown-menu">
                             <li className={this.isDisabled("addRow")}><DataInsert key="row" level="row" data={this.props.cols} /></li>
                             <li className={this.isDisabled("addCol")}><DataInsert key="col" level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} /></li>
-                            <li role="separator" className="divider"></li>
-                            <li className={this.isDisabled("emptyTable")}><a role="button" onClick={this.deleteDocument}>Empty table</a></li>
-                            <li className={this.isDisabled("populateTable")}><a role="button" onClick={this.populateDocument}>Populate table</a></li>
                         </ul>
                     </li>
                 </ul>;
@@ -221,4 +223,5 @@ export default class MenuBar extends Component {
 MenuBar.propTypes = {
     cols: PropTypes.array,
     rows: PropTypes.array,
+    tableId: PropTypes.string
 };

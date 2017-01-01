@@ -26,7 +26,6 @@ export default class TableLoad extends Component {
      */
     render() {
         // set the callback depending on the type of delete (row/col)
-        //var callback = this.deleteTable; //row
         var title = 'Load Table ';
         if (this.props.name !== undefined) {
             title += this.props.name;
