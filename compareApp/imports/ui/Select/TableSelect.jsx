@@ -9,7 +9,7 @@ import TableLoad from "./TableLoad.jsx"
 
 // Column component - represents columns in the table
 class TableSelect extends Component {
-
+    
     render() {
         // While the data is loading, show a spinner
         if (this.props.loading) {

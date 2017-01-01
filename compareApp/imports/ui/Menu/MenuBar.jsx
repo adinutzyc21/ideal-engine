@@ -29,9 +29,9 @@ export default class MenuBar extends Component {
         this.deleteDocument = this.deleteDocument.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.rows !== undefined) {
-            this.setState({ currentView: "tableDisplay" });
+    componentWillReceiveProps() {
+        if (this.props.currentView !== undefined) {
+            this.setState({ currentView: this.props.currentView });
         }
     }
 
@@ -163,9 +163,6 @@ export default class MenuBar extends Component {
                         <li role="button" className={this.isActive("loadTable")}>
                             <a role="button" onClick={this.loadTable}>Load Table</a></li>
                         <li role="button" className={this.isActive("newTable")}><TableCreate /></li>
-                        <li role="separator" className="divider"></li>
-                        <li className={this.isDisabled("populateTable")}><a role="button" onClick={this.populateDocument}>Populate table</a></li>
-                        <li className={this.isDisabled("emptyTable")}><a role="button" onClick={this.deleteDocument}>Empty table</a></li>
                     </ul>
                 </li>
             </ul>;
@@ -178,7 +175,7 @@ export default class MenuBar extends Component {
         var editMenu = <div></div>;
         var calcScoreButton = <div></div>;
 
-        if (this.props.cols !== undefined && this.props.rows !== undefined) {
+        if (this.state.currentView !== "loadTable" && this.props.cols !== undefined && this.props.rows !== undefined) {
             editMenu =
                 <ul className="nav navbar-nav">
                     <li className="dropdown">
@@ -188,6 +185,9 @@ export default class MenuBar extends Component {
                         <ul className="dropdown-menu">
                             <li className={this.isDisabled("addRow")}><DataInsert key="row" level="row" data={this.props.cols} /></li>
                             <li className={this.isDisabled("addCol")}><DataInsert key="col" level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} /></li>
+                            <li role="separator" className="divider"></li>
+                            <li className={this.isDisabled("populateTable")}><a role="button" onClick={this.populateDocument}>Populate table</a></li>
+                            <li className={this.isDisabled("emptyTable")}><a role="button" onClick={this.deleteDocument}>Empty table</a></li>
                         </ul>
                     </li>
                 </ul>;
@@ -223,5 +223,6 @@ export default class MenuBar extends Component {
 MenuBar.propTypes = {
     cols: PropTypes.array,
     rows: PropTypes.array,
-    tableId: PropTypes.string
+    tableId: PropTypes.string,
+    currentView: PropTypes.string
 };

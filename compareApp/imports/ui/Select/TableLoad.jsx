@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 import TableDisplay from '../Display/TableDisplay.jsx';
-import MenuBar from '../Menu/MenuBar.jsx';
 
 // ButtonDelete component - use to add a delete button and perform delete operations
 export default class TableLoad extends Component {

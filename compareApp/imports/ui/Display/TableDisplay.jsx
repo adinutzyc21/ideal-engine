@@ -105,7 +105,6 @@ TableDisplay.propTypes = {
 };
 
 export default TableDisplayContainer = createContainer(props => {
-    console.log(props.tableId);
     const subscriptionR = Meteor.subscribe('option');
     const loadingR = !subscriptionR.ready();
     const rows = Option.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
