@@ -49,13 +49,24 @@ span.input-text {
     background: transparent;
     border: 2px solid gray;
     border-radius: 2px;
-    width: 100%;
     font-size: 1em;
     margin-bottom: 10px;
 }
 
+.new-table input[type=checkbox] {
+    margin-left: 10px;
+}
+
+.new-table label {
+    margin-left: 5px;
+}
+
 .form-header {
     color: #337ab7;
+}
+
+.tableForm {
+    color: gray;
 }
 
 .new-data input.form-header {

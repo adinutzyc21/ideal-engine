@@ -43,6 +43,6 @@ export default class TableLoad extends Component {
 }
 
 TableLoad.propTypes = {
-    id: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string
 };

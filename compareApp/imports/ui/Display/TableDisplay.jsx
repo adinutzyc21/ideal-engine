@@ -104,7 +104,7 @@ class TableDisplay extends Component {
 }
 
 TableDisplay.propTypes = {
-    tableId: PropTypes.object.isRequired,
+    tableId: PropTypes.string.isRequired,
     loading: PropTypes.bool,
     rows: PropTypes.array,
     cols: PropTypes.array,

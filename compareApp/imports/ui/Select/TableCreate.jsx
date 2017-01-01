@@ -14,20 +14,40 @@ export default class TableCreate extends Component {
         // initialize state variables
         this.state = {
             showModal: false,
-            tableName: ""
+            tableName: "",
+            tableDescription: "",
+            isPublic: false
         };
         // make this available in these methods
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleIsPublic = this.toggleIsPublic.bind(this);
         this.handleChangeTableName = this.handleChangeTableName.bind(this);
+        this.handleChangeTableDescription = this.handleChangeTableDescription.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
     }
 
     /** 
-     * Change the criterion name in the form dynamically 
+     * Change the table name in the form dynamically 
      */
     handleChangeTableName(event) {
         this.setState({ tableName: event.target.value });
+    }
+
+    /** 
+     * Change the table description in the form dynamically 
+     */
+    handleChangeTableDescription(event) {
+        this.setState({ tableDescription: event.target.value });
+    }
+
+    /** 
+     * Change the table privacy in the form dynamically 
+     */
+    toggleIsPublic(event) {
+        // the value is a string
+        var pub = !(event.target.value==="true");
+        this.setState({ isPublic: pub });
     }
 
     /**
@@ -37,32 +57,20 @@ export default class TableCreate extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        // var cols = this.props.data;
-        // var query = {};
+        var query = {};
 
-        // var headerId = "";
-        // if (cols.length !== 0) {
-        //     headerId = cols[0]._id
-        // }
-        // else {
-        //     headerId = new Meteor.Collection.ObjectID()._str;
-        //     Meteor.call('comparison.insertFirstColumn', headerId);
-        // }
+        tableId = new Meteor.Collection.ObjectID()._str;
+        query._id = tableId;
 
-        // query.score = ReactDOM.findDOMNode(this.refs.textInput0_score).value.trim();
-        // // get the header separately
-        // query[headerId] = {
-        //     value: ReactDOM.findDOMNode(this.refs.textInput0).value.trim()
-        // };
+        query.name = this.state.tableName;
 
-        // // Find the text field via the React ref
-        // for (var i = 1, len = cols.length; i < len; i++) {
-        //     query[cols[i]._id] = {
-        //         value: ReactDOM.findDOMNode(this.refs["textInput" + i]).value.trim(),
-        //         score: ReactDOM.findDOMNode(this.refs["textInput" + i + "_score"]).value.trim()
-        //     };
-        // }
-        // Meteor.call('comparison.insertRow', query);
+        // TODO: change this
+        query.isPublic = this.state.isPublic;
+        
+        query.owner = Meteor.user().username;
+        query.description = this.state.tableDescription;
+
+        Meteor.call('tables.insertTable', query);
 
         //  Close form
         this.close();
@@ -72,7 +80,6 @@ export default class TableCreate extends Component {
      * Display the delete button based on the parameters
      */
     render() {
-
         // display the button
         return (
             <a role="button" onClick={this.open}>New Table
@@ -105,14 +112,20 @@ export default class TableCreate extends Component {
                 onSubmit={this.handleSubmit}>
                 <div className="content-form">
                     <span key="header_text" className="input-text form-header">New Table Name:</span>
-                    <input key="table_name" type="text" ref="tableName" className="form-header"
-                        value={this.state.criterion} onChange={this.handleChangeTableName} autoFocus />
+                    <input key="table_name" type="text" className="tableForm"
+                        value={this.state.tableName} onChange={this.handleChangeTableName} autoFocus />
+                    
+                    <input type="checkbox" id="isPublic" value={this.state.isPublic} checked={this.state.isPublic} onChange={this.toggleIsPublic} /> 
+                    <label htmlFor="isPublic" key="isPublic" className="input-text tableForm">Make Public</label>
+                    
                     <span key="description_text" className="input-text form-header">Short Description:</span>
-                    <textarea key="table_description" ref="tableDescription" id="tableDescription" rows="3" cols="40"></textarea>
+                    <textarea key="table_description" id="tableDescription" rows="3" cols="40"
+                        value={this.state.tableDescription} onChange={this.handleChangeTableDescription} ></textarea>
                 </div>
+
                 <button key="button" type='submit' className={'btn btn-primary ' + classN}
                     data-toggle='title' data-placement='right' title={title}>
-                    <i className='glyphicon glyphicon-plus' />{title}
+                    <i className='glyphicon glyphicon-plus' /> {title}
                 </button>
             </form>);
     }
@@ -128,6 +141,6 @@ export default class TableCreate extends Component {
      * Close the modal window
      */
     close() {
-        this.setState({ showModal: false, tableName: "" });
+        this.setState({ showModal: false, tableName: "", tableDescription: "", isPublic: false });
     }
 }

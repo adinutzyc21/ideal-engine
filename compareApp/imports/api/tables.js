@@ -17,8 +17,15 @@ if (Meteor.isServer) {
 Meteor.methods({
 
     'tables.removeTable' (id) {
-        check(id, Meteor.Collection.ObjectID);
+        check(id, String);
 
         Tables.remove(id);
+    },
+
+    'tables.insertTable' (query) {
+        check(query, Object);
+        query.lastModified = new Date();
+
+        Tables.insert(query);
     }
 });

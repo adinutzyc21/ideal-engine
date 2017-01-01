@@ -34,6 +34,6 @@ export default class TableDelete extends Component {
 }
 
 TableDelete.propTypes = {
-    id: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string
 };
