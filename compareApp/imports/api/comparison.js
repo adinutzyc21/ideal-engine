@@ -2,29 +2,33 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Option = new Mongo.Collection('option');
+/**
+ * Options are for the rows
+ */
+export var Option = new Mongo.Collection('option');
+
+/**
+ * Criteria are the columns 
+ */
+export var Criterion = new Mongo.Collection('criterion');
 
 if (Meteor.isServer) {
     // This code only runs on the server
     Meteor.publish('option', function optionPublication() {
         return Option.find();
     });
-}
 
-/**
- * Criteria are the columns 
- */
-export const Criterion = new Mongo.Collection('criterion');
-
-if (Meteor.isServer) {
-    // This code only runs on the server
     Meteor.publish('criterion', function criterionPublication() {
         return Criterion.find();
     });
 }
 
 Meteor.methods({
-    'comparison.populateTables' (cols, rows) {
+    'comparison.populateTables' (cols, rows, tableId) {
+        check(cols, Array);
+        check(rows, Array);
+        check(tableId, String);
+
         var colIds = [];
         // create the row
         for (var i = 0, len = cols.length; i < len; i++) {
@@ -33,6 +37,8 @@ Meteor.methods({
             // create the column
             var colData = cols[i];
             colData._id = colId;
+
+            colData.tableId = tableId;
 
             colIds.push(colId);
             // insert the column
@@ -46,14 +52,17 @@ Meteor.methods({
                 rowData[colIds[j]] = rows[i][j];
                 rowData.score = 5;
             }
+            rowData.tableId = tableId;
             Option.insert(rowData);
         }
 
     },
 
-    'comparison.deleteAll' () {
-        Option.remove({});
-        Criterion.remove({});
+    'comparison.deleteAll' (tableId) {
+        check(tableId, String);
+
+        Option.remove({ tableId: tableId });
+        Criterion.remove({ tableId: tableId });
     },
 
     'comparison.removeRow' (id) {
@@ -97,7 +106,6 @@ Meteor.methods({
                 score: score
             }
         });
-
     },
 
     'comparison.insertColumn' (colQuery, colId) {

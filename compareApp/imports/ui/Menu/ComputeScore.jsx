@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
 // Column component - represents columns in the table
-export default class MenuBar extends Component {
+export default class ComputeScore extends Component {
     /**
      * Initialize state variables and bind this to methods
      */
@@ -51,7 +51,7 @@ export default class MenuBar extends Component {
     }
 }
 
-MenuBar.propTypes = {
+ComputeScore.propTypes = {
     cols: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     optionIdx: PropTypes.string

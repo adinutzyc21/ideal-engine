@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import DataDelete from './DataDelete.jsx';
+import DataDelete from '../Menu/DataDelete.jsx';
 
 // DataRow component - displays the cotents of the table
 export default class DataRow extends Component {
