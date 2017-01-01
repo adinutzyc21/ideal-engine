@@ -139,10 +139,10 @@ export default class MenuBar extends Component {
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="/">
                     <img alt="Brand" src="/logo.png" height="25px" />
                 </a>
-                <p className="navbar-text title">compareApp</p>
+                <a href="/"><p className="navbar-text title">compareApp</p></a>
             </div>
 
         // and the login option

@@ -58,7 +58,7 @@ class TableDisplay extends Component {
         //     console.log("you are " + this.props.user.username);
         // }
 
-        // console.log(this.props.tableId);
+        console.log(this.props.tableId);
         $(".table-container").css('max-height', this.state.height + "px");
         // While the data is loading, show a spinner
         if (this.props.loading) {
