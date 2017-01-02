@@ -16,7 +16,7 @@ export default class TableCreate extends Component {
             showModal: false,
             tableName: "",
             tableDescription: "",
-            isPublic: false
+            isPublic: true
         };
         // make this available in these methods
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +46,7 @@ export default class TableCreate extends Component {
      */
     toggleIsPublic(event) {
         // the value is a string
-        var pub = !(event.target.value==="true");
+        var pub = !(event.target.value === "true");
         this.setState({ isPublic: pub });
     }
 
@@ -64,10 +64,14 @@ export default class TableCreate extends Component {
 
         query.name = this.state.tableName;
 
-        // TODO: change this
         query.isPublic = this.state.isPublic;
-        
-        query.owner = Meteor.user().username;
+
+        if (Meteor.user() === null) {
+            query.owner = "";
+        } else {
+            query.owner = Meteor.user().username;
+        }
+
         query.description = this.state.tableDescription;
 
         Meteor.call('tables.insertTable', query);
@@ -107,6 +111,14 @@ export default class TableCreate extends Component {
             classN = "disabled";
         }
 
+        var publicCheckbox = <label key="isPublic" className="input-text tableForm">Public Table</label>
+        if (Meteor.user() !== null) {
+            publicCheckbox =
+                <span>
+                    <input type="checkbox" id="isPublic" value={this.state.isPublic} checked={this.state.isPublic} onChange={this.toggleIsPublic} />
+                    <label htmlFor="isPublic" key="isPublic" className="input-text tableForm">Make Public</label>
+                </span>
+        }
         return (
             <form className="new-table"
                 onSubmit={this.handleSubmit}>
@@ -114,10 +126,9 @@ export default class TableCreate extends Component {
                     <span key="header_text" className="input-text form-header">New Table Name:</span>
                     <input key="table_name" type="text" className="tableForm"
                         value={this.state.tableName} onChange={this.handleChangeTableName} autoFocus />
-                    
-                    <input type="checkbox" id="isPublic" value={this.state.isPublic} checked={this.state.isPublic} onChange={this.toggleIsPublic} /> 
-                    <label htmlFor="isPublic" key="isPublic" className="input-text tableForm">Make Public</label>
-                    
+
+                    {publicCheckbox}
+
                     <span key="description_text" className="input-text form-header">Short Description:</span>
                     <textarea key="table_description" id="tableDescription" rows="3" cols="40"
                         value={this.state.tableDescription} onChange={this.handleChangeTableDescription} ></textarea>
