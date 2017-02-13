@@ -6,7 +6,7 @@
 
 #login-buttons .login-button,
 .accounts-dialog .login-button {
-    background-color: #337ab7
+    background-color: $lightBlue
 }
 
 #login-buttons a {
@@ -15,14 +15,14 @@
 }
 
 .navbar-header .navbar-text {
-    color: #337ab7;
+    color: $lightBlue;
     font-weight: bolder;
     margin-left: -8px;
 }
 
 .navbar {
     max-height: 50px;
-    color: #337ab7;
+    color: $lightBlue;
     font-weight: bolder;
 }
 

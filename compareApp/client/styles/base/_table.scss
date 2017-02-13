@@ -11,7 +11,7 @@ td {
 }
 
 th {
-    background-color: #004d66;
+    background-color: $darkBlue;
     color: white;
     text-transform: capitalize;
     font-variant: small-caps;
@@ -22,7 +22,7 @@ th:first-child {
 }
 
 td.secondary-heading {
-    color: #004d66;
+    color: $darkBlue;
     font-weight: bold;
     text-transform: capitalize;
     border-left: 0px;
@@ -55,10 +55,10 @@ tr:nth-child(even) {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: #004d66;
+    background-color: $darkBlue;
     ;
-    box-shadow: 0 0 10px #337ab7;
-    -webkit-box-shadow: 0 0 10px #337ab7;
+    box-shadow: 0 0 10px $lightBlue;
+    -webkit-box-shadow: 0 0 10px $lightBlue;
 }
 
 .del-highlight {
