@@ -47,21 +47,19 @@ class TableDisplay extends Component {
         window.removeEventListener("resize", this.updateDimensions);
     }
 
-    componentDidUpdate() {
-        ReactDOM.render(<MenuBar currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols} tableId={this.props.tableId} />, document.getElementById('header-container'));
-    }
-
     render() {
         $(".table-container").css('max-height', this.state.height + "px");
+
+        // this is the final view
+        var html = [];
+
         // While the data is loading, show a spinner
         if (this.props.loading) {
-            return (
-                <div className='react-bs-container-body'>
-                    <div className='table-container table-container-no-data'>
-                        <div>
-                            Loading data...
-                        <Spinner spinnerName='three-bounce' />
-                        </div>
+            html.push (
+                <div className='table-container table-container-no-data'>
+                    <div>
+                        Loading data...
+                    <Spinner spinnerName='three-bounce' />
                     </div>
                 </div>
             );
@@ -72,17 +70,15 @@ class TableDisplay extends Component {
             // clear the residual columns
             Meteor.call('comparison.deleteAll', this.props.tableId);
 
-            return (
-                <div className='react-bs-container-body'>
-                    <div className='table-container table-container-no-data'>
-                        <div>No data available. Use the menu to add data.</div>
-                    </div>
+            html.push(
+                <div className='table-container table-container-no-data'>
+                    <div>No data available. Use the menu to add data.</div>
                 </div>
             );
         }
-
-        return (
-            <div className='react-bs-container-body'>
+        // render the loaded table
+        else {
+            html.push(
                 <div className='table-container'>
                     <table>
                         {/* Need a header of type TableHeading */}
@@ -91,6 +87,13 @@ class TableDisplay extends Component {
                         <TableRow rows={this.props.rows} cols={this.props.cols} />
                     </table>
                 </div>
+            );
+        }
+
+        return (
+            <div className='react-bs-container-body'>
+                <MenuBar currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols} tableId={this.props.tableId} />
+                {html}
             </div>
         );
     }

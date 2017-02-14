@@ -6,7 +6,6 @@ import { render } from 'react-dom';
 import '../imports/startup/accounts-config.js';
 
 import TableSelection from '../imports/ui/Select/TableSelect.jsx';
-import MenuBar from '../imports/ui/Menu/MenuBar.jsx';
 
 Meteor.startup(() => {
 
@@ -15,10 +14,6 @@ Meteor.startup(() => {
 
   render(
     <div className='container'>
-    
-      <div id="header-container">
-        <MenuBar />
-      </div>
 
       <div id="app-container">
         <TableSelection />
