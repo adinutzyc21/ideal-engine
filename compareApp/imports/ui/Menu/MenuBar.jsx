@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import AccountsUIWrapper from '../Login/AccountsUIWrapper.jsx';
 import DataInsert from './DataInsert.jsx';
 
 import ComputeScore from './ComputeScore.jsx'

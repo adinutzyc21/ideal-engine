@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 import TableDisplay from '../Display/TableDisplay.jsx';
 
-// ButtonDelete component - use to add a delete button and perform delete operations
+// TableLoad component - use to load the selected table
 export default class TableLoad extends Component {
     /**
      * Initialize state variables and bind this to methods
@@ -17,7 +17,7 @@ export default class TableLoad extends Component {
     }
 
     loadTable() {
-        ReactDOM.render(<TableDisplay tableId={this.props.id}/>,document.getElementById('app-container'));        
+        ReactDOM.render(<TableDisplay tableId={this.props.id}/>, document.getElementById('app-container'));        
     }
 
     /**

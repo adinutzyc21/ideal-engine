@@ -1,0 +1,39 @@
+Variables
+============
+$blue: #0000ff;
+
+
+Rules
+======
+Embedding
+$baseClass: "something"
+
+#{$baseClass}somethingelse // string concatenation
+
+Structure
+nav {
+    font-size: etc
+    ul {
+        list-style etc
+        li {
+            float etc
+        }
+    }
+}
+
+Parent selector (&) to mix with Parent
+a {
+    text-decoration etc
+    $:hover {
+        text-decoration etc
+    }
+}
+
+Nest properties 
+.button {
+    font: {
+        family etc
+        size etc
+    }
+}
+
