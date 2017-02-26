@@ -24,7 +24,7 @@ nav {
 Parent selector (&) to mix with Parent
 a {
     text-decoration etc
-    $:hover {
+    &:hover {
         text-decoration etc
     }
 }
@@ -37,3 +37,60 @@ Nest properties
     }
 }
 
+Extend classes @extend
+.button {
+    etc
+}
+.submit-button {
+    @extend a:hover; //extend a rule
+    @extend .button; // multiple rules
+    border etc
+}
+
+Mixins
+ with or without parameters
+
+
+@mixin rounded-corners-all($size){
+        border-radius: $size;
+        -webkit-border-radius: $size;
+        -moz-border-radius: $size;
+}
+#form {
+    @include rounded-corners-all(5 px);
+}
+
+or with default value
+
+@mixin rounded-corners-all($size: 5px){
+        border-radius: $size;
+        -webkit-border-radius: $size;
+        -moz-border-radius: $size;
+}
+#form {
+    @include rounded-corners-all;
+}
+
+Functions
+$appWidth: 900px;
+@function column-width($cols){
+    @return ($appWidth / $cols) - $cols* 5px;
+}
+
+.col2 {
+    width:column-width(2);
+}
+
+.col3 {
+    width:column-width(3);
+}
+
+@function center-width($gutter){
+    @return $appWidth - $gutter*2;
+}
+
+Control directive
+@if
+@for
+@each
+@while

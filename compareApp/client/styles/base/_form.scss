@@ -31,6 +31,24 @@ span.input-text {
     text-transform: capitalize;
 }
 
+.form-header {
+    color: $lightBlue;
+}
+
+.tableForm {
+    color: gray;
+}
+
+.new-data input.form-header {
+    border: 3px solid #337ab7;
+    padding: 8px;
+}
+
+.content-form {
+    max-height: 400px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
 .new-data input {
     box-sizing: border-box;
     padding: 5px;
@@ -59,25 +77,6 @@ span.input-text {
 
 .new-table label {
     margin-left: 5px;
-}
-
-.form-header {
-    color: $lightBlue;
-}
-
-.tableForm {
-    color: gray;
-}
-
-.new-data input.form-header {
-    border: 3px solid #337ab7;
-    padding: 8px;
-}
-
-.content-form {
-    max-height: 400px;
-    overflow: auto;
-    margin-bottom: 10px;
 }
 
 input[type=number] {

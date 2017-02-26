@@ -3,8 +3,7 @@ table {
     border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
     vertical-align: middle;
     padding: 10px;
     border-left: 1px solid #0099cc;
@@ -15,59 +14,48 @@ th {
     color: white;
     text-transform: capitalize;
     font-variant: small-caps;
+    &:first-child {
+        border-left: 0px;
+    }
+    &.del-highlight {
+        background-color: #ff4d4d;
+    }
 }
 
-th:first-child {
-    border-left: 0px;
+td{
+    &.secondary-heading {
+        color: $darkBlue;
+        font-weight: bold;
+        text-transform: capitalize;
+        border-left: 0px;
+    }
 }
 
-td.secondary-heading {
-    color: $darkBlue;
-    font-weight: bold;
-    text-transform: capitalize;
-    border-left: 0px;
+tr{
+    &:nth-child(even) {
+        background-color: #e2f2ff
+    }
 }
 
-tr:nth-child(even) {
-    background-color: #e2f2ff
-}
-
-.divdelete a {
-    color: lightgray;
-    padding-right: 20px;
-}
-
-.divdelete a:hover {
-    cursor: pointer;
-    text-decoration: none;
-    color: darkred;
+.divdelete {
+    a {
+        color: lightgray;
+        padding-right: 20px;
+        &:hover {
+            cursor: pointer;
+            text-decoration: none;
+            color: darkred;
+        }
+    }
 }
 
 .delbutton {
     width: 10px;
 }
 
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 4px;
-    height: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: $darkBlue;
-    ;
-    box-shadow: 0 0 10px $lightBlue;
-    -webkit-box-shadow: 0 0 10px $lightBlue;
-}
-
 .del-highlight {
     background-color: #ffcccc;
     opacity: 0.8;
-}
-
-th.del-highlight {
-    background-color: #ff4d4d;
 }
 
 .score-display {
@@ -80,12 +68,14 @@ th.del-highlight {
     background-color: ghostwhite;
     text-align: center;
     color: black;
+    &:hover {
+        opacity: 1;
+    }
 }
 
-.score-display:hover {
-    opacity: 1;
-}
 
-.secondary-heading .score-display {
-    background-color: lightgray;
+.secondary-heading{
+    .score-display {
+        background-color: lightgray;
+    }
 }

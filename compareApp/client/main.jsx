@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 
 import '../imports/startup/accounts-config.js';
 
-import TableSelection from '../imports/ui/Select/TableSelect.jsx';
+import App from '../imports/ui/App.jsx';
 
 Meteor.startup(() => {
 
@@ -16,7 +16,7 @@ Meteor.startup(() => {
     <div className='container'>
 
       <div id="app-container">
-        <TableSelection />
+        <App />
       </div>
 
       <div id="footer-container">

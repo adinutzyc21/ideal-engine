@@ -70,11 +70,9 @@ class TableSelect extends Component {
         }
 
         return (
-            <div className='react-bs-container-body'>
-                <div className='table-container table-container-no-data'>
-                    <MenuBar/>
-                    {html}
-                </div>
+            <div className='table-container table-container-no-data'>
+                <MenuBar/>
+                {html}
             </div>
         );
     }

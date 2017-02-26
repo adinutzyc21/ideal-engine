@@ -10,21 +10,22 @@
     background: lightblue;
 }
 
-.caption>span {
-    float: left;
-    color: black;
-}
 
-.thumbnail>div>a {
-    margin: 5px;
+.thumbnail {
+    &>div{
+        &>a{
+            margin: 5px;
+        }
+    }
 }
 
 .caption {
     background: white;
     overflow: auto;
     word-wrap: break-word;
-}
-
-.caption {
     height: 130px;
+    &>span{
+        float: left;
+        color: black;
+    }
 }
