@@ -8,7 +8,7 @@ Ever tried to make a decision and ended up writing scores of entries in poorly-s
 
 For example, if trying to compare three apartment options to move to, you might make a list like this:
 
-<img src="https://raw.githubusercontent.com/adinutzyc21/ideal-engine/master/example.png" width="100%">
+<img src="https://raw.githubusercontent.com/adinutzyc21/ideal-engine/master/design/example.png" width="100%">
 
 Then, you'll have to decide which features are more important (low price? space? user ratings? distance to work? etc.) and pick an apartment. 
 
@@ -17,7 +17,7 @@ This app would allow you to give relative importance to each of these criteria a
 
 ## Application Preliminary Overview
 <p  align="center">
-<img src="https://raw.githubusercontent.com/adinutzyc21/ideal-engine/master/appDesign.png" width="640px"></p>
+<img src="https://raw.githubusercontent.com/adinutzyc21/ideal-engine/master/design/appDesign.png" width="640px"></p>
 
 - The column headers (Criterion 1, Criterion 2 etc.) represent the criteria by which sorting to occurs. E.g. price, square footage, location etc. These are added by the user, according to their preference.
 - Clicking on the '+' sign on the right adds a new column to the right of the table. By hovering over the column header, a gray tab appears. Dragging this gray tab moves the column left or right. Clicking on the 'X' on the gray tab deletes the column.
