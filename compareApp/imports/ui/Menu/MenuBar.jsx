@@ -205,8 +205,8 @@ export default class MenuBar extends Component {
                     {fileMenu}
                     {editMenu}
                     {calcScoreButton}
-                    {helpButton}
                     {loginOption}
+                    {helpButton}
                 </div>
             </div>
 
