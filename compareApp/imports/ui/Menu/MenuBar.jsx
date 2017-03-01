@@ -127,6 +127,16 @@ export default class MenuBar extends Component {
                 <li><a href="#"><AccountsUIWrapper /></a></li>
             </div>
 
+        // a help button
+        var helpButton = 
+            <ul className="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://github.com/adinutzyc21/ideal-engine/blob/master/README.md" target="_blank" title="Help?" > 
+                        <span className="glyphicon glyphicon-question-sign blue"></span>
+                    </a>
+                </li>
+            </ul>;
+
         var fileMenu =
             <ul className="nav navbar-nav">
                 <li className="dropdown">
@@ -140,7 +150,6 @@ export default class MenuBar extends Component {
                     </ul>
                 </li>
             </ul>;
-
 
         // <li role="button" className={this.isActive("importCSV")}><a role="button">Import from CSV</a></li>
         // <li><a role="button">Export to CSV</a></li>
@@ -196,6 +205,7 @@ export default class MenuBar extends Component {
                     {fileMenu}
                     {editMenu}
                     {calcScoreButton}
+                    {helpButton}
                     {loginOption}
                 </div>
             </div>
