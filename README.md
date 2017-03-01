@@ -51,7 +51,7 @@ Let's create a comparison! Go to [ideal-engine](https://ideal-engine.herokuapp.c
 
 ## Running on your own computer
 
-If you'd rather run this locally, or want to make a pull request, here's how to install it. Please note that these instructions are for Mac/Linux, for Windows you'd want to download Meteor from [here](https://www.meteor.com/install) and manually do all of the steps below (or use cmd, or git bash etc.). 
+If you'd rather run this locally, or want to make a pull request, here's how to install it. Please note that these instructions are for Mac/Linux, for Windows you'd want to download Meteor from [here](https://www.meteor.com/install), add to PATH (folder is *C:\Users\yourUserName\AppData\Local\.meteor\*) and manually do all of the steps below (or use cmd, or git bash etc.). 
 
 ``` bash
 # install meteor (on windows from https://install.meteor.com/windows)
