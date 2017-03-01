@@ -23,11 +23,11 @@ export default class DataDelete extends Component {
     }
 
     /**
-     * Delete a column from the Comparison collection given its name
-     * @param column is the name of the column we're deleting
+     * Delete a column from the Comparison collection given its id
+     * @param id the id of the column we're deleting
      */
-    deleteColumn(column) {
-        Meteor.call('comparison.removeColumn', column);
+    deleteColumn(id) {
+        Meteor.call('comparison.deleteColumn', id);
     }
 
     /**
@@ -35,7 +35,7 @@ export default class DataDelete extends Component {
      * @param id the id of the column
      */
     deleteRow(id) {
-        Meteor.call('comparison.removeRow', id);
+        Meteor.call('comparison.deleteRow', id);
     }
 
     /**

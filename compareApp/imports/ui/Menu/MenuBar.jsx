@@ -24,6 +24,7 @@ export default class MenuBar extends Component {
         // make this available in these methods
         this.isActive = this.isActive.bind(this);
         this.loadTable = this.loadTable.bind(this);
+        this.disabledClass = this.disabledClass.bind(this);
         this.isDisabled = this.isDisabled.bind(this);
         this.populateDocument = this.populateDocument.bind(this);
         this.deleteDocument = this.deleteDocument.bind(this);
@@ -53,7 +54,7 @@ export default class MenuBar extends Component {
         return this.props.cols[0]._id;
     }
 
-    isDisabled(menuString) {
+    disabledClass(menuString) {
         switch (menuString) {
             case "populateTable":
                 if (!this.isEmpty())
@@ -69,65 +70,38 @@ export default class MenuBar extends Component {
             default:
                 return "default";
         }
+    }
 
+    isDisabled(menuString) {
+        switch (menuString) {
+            case "populateTable":
+                if (!this.isEmpty())
+                    return true;
+                break;
+            case "emptyTable":
+                if (this.isEmpty())
+                    return true;
+                break;
+            case "addCol":
+                if (this.isEmpty())
+                    return true;
+            default:
+                return false;
+        }
     }
 
     deleteDocument() {
-        Meteor.call('comparison.deleteAll', this.props.tableId);
+        if(!this.isDisabled("emptyTable")){
+            Meteor.call('comparison.deleteContents', this.props.tableId);
+        }
     }
     /**
      * Create the table (for testing purposes)
      */
     populateDocument() {
-        var rows = [
-            [
-                { value: "Apartment 1" },
-                { value: "$800", score: 1 },
-                { value: "$200", score: 3 },
-                { value: "70%", score: 1 },
-                { value: "10 mi", score: 4 },
-                { value: "720 sqft", score: 1 }
-            ], [
-                { value: "Apartment 2" },
-                { value: "$780", score: 10 },
-                { value: "$100", score: 3 },
-                { value: "78%", score: 2 },
-                { value: "12 mi", score: 4 },
-                { value: "780 sqft", score: 7 }
-            ], [
-                { value: "Apartment 3" },
-                { value: "$720", score: 9 },
-                { value: "$50", score: 4 },
-                { value: "79%", score: 4 },
-                { value: "2 mi", score: 10 },
-                { value: "780 sqft", score: 7 }
-            ], [
-                { value: "Apartment 4" },
-                { value: "$700", score: 4 },
-                { value: "$0", score: 5 },
-                { value: "58%", score: 1 },
-                { value: "2 mi", score: 2 },
-                { value: "780 sqft", score: 7 }
-            ], [
-                { value: "Apartment 5" },
-                { value: "$700", score: 6 },
-                { value: "$150", score: 2 },
-                { value: "89%", score: 2 },
-                { value: "15 mi", score: 2 },
-                { value: "880 sqft", score: 2 }
-            ]
-        ];
-
-        var cols = [
-            { name: "Option Name" },
-            { name: "The Rent", score: 9 },
-            { name: "My Deposit", score: 2 },
-            { name: "Rating", score: 7 },
-            { name: "Distance to Work", score: 5 },
-            { name: "Size", score: 8 },
-        ];
-
-        Meteor.call('comparison.populateTables', cols, rows, this.props.tableId);
+        if(!this.isDisabled("populateTable")){
+            Meteor.call('comparison.populateTables', this.props.tableId);
+        }
     }
 
     createHtml() {
@@ -183,11 +157,29 @@ export default class MenuBar extends Component {
                             <span className="glyphicon glyphicon-pencil"></span> Edit
                         </a>
                         <ul className="dropdown-menu">
-                            <li className={this.isDisabled("addRow")}><DataInsert key="row" level="row" data={this.props.cols} /></li>
-                            <li className={this.isDisabled("addCol")}><DataInsert key="col" level="col" data={this.props.rows} optionIdx={this.getOptionNameId()} /></li>
+                            <li className={this.disabledClass("addRow")}>
+                                <DataInsert key="row" level="row" 
+                                    data={this.props.cols} 
+                                    tableId={this.props.tableId} 
+                                    isDisabled={this.isDisabled("addRow")}
+                                    />
+                            </li>
+                            <li className={this.disabledClass("addCol")}>
+                                <DataInsert key="col" level="col" 
+                                    data={this.props.rows} 
+                                    optionIdx={this.getOptionNameId()} 
+                                    tableId={this.props.tableId} 
+                                    isDisabled={this.isDisabled("addCol")} />
+                            </li>
+
                             <li role="separator" className="divider"></li>
-                            <li className={this.isDisabled("populateTable")}><a role="button" onClick={this.populateDocument}>Populate table</a></li>
-                            <li className={this.isDisabled("emptyTable")}><a role="button" onClick={this.deleteDocument}>Empty table</a></li>
+
+                            <li className={this.disabledClass("populateTable")}>
+                                <a role="button" onClick={this.populateDocument}>Populate table</a>
+                            </li>
+                            <li className={this.disabledClass("emptyTable")}>
+                                <a role="button" onClick={this.deleteDocument}>Empty table</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>;

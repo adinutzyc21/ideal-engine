@@ -52,7 +52,6 @@ export default class TableCreate extends Component {
 
     /**
      * Handle the submit event of the form
-     * triggers insertRow or insertColumn functions depending on level
      */
     handleSubmit(event) {
         event.preventDefault();

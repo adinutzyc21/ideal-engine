@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinkit';
 import ReactDOM from 'react-dom';
 
-import { Option, Criterion } from '../../api/comparison.js';
+import { Row, Col } from '../../api/comparison.js';
 
 import TableHeading from './TableHeading.jsx';
 import TableRow from './TableRow.jsx';
@@ -56,10 +56,10 @@ class TableDisplay extends Component {
         // While the data is loading, show a spinner
         if (this.props.loading) {
             html.push (
-                <div className='table-container table-container-no-data'>
-                    <div>
+                <div key="table-container" className='table-container table-container-no-data'>
+                    <div key="loading">
                         Loading data...
-                    <Spinner spinnerName='three-bounce' />
+                    <Spinner key="spinner" spinnerName='three-bounce' />
                     </div>
                 </div>
             );
@@ -68,10 +68,10 @@ class TableDisplay extends Component {
         // If the data is empty, show that there is no data available 
         else if (this.props.rows.length === 0) {
             // clear the residual columns
-            Meteor.call('comparison.deleteAll', this.props.tableId);
+            Meteor.call('comparison.deleteContents', this.props.tableId);
 
             html.push(
-                <div className='table-container table-container-no-data'>
+                <div key="table-container" className='table-container table-container-no-data'>
                     <div>No data available. Use the menu to add data.</div>
                 </div>
             );
@@ -79,12 +79,12 @@ class TableDisplay extends Component {
         // render the loaded table
         else {
             html.push(
-                <div className='table-container'>
-                    <table>
+                <div key="table-container" className='table-container'>
+                    <table key="table">
                         {/* Need a header of type TableHeading */}
-                        <TableHeading cols={this.props.cols} />
+                        <TableHeading key="heading" cols={this.props.cols} />
                         {/* Need a bunch of rows of type  TableRow*/}
-                        <TableRow rows={this.props.rows} cols={this.props.cols} />
+                        <TableRow key="row" rows={this.props.rows} cols={this.props.cols} />
                     </table>
                 </div>
             );
@@ -92,7 +92,7 @@ class TableDisplay extends Component {
 
         return (
             <div className='react-bs-container-body'>
-                <MenuBar currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols} tableId={this.props.tableId} />
+                <MenuBar key="menu" currentView="tableDisplay" rows={this.props.rows} cols={this.props.cols} tableId={this.props.tableId} />
                 {html}
             </div>
         );
@@ -108,14 +108,14 @@ TableDisplay.propTypes = {
 };
 
 export default TableDisplayContainer = createContainer(props => {
-    const subscriptionR = Meteor.subscribe('option');
+    const subscriptionR = Meteor.subscribe('row');
     const loadingR = !subscriptionR.ready();
-    const rows = Option.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
+    const rows = Row.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
 
-    const subscriptionC = Meteor.subscribe('criterion');
+    const subscriptionC = Meteor.subscribe('col');
     const loadingC = !subscriptionC.ready();
 
-    const cols = Criterion.find({ tableId: props.tableId }).fetch();
+    const cols = Col.find({ tableId: props.tableId }).fetch();
 
     const user = Meteor.user();
     const loadingU = Meteor.user() === undefined;

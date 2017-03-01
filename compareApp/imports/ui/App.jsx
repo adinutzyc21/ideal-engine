@@ -72,7 +72,6 @@ App.propTypes = {
 export default createContainer(({ params }) => {
     const user = Meteor.user();
 
-    console.log(user);
     var loading = true;
 
     if (user !== undefined) {
