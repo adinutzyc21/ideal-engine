@@ -92,7 +92,7 @@ export default class MenuBar extends Component {
 
     deleteDocument() {
         if(!this.isDisabled("emptyTable")){
-            Meteor.call('comparison.deleteContents', this.props.tableId);
+            Meteor.call('comparison.clearTable', this.props.tableId);
         }
     }
     /**
@@ -131,8 +131,9 @@ export default class MenuBar extends Component {
         var helpButton = 
             <ul className="nav navbar-nav navbar-right">
                 <li>
-                    <a href="https://github.com/adinutzyc21/ideal-engine/blob/master/README.md" target="_blank" title="Help?" > 
-                        <span className="glyphicon glyphicon-question-sign blue"></span>
+                    <a href="https://github.com/adinutzyc21/ideal-engine/blob/master/README.md" 
+                         className="blue" target="_blank" title="Help" > 
+                        <span className="glyphicon glyphicon-question-sign"></span> Help
                     </a>
                 </li>
             </ul>;

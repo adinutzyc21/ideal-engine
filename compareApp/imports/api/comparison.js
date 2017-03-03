@@ -2,36 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-/*
-* Row structure: {
-*   {  "_id" : "id1", 
-*      "score" : 5,
-*      "hId1" : { "value" : "Apt 1" },
-*      "hId2" : { "value" : "800 sqft", "score" : 1 },
-*      "hId3" : { "value" : "$800", "score" : 3 },
-*      etc.
-*      "tableId" : "tId1"
-*   }
-*   {  "_id" : "id2", 
-*      "score" : 5,
-*      "hId1" : { "value" : "Apt 2" },
-*      "hId2" : { "value" : "780 sqft", "score" : 10 },
-*      "hId3" : { "value" : "$700", "score" : 3 },
-*      etc.
-*      "tableId" : "tId1"
-*   }
-*   etc.
-* }
-* Col structure: {
-*   { "_id" : "hId1", "name" : "Option Name", "tableId" : "tId1" },
-*   { "_id" : "hId2", "name" : "Rent", "score" : 9, "tableId" : "tId1" }, 
-*   { "_id" : "hId3", "name" : "Surface", "score" : 5, "tableId" : "tId1" }, 
-*   { "_id" : "hId4", "name" : "Price", "score" : 5, "tableId" : "tId1" },
-*   { "_id" : "hId5", "name" : "CPU", "score" : 5, "tableId" : "tId4" } 
-*   etc.
-* }
-*/
-
 /**
  * The rows are the various options in the table
  */
@@ -43,8 +13,8 @@ export var Row = new Mongo.Collection('row');
 export var Col = new Mongo.Collection('col');
 
 /**
- * This code only runs on the server
- * Publish the tables so we can subscribe and retrieve the data
+ * This code only runs on the server.
+ * Publish the tables so we can subscribe and retrieve the data.
  */
 if (Meteor.isServer) {
     Meteor.publish('row', function rowPublication() {
@@ -58,8 +28,8 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     /**
-     * Populate the table, given its id
-     * @param tableId: the id of the table to populate
+     * Populate the table, given its id.
+     * @param {string} tableId - the id of the table to populate
      */
     'comparison.populateTables' (tableId) {
         check(tableId, String);
@@ -141,24 +111,24 @@ Meteor.methods({
     },
 
     /**
-     * Insert a row in the table. 
+     * Insert a row in the Row and Col tables. 
      * If this is the first element, then insert the "Option Name" header into the columns too.
-     * @param rowData: structure of the form 
+     * @param {String} tableId - id of the current table
+     * @param {String} colId - the ID of the first column, corresponds to header1 below
+     * @param {Object} rowData - structure of the form 
      *                { id, score, header1: {value1}, header2: {value2, score2}, header3: {value3, score3}... }
-     * @param headerId: the ID of the first column, corresponds to header1 above
-     * @param tableId: id of the current table
-     * @param isFirst: is this the first column added?
+     * @param {Boolean} isFirst - is this the first row/column added?
      */
-    'comparison.insertRow' (rowData, headerId, tableId, isFirst) {
+    'comparison.insertRow' (tableId, colId, rowData, isFirst) {
         check(rowData, Object);
-        check(headerId, String);
+        check(colId, String);
         check(tableId, String);
         check(isFirst, Boolean);
 
         // is this the first option? If so, insert into the Col table too
         if(isFirst){
             var colData = {};
-            colData._id = headerId;
+            colData._id = colId;
             colData.tableId = tableId;
             colData.name =  "Option Name";
             Col.insert(colData);
@@ -171,40 +141,10 @@ Meteor.methods({
     },
 
     /**
-     * Insert a column in the table.
-     * @param colData: structure of the form {name, score}
-     * @param colId: the id of the column to insert (to correspond to rows)
-     * @param tableId: the id of the current table
+     * Delete everything (Row, Col) for the current table id.
+     * @param {String} tableId - the id of the current table
      */
-    'comparison.insertColumn' (colData, colId, tableId) {
-        check(colData, Object);
-        check(colId, String);
-        check(tableId, String);
-
-        // set the column id
-        colData._id = colId;
-        // set the table id
-        colData.tableId = tableId;
-        // insert the column
-        Col.insert(colData);
-    },
-
-    'comparison.updateColumn' (dataQuery, colId, rowId) {
-        check(dataQuery, Object);
-        check(colId, String);
-        check(rowId, String);
-
-        Row.update(rowId, {
-            $set: {
-                [colId]: dataQuery
-            }
-        });
-    },
-
-    /**
-     * Delete everything for the current table
-     */
-    'comparison.deleteContents' (tableId) {
+    'comparison.clearTable' (tableId) {
         check(tableId, String);
 
         Row.remove({ tableId: tableId });
@@ -212,8 +152,8 @@ Meteor.methods({
     },
 
     /**
-     * Delete a row given its id
-     * @param rowId: the id of the row to delete
+     * Delete a row given its id.
+     * @param {String} rowId - the id of the row to delete
      */
     'comparison.deleteRow' (rowId) {
         check(rowId, String);
@@ -222,9 +162,9 @@ Meteor.methods({
     },
 
     /**
-     * Delete a column given its id
-     * This is done by removing the column from Col by id and unsetting the contents of Row that match id
-     * @param colId: the id of the column to delete
+     * Delete a column given its id.
+     * This is done by removing the column from Col by id and unsetting the values of Row that match id.
+     * @param {String} colId - the id of the column to delete
      */
     'comparison.deleteColumn' (colId) {
         check(colId, String);
@@ -239,10 +179,51 @@ Meteor.methods({
         // remove colId data from Col
         Col.remove(colId);
     },
-    ///////////////////
 
-    'comparison.writeScores' (colId, rowId, score) {
+    /**
+     * Insert a column in the Col table.
+     * @param {String} tableId - the id of the current table
+     * @param {String} colId - the id of the column to insert (to correspond to rows)
+     * @param {Object} colData - structure of the form {name, score}
+     */
+    'comparison.insertColumn' (tableId, colId, colData) {
+        check(colData, Object);
         check(colId, String);
+        check(tableId, String);
+
+        // set the column id
+        colData._id = colId;
+        // set the table id
+        colData.tableId = tableId;
+        // insert the column
+        Col.insert(colData);
+    },
+
+    /**
+     * Update the Row table with the id of the 
+     * @param {String} rowId - the id of the row to update
+     * @param {String} colId - the id of the corresponding column to serve as fiels
+     * @param {Object} colDataRow - the data that corresponds to colId in the table
+     */
+    'comparison.updateRowInsertColumn' (rowId, colId, colDataRow) {
+        check(colDataRow, Object);
+        check(colId, String);
+        check(rowId, String);
+
+        // for rowId, insert the colDataRow in the colId field
+        Row.update(rowId, {
+            $set: {
+                [colId]: colDataRow
+            }
+        });
+    },
+
+    /**
+     * Update the score field for the given row id
+     * @param {String} rowId - the id of the row to update
+     * @param {Number} score - the score to insert in the score field
+     */
+    'comparison.updateRowInsertScore' (rowId, score) {
         check(rowId, String);
         check(score, Number);
 
@@ -253,5 +234,34 @@ Meteor.methods({
         });
     },
 
-    
 });
+
+/*
+ Row structure: {
+   {  "_id" : "id1", 
+      "score" : 5,
+      "hId1" : { "value" : "Apt 1" },
+      "hId2" : { "value" : "800 sqft", "score" : 1 },
+      "hId3" : { "value" : "$800", "score" : 3 },
+      etc.
+      "tableId" : "tId1"
+   }
+   {  "_id" : "id2", 
+      "score" : 5,
+      "hId1" : { "value" : "Apt 2" },
+      "hId2" : { "value" : "780 sqft", "score" : 10 },
+      "hId3" : { "value" : "$700", "score" : 3 },
+      etc.
+      "tableId" : "tId1"
+   }
+   etc.
+ }
+ Col structure: {
+   { "_id" : "hId1", "name" : "Option Name", "tableId" : "tId1" },
+   { "_id" : "hId2", "name" : "Rent", "score" : 9, "tableId" : "tId1" }, 
+   { "_id" : "hId3", "name" : "Surface", "score" : 5, "tableId" : "tId1" }, 
+   { "_id" : "hId4", "name" : "Price", "score" : 5, "tableId" : "tId1" },
+   { "_id" : "hId5", "name" : "CPU", "score" : 5, "tableId" : "tId4" } 
+   etc.
+ }
+*/

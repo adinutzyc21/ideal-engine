@@ -34,7 +34,7 @@ export default class ComputeScore extends Component {
         }
         for (var i = 0, lenR = rows.length; i < lenR; i++) {
             score[i] = Math.round(score[i] / maxScore * 100) / 10;
-            Meteor.call('comparison.writeScores', this.props.optionIdx, rows[i]._id, score[i]);
+            Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
         }
     }
 
@@ -42,8 +42,9 @@ export default class ComputeScore extends Component {
         return (
             <ul className="nav navbar-nav">
                 <li>
-                    <a role="button" title="Score Comparison!" onClick={this.scoreOptions}>
-                        <span className="glyphicon glyphicon-play green"></span>
+                    <a role="button" title="Score Comparison!" className="green"
+                        onClick={this.scoreOptions}>
+                        <span className="glyphicon glyphicon-play"></span> Run
                     </a>
                 </li>
             </ul>

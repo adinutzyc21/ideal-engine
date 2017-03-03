@@ -68,7 +68,7 @@ class TableDisplay extends Component {
         // If the data is empty, show that there is no data available 
         else if (this.props.rows.length === 0) {
             // clear the residual columns
-            Meteor.call('comparison.deleteContents', this.props.tableId);
+            Meteor.call('comparison.clearTable', this.props.tableId);
 
             html.push(
                 <div key="table-container" className='table-container table-container-no-data'>

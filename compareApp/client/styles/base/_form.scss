@@ -42,6 +42,7 @@ span.input-text {
 .new-data input.form-header {
     border: 3px solid #337ab7;
     padding: 8px;
+    float: left;
 }
 
 .content-form {
@@ -92,6 +93,7 @@ input[type=text].score-display {
     background-color: lightgray;
     text-shadow: #337ab7 1px 1px 3px;
     text-align: center;
+    float: left;
 }
 
 input[type=number]::-webkit-inner-spin-button {

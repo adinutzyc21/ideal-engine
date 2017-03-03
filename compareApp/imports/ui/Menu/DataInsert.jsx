@@ -6,155 +6,6 @@ import { Meteor } from 'meteor/meteor';
 // DataInsert component - open modal and allow data insertion in table
 export default class DataInsert extends Component {
     /**
-     * Create the form for adding a new row based on the data that we have
-     */
-    createFormForOption() {
-        var formHtml = [];
-        var cols = this.props.data;
-
-        // request the 'Option' header differently from the content
-        formHtml.push(
-            <span key='span_row0'>
-                <span key='header_text' className='input-text form-header' >New Option Name:</span>
-                <input type='text' key='header' className='form-header' placeholder='New option name' autoFocus 
-                    value={this.state.header} 
-                    onChange={this.handleChangeHeader}
-                    ref='optionName' />
-                <input type='text' key='header_score' name='score' className='form-header score-display' 
-                    autoComplete='off' readOnly='true' 
-                    value={this.state.optScore} 
-                    ref='optionNameScore'/>
-            </span>
-        );
-
-        // TODO: pagination!
-        // column headers are unique, so they can be the key
-        // request all the corresponding information
-        if (this.state.header.trim().length !== 0) {
-            for (var i = 1, len = cols.length; i < len; i++) {
-                formHtml.push(
-                    <span key={'span_row'+i}>
-                        <span key={'label' + cols[i]._id} className='input-text'>{cols[i].name}: </span>
-                        <input type='text' key={'value' + cols[i]._id}
-                            placeholder={'Input ' + cols[i].name + ' for ' + this.state.header} 
-                            ref={'optionValue' + i} />
-                        <input type='number' key={'score' + cols[i]._id} name='score' className='input-text'
-                            min='1' max='10' defaultValue='5' autoComplete='off' 
-                            ref={'optionValueScore' + i} />
-                    </span>
-                );
-            }
-        }
-        return formHtml;
-    }
-
-    /**
-     * Insert the row data from the form into the table
-     */
-    addNewOption() {
-        var cols = this.props.data;
-
-        // the id of the column (is also the key in the corresponding row)
-        var headerId = '';
-
-        // is this the first column?
-        var isFirst = false;
-
-        if (cols.length !== 0) {
-            // get the header id
-            headerId = cols[0]._id
-        }
-        else {
-            // create a new header id
-            headerId = new Meteor.Collection.ObjectID()._str;
-            isFirst = true;
-        }
-
-        // this is the data we need to insert into the row
-        var rowData = {};
-
-        // get the header name separately
-        rowData[headerId] = {
-            value: ReactDOM.findDOMNode(this.refs.optionName).value.trim()
-        };
-
-        // get the overall score for the option TODO: calculate it
-        rowData.score = ReactDOM.findDOMNode(this.refs.optionNameScore).value.trim();
-
-
-        // Find the optionValue & optionValueScore via the React ref
-        for (var i = 1, len = cols.length; i < len; i++) {
-            rowData[cols[i]._id] = {
-                value: ReactDOM.findDOMNode(this.refs['optionValue' + i]).value.trim(),
-                score: ReactDOM.findDOMNode(this.refs['optionValueScore' + i]).value.trim()
-            };
-        }
-
-        // insert the data
-        Meteor.call('comparison.insertRow', rowData, headerId, this.props.tableId, isFirst);
-    }
-
-    /**
-     * Create the form for adding a new column based on the data that we have
-     */
-    createFormForCriterion() {
-        var formHtml = [];
-        var rows = this.props.data;
-
-        // Input the column name separately
-        formHtml.push(
-            <span key='span_col'>
-                <span key='header_text' className='input-text form-header'>New Criterion Name:</span>
-                <input type='text' key='header' className='form-header' placeholder='New criterion name' autoFocus 
-                    value={this.state.header} 
-                    onChange={this.handleChangeHeader}
-                    ref='colName' />
-                <input type='number' key='header_score' name='score' className='form-header' 
-                    min='0' max='10' defaultValue='5' autoComplete='off' 
-                    ref='colName_score' />
-            </span>
-        );
-
-        // we have the ids for the input, so use that as a key 
-        // request all the corresponding information
-        if (this.state.header.trim().length !== 0) {
-            for (var i = 0, len = rows.length; i < len; i++) {
-                var inputInfo = this.state.header + ' for ' + rows[i][this.props.optionIdx].value;
-                formHtml.push(<span key={rows[i]._id + '_text'} className='input-text'>{inputInfo}:</span>);
-                formHtml.push(<input key={rows[i]._id} type='text' ref={'textInput' + i}
-                    placeholder={'Type to add data for ' + inputInfo} />);
-                formHtml.push(<input type='number' name='score' key={rows[i]._id + '_score'} ref={'textInput' + i + '_score'}
-                    className='input-text' min='1' max='10' defaultValue='5' autoComplete='off' />);
-            }
-        }
-        return formHtml;
-    }
-
-
-    /**
-     * Insert the column data from the form into the table
-     * only gets triggered when there's data in the table previously
-     */
-    addNewCriterion() {
-        var rows = this.props.data;
-
-        var colData = {
-            name: ReactDOM.findDOMNode(this.refs.colName).value.trim(),
-            score: ReactDOM.findDOMNode(this.refs.colName_score).value.trim()
-        }
-
-        var colId = new Meteor.Collection.ObjectID()._str;
-        Meteor.call('comparison.insertColumn', colData, colId, this.props.tableId);
-
-        for (var i = 0, len = rows.length; i < len; i++) {
-            var dataQuery = {
-                value: ReactDOM.findDOMNode(this.refs['textInput' + i]).value.trim(),
-                score: ReactDOM.findDOMNode(this.refs['textInput' + i + '_score']).value.trim()
-            };
-            Meteor.call('comparison.updateColumn', dataQuery, colId, rows[i]._id);
-        }
-    }
-    /**
      * Initialize state variables and bind this to methods
      */
     constructor(props) {
@@ -231,10 +82,10 @@ export default class DataInsert extends Component {
 
         switch(this.props.level){
             case 'row':
-                formHtml = this.createFormForOption();
+                formHtml = this.newRowForm();
                 break;
             case 'col':
-                formHtml = this.createFormForCriterion();
+                formHtml = this.newColForm();
                 break;
         }
 
@@ -265,17 +116,206 @@ export default class DataInsert extends Component {
     }
 
     /**
+     * Create the form for adding a new row based on the columns that we have.
+     */
+    newRowForm() {
+        // an array of all the columns in the table
+        var cols = this.props.data;
+
+        // the form html that we create below and return
+        var formHtml = [];
+
+        /* 
+        Request the 'Option' header differently from the contents.
+        A header asks for the name of the option and also contains a score field that is not editable. 
+        */
+        formHtml.push(
+            <span key='span_row'>
+                <span key='header_text' className='input-text form-header' >New Option Name:</span>
+                <input type='text' key='header' className='form-header' placeholder='New option name' autoFocus 
+                    value={this.state.header} 
+                    onChange={this.handleChangeHeader}
+                    ref='optionName' />
+                <input type='text' key='header_score' name='score' className='form-header score-display' 
+                    autoComplete='off' readOnly='true' 
+                    value={this.state.optScore} 
+                    ref='optionNameScore'/>
+            </span>
+        );
+
+        /*
+        Request all the corresponding information:.
+        Fill in the value as well as the score of every criterion for the new option.
+        */
+        if (this.state.header.trim().length !== 0) {
+            // TODO: pagination for these!
+            for (var i = 1, len = cols.length; i < len; i++) {
+                // column headers are unique, so they can be the key
+                formHtml.push(
+                    <span key={'span_row' + i}>
+                        <span key={'label' + cols[i]._id} className='input-text'>{cols[i].name}: </span>
+                        <input type='text' key={'value' + cols[i]._id}
+                            placeholder={'Enter ' + cols[i].name + ' for ' + this.state.header} 
+                            ref={'optionValue' + i} />
+                        <input type='number' key={'score' + cols[i]._id} name='score' className='input-text'
+                            min='1' max='10' defaultValue='5' autoComplete='off' 
+                            ref={'optionValueScore' + i} />
+                    </span>
+                );
+            }
+        }
+        // return the generated form html
+        return formHtml;
+    }
+
+    /**
+     * Insert the row data from the form into the MongoDB table.
+     */
+    insertRowData() {
+        // an array of all the columns in the table
+        var cols = this.props.data;
+
+        // the id of the column (which is also the key in the corresponding row)
+        var colId = '';
+
+        // is this the first column/row?
+        var isFirst = false;
+
+        if (cols.length !== 0) {
+            // if there are columns in the table get the header id
+            colId = cols[0]._id
+        }
+        else {
+            // otherwise create a new header id
+            colId = new Meteor.Collection.ObjectID()._str;
+            // and mark that this is the first rown/column in the table
+            isFirst = true;
+        }
+
+        // the object containing the data we need to insert into the Row table
+        var rowData = {};
+
+        // set the name of the Option to the form value from the React ref
+        rowData[colId] = {
+            value: ReactDOM.findDOMNode(this.refs.optionName).value.trim()
+        };
+
+        // set the overall score for the option to the form value from the React ref
+        // TODO: calculate it on the spot (probably in the form)
+        rowData.score = ReactDOM.findDOMNode(this.refs.optionNameScore).value.trim();
+
+
+        // set the optionValue & optionValueScore by retrieving the form values via the React ref
+        for (var i = 1, len = cols.length; i < len; i++) {
+            rowData[cols[i]._id] = {
+                value: ReactDOM.findDOMNode(this.refs['optionValue' + i]).value.trim(),
+                score: ReactDOM.findDOMNode(this.refs['optionValueScore' + i]).value.trim()
+            };
+        }
+
+        // insert a row in the Row and Col tables (if isFirst=true, a first column is added to Col)
+        Meteor.call('comparison.insertRow', this.props.tableId, colId, rowData, isFirst);
+    }
+    
+    /**
+     * Create the form for adding a new column based on the rows that we have.
+     */
+    newColForm() {
+        // an array of all the rows in the table
+        var rows = this.props.data;
+
+        // the form html that we create below and return
+        var formHtml = [];
+
+        /* 
+        Request the 'Criterion' header differently from the contents.
+        A header asks for the name of the criterion and also contains a score field that is editable, from 0-10. 
+        */
+        formHtml.push(
+            <span key='span_col'>
+                <span key='header_text' className='input-text form-header'>New Criterion Name:</span>
+                <input type='text' key='header' className='form-header' placeholder='New criterion name' autoFocus 
+                    value={this.state.header} 
+                    onChange={this.handleChangeHeader}
+                    ref='criterionName' />
+                <input type='number' key='header_score' name='score' className='form-header' 
+                    min='0' max='10' defaultValue='5' autoComplete='off' 
+                    ref='criterionNameScore' />
+            </span>
+        );
+
+        /*
+        Request all the corresponding information:.
+        Fill in the value as well as the score of every option for the new criterion.
+        */
+        if (this.state.header.trim().length !== 0) {
+            // TODO: pagination for these!
+            for (var i = 0, len = rows.length; i < len; i++) {
+                // option headers are unique, so they can be the key
+                formHtml.push(
+                    <span key={'span_col' + i} >
+                        <span key={'label' + rows[i]._id} className='input-text'>
+                            {rows[i][this.props.optionIdx].value}: 
+                        </span>
+                        <input type='text' key={'value' + rows[i]._id} 
+                            placeholder={'Enter ' + this.state.header + ' for ' + rows[i][this.props.optionIdx].value} 
+                            ref={'criterionValue' + i} />
+                    
+                        <input type='number' key={'score' + rows[i]._id} name='score' className='input-text'
+                            min='1' max='10' defaultValue='5' autoComplete='off'
+                            ref={'criterionValueScore' + i} />
+                    </span>
+                );
+            }
+        }
+        // return the generated form html
+        return formHtml;
+    }
+
+    /**
+     * Insert the column data from the form into the MongoDB table.
+     * This means inserting into the Col table as well as updating the Row table with a new corresponding field.
+     * Note: The menu option that triggers this is disabled if there's no data in the table (so first add a row).
+     */
+    insertColData() {
+        // an array of all the rows in the table
+        var rows = this.props.data;
+
+        // create a new column ID to be used in both Col and Row tables
+        var colId = new Meteor.Collection.ObjectID()._str;
+
+        // the object containing the data we need to insert into the Row table
+        var colData = {
+            name: ReactDOM.findDOMNode(this.refs.criterionName).value.trim(),
+            score: ReactDOM.findDOMNode(this.refs.criterionNameScore).value.trim()
+        }
+        // insert the data into the Col table
+        Meteor.call('comparison.insertColumn', this.props.tableId, colId, colData);
+
+        // for every row, add the corresponding column data to the Row table
+        for (var i = 0, len = rows.length; i < len; i++) {
+            // create the corresponding column data for this row
+            var colDataRow = {
+                value: ReactDOM.findDOMNode(this.refs['criterionValue' + i]).value.trim(),
+                score: ReactDOM.findDOMNode(this.refs['criterionValueScore' + i]).value.trim()
+            };
+            // update the Row table by inserting the column associated with colId
+            Meteor.call('comparison.updateRowInsertColumn', rows[i]._id, colId, colDataRow);
+        }
+    }
+
+    /**
      * Handle the submit event of the form
-     * triggers addNewOption or addNewCriterion functions depending on level
+     * triggers insertRowData or insertColData functions depending on level
      */
     handleSubmit(event) {
         event.preventDefault();
 
         if (this.props.level === 'row') {
-            this.addNewOption();
+            this.insertRowData();
         }
         else {
-            this.addNewCriterion();
+            this.insertColData();
         }
 
         //  Close form
