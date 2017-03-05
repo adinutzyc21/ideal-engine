@@ -6,24 +6,27 @@ import TableSelect from "./Select/TableSelect.jsx"
 import LoginPage from "./Login/LoginPage.jsx"
 import MenuBar from "./Menu/MenuBar.jsx"
 
-// Column component - represents columns in the table
+// App component - is the main view of the table
 class App extends Component {
     /**
-    * Initialize state variables and bind this to methods
+    * Initialize state variables and bind "this" to methods
     */
     constructor(props) {
         super(props);
 
         // initialize state variables
         this.state = {
-            showTableSelect: false
+            showTableSelect: false,
+            // currentView: 'logInPage'
         };
+
         this.asGuest = this.asGuest.bind(this);
     }
 
     asGuest(){
          this.setState({ showTableSelect: true });
     }
+    
     render() {
         var option = [];
 

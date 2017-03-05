@@ -1,27 +1,27 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
+import { check } from "meteor/check";
 
 /**
  * The rows are the various options in the table
  */
-export var Row = new Mongo.Collection('row');
+export var Row = new Mongo.Collection("row");
 
 /**
  * The columns are the various criteria for each option
  */
-export var Col = new Mongo.Collection('col');
+export var Col = new Mongo.Collection("col");
 
 /**
  * This code only runs on the server.
  * Publish the tables so we can subscribe and retrieve the data.
  */
 if (Meteor.isServer) {
-    Meteor.publish('row', function rowPublication() {
+    Meteor.publish("row", function rowPublication() {
         return Row.find();
     });
 
-    Meteor.publish('col', function colPublication() {
+    Meteor.publish("col", function colPublication() {
         return Col.find();
     });
 }
@@ -31,7 +31,7 @@ Meteor.methods({
      * Populate the table, given its id.
      * @param {string} tableId - the id of the table to populate
      */
-    'comparison.populateTables' (tableId) {
+    "comparison.populateTables" (tableId) {
         check(tableId, String);
 
         var rows = [
@@ -119,7 +119,7 @@ Meteor.methods({
      *                { id, score, header1: {value1}, header2: {value2, score2}, header3: {value3, score3}... }
      * @param {Boolean} isFirst - is this the first row/column added?
      */
-    'comparison.insertRow' (tableId, colId, rowData, isFirst) {
+    "comparison.insertRow" (tableId, colId, rowData, isFirst) {
         check(rowData, Object);
         check(colId, String);
         check(tableId, String);
@@ -144,7 +144,7 @@ Meteor.methods({
      * Delete everything (Row, Col) for the current table id.
      * @param {String} tableId - the id of the current table
      */
-    'comparison.clearTable' (tableId) {
+    "comparison.clearTable" (tableId) {
         check(tableId, String);
 
         Row.remove({ tableId: tableId });
@@ -155,7 +155,7 @@ Meteor.methods({
      * Delete a row given its id.
      * @param {String} rowId - the id of the row to delete
      */
-    'comparison.deleteRow' (rowId) {
+    "comparison.deleteRow" (rowId) {
         check(rowId, String);
 
         Row.remove(rowId);
@@ -166,7 +166,7 @@ Meteor.methods({
      * This is done by removing the column from Col by id and unsetting the values of Row that match id.
      * @param {String} colId - the id of the column to delete
      */
-    'comparison.deleteColumn' (colId) {
+    "comparison.deleteColumn" (colId) {
         check(colId, String);
         
         // update row to remove all values matching colId
@@ -186,7 +186,7 @@ Meteor.methods({
      * @param {String} colId - the id of the column to insert (to correspond to rows)
      * @param {Object} colData - structure of the form {name, score}
      */
-    'comparison.insertColumn' (tableId, colId, colData) {
+    "comparison.insertColumn" (tableId, colId, colData) {
         check(colData, Object);
         check(colId, String);
         check(tableId, String);
@@ -205,7 +205,7 @@ Meteor.methods({
      * @param {String} colId - the id of the corresponding column to serve as fiels
      * @param {Object} colDataRow - the data that corresponds to colId in the table
      */
-    'comparison.updateRowInsertColumn' (rowId, colId, colDataRow) {
+    "comparison.updateRowInsertColumn" (rowId, colId, colDataRow) {
         check(colDataRow, Object);
         check(colId, String);
         check(rowId, String);
@@ -223,7 +223,7 @@ Meteor.methods({
      * @param {String} rowId - the id of the row to update
      * @param {Number} score - the score to insert in the score field
      */
-    'comparison.updateRowInsertScore' (rowId, score) {
+    "comparison.updateRowInsertScore" (rowId, score) {
         check(rowId, String);
         check(score, Number);
 

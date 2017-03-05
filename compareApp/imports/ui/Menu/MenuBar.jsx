@@ -1,17 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, PropTypes } from "react";
+import ReactDOM from "react-dom";
 
-import AccountsUIWrapper from '../Login/AccountsUIWrapper.jsx';
-import DataInsert from './DataInsert.jsx';
+import AccountsUIWrapper from "../Login/AccountsUIWrapper.jsx";
+import DataInsert from "./DataInsert.jsx";
 
-import ComputeScore from './ComputeScore.jsx'
-import TableSelect from '../Select/TableSelect.jsx';
-import TableCreate from '../Select/TableCreate.jsx';
+import ComputeScore from "./ComputeScore.jsx"
+import TableSelect from "../Select/TableSelect.jsx";
+import TableCreate from "../Select/TableCreate.jsx";
 
-// Column component - represents columns in the table
+/**
+ * Menu Bar - create the menu bar depending on the current view
+ * Potential views:
+ * - login screen
+ * - table selection
+ * - table manipulation
+ */ 
 export default class MenuBar extends Component {
     /**
-     * Initialize state variables and bind this to methods
+     * Initialize state variables and bind "this" to methods
      */
     constructor(props) {
         super(props);
@@ -30,6 +36,9 @@ export default class MenuBar extends Component {
         this.deleteDocument = this.deleteDocument.bind(this);
     }
 
+    /**
+     * Set the current view to the one received through the "props"
+     */
     componentWillReceiveProps() {
         if (this.props.currentView !== undefined) {
             this.setState({ currentView: this.props.currentView });
@@ -37,7 +46,7 @@ export default class MenuBar extends Component {
     }
 
     loadTable() {
-        ReactDOM.render(<TableSelect />, document.getElementById('app-container'));
+        ReactDOM.render(<TableSelect />, document.getElementById("app-container"));
         this.setState({ currentView: "loadTable" });
     }
 
@@ -92,7 +101,7 @@ export default class MenuBar extends Component {
 
     deleteDocument() {
         if(!this.isDisabled("emptyTable")){
-            Meteor.call('comparison.clearTable', this.props.tableId);
+            Meteor.call("comparison.clearTable", this.props.tableId);
         }
     }
     /**
@@ -100,12 +109,12 @@ export default class MenuBar extends Component {
      */
     populateDocument() {
         if(!this.isDisabled("populateTable")){
-            Meteor.call('comparison.populateTables', this.props.tableId);
+            Meteor.call("comparison.populateTables", this.props.tableId);
         }
     }
 
     createHtml() {
-        // always show the brand and title 
+        // the brand and title on the menu bar
         var brandAndTitle =
             <div className="navbar-header">
                 <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
@@ -121,13 +130,13 @@ export default class MenuBar extends Component {
                 <a href="/"><p className="navbar-text title">compareApp</p></a>
             </div>
 
-        // and the login option
-        var loginOption =
+        // the login button on the menu bar
+        var loginButton =
             <div className="nav navbar-nav navbar-right">
                 <li><a href="#"><AccountsUIWrapper /></a></li>
             </div>
 
-        // a help button
+        // the help button on the menu bar
         var helpButton = 
             <ul className="nav navbar-nav navbar-right">
                 <li>
@@ -138,6 +147,7 @@ export default class MenuBar extends Component {
                 </li>
             </ul>;
 
+        // the file menu allows "Load Table" and "New Table"
         var fileMenu =
             <ul className="nav navbar-nav">
                 <li className="dropdown">
@@ -151,10 +161,6 @@ export default class MenuBar extends Component {
                     </ul>
                 </li>
             </ul>;
-
-        // <li role="button" className={this.isActive("importCSV")}><a role="button">Import from CSV</a></li>
-        // <li><a role="button">Export to CSV</a></li>
-        // <li><a>Delete Table</a></li>
 
         var editMenu = <div></div>;
         var calcScoreButton = <div></div>;
@@ -206,7 +212,7 @@ export default class MenuBar extends Component {
                     {fileMenu}
                     {editMenu}
                     {calcScoreButton}
-                    {loginOption}
+                    {loginButton}
                     {helpButton}
                 </div>
             </div>
