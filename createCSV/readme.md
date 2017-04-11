@@ -1,6 +1,11 @@
-# Create a CSV to import into the App
+# Create a CSV to import into the Compare App
+
+In particular, this parses an [apartments.com](apartments.com) search result based on some criteria that are present in the page. It's a scraper for the result listing and produces a CSV that has all the entries nicely parsed. These are the criteria I'm using:
+`'Option Name', 'URL', 'Contact', 'Address', 'Distance', 'Duration', 'Map', 'Pet Policy', 'Parking', 'Gym', 'Kitchen', 'Amenities', 'Features', 'Living Space', 'Rent', 'Monthly Fees', 'One Time Fees', 'Lease Info', 'Services', 'Property Info', 'Indoor Info', 'Outdoor Info'` and they come from the entries that apartments.com shows on the page as well as from the Google Maps API (given an address to commute to, I am getting the approximate transit distance and time).
 
 ### How to use:
+
+Please note that this assumes you have python installed. You can install it from [here](https://www.python.org/downloads/).
 
 1. Rename config_example.ini to config.ini.
 2. Search for apartments on apartments.com. Use your own criteria using the app. Copy the URL.
