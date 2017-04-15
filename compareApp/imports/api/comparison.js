@@ -234,6 +234,56 @@ Meteor.methods({
         });
     },
 
+    /**
+     * 
+     */
+    "comparison.importCSV" (tableId, data, cols){
+        check(tableId, String);
+        check(data, Array);
+        check(cols, Array);
+        
+        var colIds = [];
+        var colNames = [];
+
+         // create the row
+        for (var i = 0, len = cols.length; i < len; i++) {
+            // Create a new ObjectID for the column
+            var colId = new Meteor.Collection.ObjectID()._str;
+
+            // create the column
+            var colData = {};
+            
+            colData._id = colId;
+
+            colData.tableId = tableId;
+
+            colData.name = cols[i];
+
+            colData.score = -1;
+
+            colIds.push(colId);
+            colNames.push(cols[i]);
+
+            // insert the column
+            Col.insert(colData);
+        }
+
+        // insert the corresponding row
+        for (var i = 0, len = data.length; i < len; i++) {
+            row = data[i];
+            
+            var rowData = {};
+            
+            for (var j = 0, len2 = colIds.length; j < len2; j++) {
+                rowData[colIds[j]] = {'value': row[colNames[j]], 'score': -1};
+                rowData.score = -1;
+            }
+            rowData.tableId = tableId;
+            Row.insert(rowData);
+        
+        }
+    }
+
 });
 
 /*

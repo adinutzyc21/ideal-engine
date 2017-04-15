@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import ReactDOM from "react-dom";
 
 import AccountsUIWrapper from "../Login/AccountsUIWrapper.jsx";
@@ -7,6 +8,7 @@ import DataInsert from "./DataInsert.jsx";
 import ComputeScore from "./ComputeScore.jsx"
 import TableSelect from "../Select/TableSelect.jsx";
 import TableCreate from "../Select/TableCreate.jsx";
+import LoadCSV from "../Select/LoadCSV.jsx";
 
 /**
  * Menu Bar - create the menu bar depending on the current view
@@ -147,7 +149,7 @@ export default class MenuBar extends Component {
                 </li>
             </ul>;
 
-        // the file menu allows "Load Table" and "New Table"
+        // the file menu allows "Load Table", "New Table", "Table from CSV"
         var fileMenu =
             <ul className="nav navbar-nav">
                 <li className="dropdown">
@@ -157,7 +159,8 @@ export default class MenuBar extends Component {
                     <ul className="dropdown-menu">
                         <li role="button" className={this.isActive("loadTable")}>
                             <a role="button" onClick={this.loadTable}>Load Table</a></li>
-                        <li role="button" className={this.isActive("newTable")}><TableCreate /></li>
+                        <li role="button" className={this.isActive("newTable")}>
+                            <TableCreate /></li>
                     </ul>
                 </li>
             </ul>;
@@ -189,7 +192,10 @@ export default class MenuBar extends Component {
                             </li>
 
                             <li role="separator" className="divider"></li>
+                            <li role="button" className={this.isActive("loadCSV")}>
+                                <LoadCSV tableId={this.props.tableId} /></li>
 
+                            <li role="separator" className="divider"></li>
                             <li className={this.disabledClass("populateTable")}>
                                 <a role="button" onClick={this.populateDocument}>Populate table</a>
                             </li>
