@@ -1,47 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
 
-import TableDisplay from '../Display/TableDisplay.jsx';
+import TableDisplay from '../Display/TableDisplay.jsx'; // eslint-disable-line no-unused-vars
 
 // TableLoad component - use to load the selected table
 export default class TableLoad extends Component {
-    /**
-     * Initialize state variables and bind this to methods
-     */
-    constructor(props) {
-        super(props);
+  /**
+   * Initialize state variables and bind this to methods
+   */
+  constructor(props) {
+    super(props);
 
-        // make this available in these methods
-        this.loadTable = this.loadTable.bind(this);
+    // make this available in these methods
+    this.loadTable = this.loadTable.bind(this);
+  }
+
+  loadTable() {
+    ReactDOM.render(<TableDisplay tableId={this.props.id} />, document.getElementById('app-container'));
+  }
+
+  /**
+   * Display the delete button based on the parameters
+   */
+  render() {
+    // set the callback depending on the type of delete (row/col)
+    let title = 'Load Table ';
+    if (this.props.name !== undefined) {
+      title += this.props.name;
     }
 
-    loadTable() {
-        ReactDOM.render(<TableDisplay tableId={this.props.id}/>, document.getElementById('app-container'));        
-    }
-
-    /**
-     * Display the delete button based on the parameters
-     */
-    render() {
-        // set the callback depending on the type of delete (row/col)
-        var title = 'Load Table ';
-        if (this.props.name !== undefined) {
-            title += this.props.name;
-        }
-
-        // display the button
-        return (
-            <a role="button" data-toggle="tooltip" title={title}
-                className={"btn btn-success glyphicon glyphicon-ok"}
-                onClick={this.loadTable} >
-            </a>
-        );
-    }
+    // display the button
+    return (
+      <a role='button' data-toggle='tooltip' title={title}
+        className={'btn btn-success glyphicon glyphicon-ok'}
+        onClick={this.loadTable} >
+      </a>
+    );
+  }
 }
 
 TableLoad.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
 };

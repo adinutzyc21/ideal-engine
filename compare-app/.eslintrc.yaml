@@ -1,7 +1,7 @@
 # enable ES6
 parserOptions:
   ecmaVersion: 6
-  sourceType: "module"
+  sourceType: 'module'
   ecmaFeatures:
     jsx: true # enable React's JSX
 
@@ -22,20 +22,23 @@ env:
   node: true
 
 rules:
-  no-unexpected-multiline: 2
-  no-throw-literal: 0
+  # no-unexpected-multiline: 2
+  # no-throw-literal: 0
   no-underscore-dangle: 0
-  max-len: [1, 150, 4]
   no-param-reassign: 0
   no-plusplus: 0
   prefer-template: 0
   import/prefer-default-export: 0
   func-names: 0
-  class-methods-use-this: 0
+  class-methods-use-this: 0 
+  import/extensions: 0
 
   # eslint-plugin-meteor
   meteor/no-session: [0] # allow Session
   meteor/prefer-session-equals: [2] # prefer Session.equals instead
+
+settings:
+  import/core-modules: [ 'meteor/meteor', 'meteor/mongo', 'meteor/check', 'meteor/accounts-base', 'prop-types', 'meteor/react-meteor-data', 'meteor/templating', 'meteor/blaze' ]
 
 globals:
   # collections
