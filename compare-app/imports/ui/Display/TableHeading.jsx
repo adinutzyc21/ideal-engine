@@ -8,6 +8,28 @@ import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unuse
  */
 export default class TableHeading extends Component {
   /**
+   * Initialize state variables and bind this to methods
+   */
+  constructor(props) {
+    super(props);
+
+    // initialize state variables
+    this.state = {
+    };
+    // make this available in these methods
+    this.editScore = this.editScore.bind(this);
+    this.editColName = this.editColName.bind(this);
+  }
+
+  editScore() {
+    console.log('edit score');
+  }
+
+  editColName() {
+    console.log('edit col name');
+  }
+
+  /**
    * Construct the table header html from the cols array
    */
   buildHeaderHtml() {
@@ -29,15 +51,16 @@ export default class TableHeading extends Component {
 
         // add the score to the html
         // TODO: make the score editable
-        tableHeaderHtml.push(<span key='score-display' className='score-display'>
-          {col.score}</span>);
+        tableHeaderHtml.push(<span key='score-display' className='score-display'
+          onClick={this.editScore}> {col.score} </span>);
+
+        // TODO: add menu for type of column (glyphicon glyphicon-menu-down)
       }
       // add the column name to the html
       // TODO: make the column name editable
-      tableHeaderHtml.push(<span key='name-display'>{col.name}</span>);
+      tableHeaderHtml.push(<span key='name-display' onClick={this.editColName}>{col.name}</span>);
 
       // return a heading with column names and ButtonDeletes
-      // TODO: will preferably need both the score and name here to edit at once
       return <th key={col._id} className={deletableCol + ' ' + col._id}>{tableHeaderHtml}</th>;
     });
   }
