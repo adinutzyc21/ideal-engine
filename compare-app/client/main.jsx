@@ -2,8 +2,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { render } from 'react-dom';
 
-// import App from '../imports/ui/App.jsx'; // eslint-disable-line no-unused-vars
-import TableDisplay from '../imports/ui/display/TableDisplay.jsx'; // eslint-disable-line no-unused-vars
+import App from '../imports/ui/App.jsx'; // eslint-disable-line no-unused-vars
 
 import '../imports/startup/accounts-config.js';
 
@@ -15,7 +14,7 @@ Meteor.startup(() => {
     <div className='container'>
 
       <div id='app-container'>
-        <TableDisplay tableId='aa3d8fbe5927eb2545dc4ed1' />
+        <App />
       </div>
 
       <div id='footer-container'>
