@@ -2,13 +2,13 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import AccountsUIWrapper from '../Login/AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
+import AccountsUIWrapper from '../login/AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
 import DataInsert from './DataInsert.jsx'; // eslint-disable-line no-unused-vars
 
 import ComputeScore from './ComputeScore.jsx'; // eslint-disable-line no-unused-vars
-import TableSelect from '../Select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
-import TableCreate from '../Select/TableCreate.jsx'; // eslint-disable-line no-unused-vars
-import LoadCSV from '../Select/LoadCSV.jsx'; // eslint-disable-line no-unused-vars
+import TableSelect from '../select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
+import TableCreate from '../select/TableCreate.jsx'; // eslint-disable-line no-unused-vars
+import LoadCSV from '../select/LoadCSV.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * Menu Bar - create the menu bar depending on the current view

@@ -8,10 +8,11 @@ import { Row, Col } from '../../api/comparison.js';
 
 import TableHeading from './TableHeading.jsx'; // eslint-disable-line no-unused-vars
 import TableRow from './TableRow.jsx'; // eslint-disable-line no-unused-vars
-import MenuBar from '../Menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
+import MenuBar from '../menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
-
-// Column component - represents columns in the table
+/**
+ * TableDisplay component - either display the loaded table or a loading / no data message
+ */
 class TableDisplay extends Component {
   /**
    * Initialize state variables and bind this to methods
@@ -26,76 +27,86 @@ class TableDisplay extends Component {
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
   }
+
   /**
-   * Update dimensions to set table-container width correctly
+   * Update dimensions to set table-container height correctly based on the window size
    */
   updateDimensions() {
     let height = $(window).height() - 120;
     if (height < 150) height = 150;
     this.setState({ height });
   }
-
   componentWillMount() {
     this.updateDimensions();
   }
-
   componentDidMount() {
     window.addEventListener('resize', this.updateDimensions);
   }
-
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
+  /**
+   * Render the table
+   */
   render() {
     $('.table-container').css('max-height', this.state.height + 'px');
 
-    // this is the final view
-    const html = [];
+    // this is the final html for our table
+    const tableContainerHtml = [];
 
-    // While the data is loading, show a spinner
+    // while the data is loading, the html is a spinner
     if (this.props.loading) {
-      html.push(
+      tableContainerHtml.push(
         <div key='table-container' className='table-container table-container-no-data'>
           <div key='loading'>
-            Loading data...
-                    <Spinner key='spinner' spinnerName='three-bounce' />
+            <span>Loading data...</span>
+            <Spinner key='spinner' spinnerName='three-bounce' />
           </div>
         </div>);
 
-    // If the data is empty, show that there is no data available
+    // if the data is empty, the html is no data available info
     } else if (this.props.rows.length === 0) {
       // clear the residual columns
       Meteor.call('comparison.clearTable', this.props.tableId);
 
-      html.push(
+      tableContainerHtml.push(
         <div key='table-container' className='table-container table-container-no-data'>
-          <div>No data available. Use the menu to add data.</div>
+          <span>No data available. Use the menu to add data.</span>
         </div>);
 
-    // render the loaded table
+    // the html is the loaded table
     } else {
-      html.push(
+      tableContainerHtml.push(
         <div key='table-container' className='table-container'>
           <table key='table'>
             {/* Need a header of type TableHeading */}
             <TableHeading key='heading' cols={this.props.cols} />
-            {/* Need a bunch of rows of type  TableRow*/}
+            {/* Need a bunch of rows of type TableRow*/}
             <TableRow key='row' rows={this.props.rows} cols={this.props.cols} />
           </table>
         </div>);
     }
 
+    // display the constructed HTML
     return (
       <div className='react-bs-container-body'>
         <MenuBar key='menu' currentView='tableDisplay' rows={this.props.rows}
               cols={this.props.cols} tableId={this.props.tableId} />
-        {html}
+        {tableContainerHtml}
       </div>
     );
   }
 }
 
+/**
+ * The properties retrieved in this component:
+ * tableId {String} - ID of the Mongo table
+ * loading {Boolean} - is the data still loading or is it done
+ * rows {Array} - the data in the Mongo Rows table
+ * cols {Array} - the data in the Mongo Cols table
+ * user {Object} - the current logged in user from Meteor
+ */
 TableDisplay.propTypes = {
   tableId: PropTypes.string.isRequired,
   loading: PropTypes.bool,
@@ -104,21 +115,33 @@ TableDisplay.propTypes = {
   user: PropTypes.object,
 };
 
+/**
+ * A Meteor createContainer component which retrieves data from Meteor & Mongo
+ */
 export default createContainer((props) => {
+  // subscribe to the row data from Mongo
   const subscriptionR = Meteor.subscribe('row');
+  // is the row data still loading
   const loadingR = !subscriptionR.ready();
+  // get the row data from Mongo
   const rows = Row.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
 
+  // subscribe to the col data from Mongo
   const subscriptionC = Meteor.subscribe('col');
+  // is the col data still loading
   const loadingC = !subscriptionC.ready();
-
+  // get the col data from Mongo
   const cols = Col.find({ tableId: props.tableId }).fetch();
 
+  // get the currently logged in user from Meteor
   const user = Meteor.user();
+  // are we done loading the user?
   const loadingU = Meteor.user() === undefined;
 
+  // are we done loading everything?
   const loading = loadingR || loadingC || loadingU;
 
+  // pass this properties to TableDisplay in addition to what's already passed
   return {
     loading,
     rows,

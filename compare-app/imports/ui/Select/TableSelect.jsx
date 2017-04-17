@@ -7,7 +7,7 @@ import { Tables } from '../../api/tables.js';
 
 import TableDelete from './TableDelete.jsx'; // eslint-disable-line no-unused-vars
 import TableLoad from './TableLoad.jsx'; // eslint-disable-line no-unused-vars
-import MenuBar from '../Menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
+import MenuBar from '../menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
 // Column component - represents columns in the table
 class TableSelect extends Component {
@@ -20,8 +20,8 @@ class TableSelect extends Component {
     if (this.props.loading) {
       html.push(
         <div key='row'>
-          Loading data...
-                    <Spinner spinnerName='three-bounce' />
+          <span>Loading data...</span>
+          <Spinner spinnerName='three-bounce' />
         </div>);
 
       // If the data is empty, say that there is no data available

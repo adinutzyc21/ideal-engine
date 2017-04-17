@@ -2,7 +2,7 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import TableDisplay from '../Display/TableDisplay.jsx'; // eslint-disable-line no-unused-vars
+import TableDisplay from '../display/TableDisplay.jsx'; // eslint-disable-line no-unused-vars
 
 // TableLoad component - use to load the selected table
 export default class TableLoad extends Component {

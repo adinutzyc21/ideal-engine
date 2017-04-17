@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
 
-import TableSelect from './Select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
-import LoginPage from './Login/LoginPage.jsx'; // eslint-disable-line no-unused-vars
-import MenuBar from './Menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
+import TableSelect from './select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
+import LoginPage from './login/LoginPage.jsx'; // eslint-disable-line no-unused-vars
+import MenuBar from './menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
-// App component - is the main view of the table
+/**
+ * App component - redirects to either log in screen or table selection
+ */
 class App extends Component {
   /**
   * Initialize state variables and bind 'this' to methods
@@ -21,12 +23,18 @@ class App extends Component {
       // currentView: 'logInPage'
     };
 
-    this.asGuest = this.asGuest.bind(this);
+    this.continueAsGuest = this.continueAsGuest.bind(this);
   }
 
-  asGuest() {
+  /**
+   * Allow the user to continue as a guest
+   * Sets the showTableSelect state variable to true,
+   *  allowing the SelectTable screen to be displayed
+   */
+  continueAsGuest() {
     this.setState({ showTableSelect: true });
   }
+
 
   render() {
     const option = [];
@@ -49,7 +57,7 @@ class App extends Component {
         option.push(
           <div key="login" className="table-container table-container-no-data">
             <LoginPage />
-            <a role="button" onClick={this.asGuest}>Continue as Guest</a>
+            <a role="button" onClick={this.continueAsGuest}>Continue as Guest</a>
           </div>);
       } else {
         option.push(<TableSelect key="select" />);
@@ -71,10 +79,11 @@ App.propTypes = {
 };
 
 export default createContainer((/* { params } */) => {
+  // get the meteor user
   const user = Meteor.user();
-
   let loading = true;
 
+  // wait for the Meteor user to load
   if (user !== undefined) {
     loading = false;
   }

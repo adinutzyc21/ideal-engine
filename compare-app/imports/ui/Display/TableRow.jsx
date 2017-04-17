@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 
-import DataDelete from '../Menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
+import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
 
 // DataRow component - displays the cotents of the table
 export default class DataRow extends Component {
