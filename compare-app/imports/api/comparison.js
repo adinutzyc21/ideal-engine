@@ -258,7 +258,7 @@ Meteor.methods({
       colData.name = cols[i];
       // the first column does not have a score
       if (i !== 0) {
-        colData.score = -1;
+        colData.score = 0;
       }
       // insert the column into mongo
       Col.insert(colData);
@@ -277,8 +277,8 @@ Meteor.methods({
       for (let j = 0, len2 = colObj.length; j < len2; j++) {
         const colId = colObj[j].id;
         const colName = colObj[j].name;
-        rowData[colId] = { value: row[colName], score: -1 };
-        rowData.score = -1;
+        rowData[colId] = { value: row[colName], score: 0 };
+        rowData.score = 0;
       }
       rowData.tableId = tableId;
       // insert the row into Mongo
