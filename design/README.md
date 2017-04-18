@@ -30,11 +30,6 @@ This app would allow you to give relative importance to each of these criteria a
 - The "Score Comparison!" button calculates the overall score for each of the options using the formula ![equation](https://latex.codecogs.com/gif.latex?S_%7BO_%7Bi%7D%7D%3D%5Csum_%7Bj%7D%28S_%7BC_%7Bj%7D%7D%5Ccdot%20S_%7BO_%7Bi%7D%2CC_%7Bj%7D%7D%29)
 - When the comparison is scored, the rows (options) will be sorted by the total score calculated above. The 'winner' options will be highlighted, so if more options have the same score, they will all be highlighted.
 
-### Extra features for the future:
-- If a price is provided, should be able to parse that as a score.
-- Right-click add column left/right and add row above/below options.
-- Sort criteria by score.
-
-### Tutorials on getting started with Meteor+React (some steps on how I built the app):
+### Tutorials on getting started with Meteor+React (some steps on how I started building the app):
 - [Creating an app with react-bootstrap-table and Meteor](http://adinutzyc21.blogspot.com/2016/11/meteor-react-react-bootstrap-table.html)
 - [Stylesheets and adding table functionality](http://adinutzyc21.blogspot.com/2016/11/meteor-react-adding-and-deleting-rows.html)
