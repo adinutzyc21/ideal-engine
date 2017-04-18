@@ -5,8 +5,7 @@ Have you ever tried to decide between a bunch of options and, after painstakingl
 
 The *CompareApp* allows you to assign relative importance to each criterion, as well as to individually score each option within each criterion. A total score is then calculated for every option, and the options are sorted based on these scores, in order to make the final decision easier for you to make.
 
-The app is live, in a draft state, at [ideal-engine](https://ideal-engine.herokuapp.com/). Please read on to learn more about it and how to use it!
-
+The app is live, in a draft state, at [ideal-engine@heroku](https://ideal-engine.herokuapp.com/). Please read on to learn more about it and how to use it!
 
 ## Example
 
@@ -18,7 +17,7 @@ Then, you would decide which features (criteria) are more important for you (low
 
 ## Application Overview
 
-Let's create a comparison! Go to [ideal-engine](https://ideal-engine.herokuapp.com/).
+Let's create a comparison! Go to [ideal-engine@heroku](https://ideal-engine.herokuapp.com/).
 
 - Either log in using the sign in menu (top-right) or click *Continue as Guest*. For this tutorial, continuing as guest is good enough.
 - You will then, most likely, see a bunch of tables that you can select from. There are two types of tables: private or public. If you didn't log in, you will only see public tables (open-eye icon, gray background). Private tables (closed-eye icon, cyan background) are available for logged-in users. A logged in user can create a private table by unchecking the checkbox upon creation. 
@@ -110,3 +109,7 @@ TODO: Add descriptions for key components.
 +-- server
 |   +-- main.js
 ```
+
+## Future Features
+
+I made a board on Trello for [ideal-engine@trello](https://trello.com/b/Xokr4s7w/compareapp-board).
