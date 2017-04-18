@@ -285,6 +285,24 @@ Meteor.methods({
       Row.insert(rowData);
     }
   },
+
+  /**
+   * Update the column field in Mongo (either name or score)
+   * @param {String} colId - the id of the column being edited
+   * @param {String} type - the type of element being edited ('name' or 'score')
+   * @param {String} value - the value to be written in the database
+   */
+  'comparison.updateColumnFieldInPlace'(colId, type, value) { // eslint-disable-line object-shorthand
+    check(colId, String);
+    check(type, String);
+    check(value, String);
+
+    Col.update(colId, {
+      $set: {
+        [type]: value,
+      },
+    });
+  },
 });
 
 /*

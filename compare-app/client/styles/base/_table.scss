@@ -4,7 +4,6 @@ table {
 }
 
 th, td {
-    vertical-align: middle;
     padding: 10px;
     border-left: 1px solid #0099cc;
     min-width: 240px;
@@ -12,18 +11,20 @@ th, td {
 
 th {
     background-color: $darkBlue;
-    color: white;
-    text-transform: capitalize;
-    font-variant: small-caps;
+    vertical-align: middle;
     &:first-child {
         border-left: 0px;
     }
     &.del-highlight {
         background-color: #ff4d4d;
     }
+    &:hover {
+        background-color: lighten($darkBlue, 5%);
+    }
 }
 
 td{
+    vertical-align: top;
     &.secondary-heading {
         color: $darkBlue;
         font-weight: bold;
@@ -59,8 +60,22 @@ tr{
     opacity: 0.8;
 }
 
-.score-display {
-    opacity: 0.5;
+.name-display {
+    color: white;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    line-height: 16px;
+}
+
+.name-editing {
+    background-color: lighten($darkBlue, 5%);
+    color: white;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    border: 0px;
+}
+
+.score-editing {
     font-size: 10px;
     padding: 2px 0;
     float: right;
@@ -69,9 +84,18 @@ tr{
     background-color: ghostwhite;
     text-align: center;
     color: black;
-    &:hover {
-        opacity: 1;
-    }
+}
+
+.score-display {
+    opacity: 0.5;
+    font-size: 10px;
+    padding: 2px 0;
+    float: right;
+    width: 20px;
+    border: 1px solid gray;
+    background-color: darken(ghostwhite, 5%);
+    text-align: center;
+    color: black;
 }
 
 

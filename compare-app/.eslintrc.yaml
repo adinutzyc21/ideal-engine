@@ -38,7 +38,7 @@ rules:
   meteor/prefer-session-equals: [2] # prefer Session.equals instead
 
 settings:
-  import/core-modules: [ 'meteor/meteor', 'meteor/mongo', 'meteor/check', 'meteor/accounts-base', 'prop-types', 'meteor/react-meteor-data', 'meteor/templating', 'meteor/blaze' ]
+  import/core-modules: [ 'meteor/meteor', 'meteor/mongo', 'meteor/check', 'meteor/accounts-base', 'prop-types', 'meteor/react-meteor-data', 'meteor/templating', 'meteor/blaze', 'meteor/themeteorchef:bert' ]
 
 globals:
   # collections
