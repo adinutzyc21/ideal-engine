@@ -43,23 +43,34 @@ export default class TableHeading extends Component {
  * @param {String} type - one of 'score' or 'name'
  */
   renderItemOrEditField(id, data, type) {
+    // display the edit fields
     if (this.state.editInPlace === true &&
       this.state.editingId === id &&
       this.state.editingType === type) {
-      // handle rendering our edit fields here.
-      return <input autoFocus
+      if (type === 'score') {
+        // changing a number
+        return <input type='number' autoFocus
+          min='0' max='10' autoComplete='off'
           key={type + '-editing'}
           onKeyDown={this.handleEditField}
           onBlur={this.stopEditing}
           className={type + '-editing'}
-          type='text'
-          ref={type + '_' + id}
-          name={type}
+          ref={type + '_' + id} name={type}
           defaultValue={data}
         />;
+      }
+      // changing text
+      return <input type='text' autoFocus
+        key={type + '-editing'}
+        onKeyDown={this.handleEditField}
+        onBlur={this.stopEditing}
+        className={type + '-editing'}
+        ref={type + '_' + id} name={type}
+        defaultValue={data}
+      />;
     }
 
-    // display the static field
+    // display the static item
     return <span key={type + '-display'} className={type + '-display'}
         onClick={() => this.toggleEditing(id, type)}> {data} </span>;
   }
@@ -122,7 +133,7 @@ export default class TableHeading extends Component {
         // add the score to the html
         tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.score, 'score'));
 
-        // TODO: add menu for type of column
+        // add dropdown menu to format the column (choose type)
         tableHeaderHtml.push(
           <ColumnType key='colMenu' colId={col._id} />);
 
