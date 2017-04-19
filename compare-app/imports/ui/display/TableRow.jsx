@@ -3,52 +3,63 @@ import PropTypes from 'prop-types';
 
 import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
 
-// DataRow component - displays the cotents of the table
+/**
+ * TableRow component - displays the contents of the table given the data
+ */
 export default class DataRow extends Component {
-
+  /**
+   * Display one row of data in the correct columns
+   * @param {Array} row - a row of data
+   */
   renderRow(row) {
     // for each column
     return this.props.cols.map((col, idx) => {
-      const html = [];
-      let classN = '';
+      // this is the final html for our table data
+      const tableDataHtml = [];
 
-      // if the current column is populated
+      // is this a deletable header row (basically the first row)
+      let headerDelRow = '';
+
+      // if the current column is populated in the row
       if (row[col._id]) {
-        // display the first column as a header and show the delete button to the left
+        // display the first row as a header and allow deletion
         if (idx === 0) {
-          classN = 'secondary-heading div-delete';
-          html.push(
-            <DataDelete key='del' level='row' params={row._id} />);
-          html.push(<span key='score-display' className='score-display'>{row.score}</span>);
+          // add the correct class
+          headerDelRow = 'secondary-heading div-delete';
 
-        // display the next columns
+          // add the score to the html
+          tableDataHtml.push(<span key='score-display' className='score-display'>
+            {row.score}</span>);
+
+          // add the data delete option to the html
+          tableDataHtml.push(
+            <DataDelete key='del' level='row' params={row._id} />);
+
+        // if it's not the first column, no delete button or special formatting
         } else {
-          html.push(<span key='score-display' className='score-display'>
+          tableDataHtml.push(<span key='score-display' className='score-display'>
                     {row[col._id].score}</span>);
         }
-        // add the data to display
-        html.push(<span key='name-display'>{row[col._id].value}</span>);
+        // add the table data to the html
+        tableDataHtml.push(<span key='name-display'>{row[col._id].value}</span>);
       }
-      // return a row with data and buttons
-      return <td key={col._id} className={classN + ' ' + row._id + ' ' + col._id}>{html}</td>;
+      // return a row with data and ButtonDeletes
+      return <td key={col._id} className={headerDelRow + ' ' + row._id + ' ' + col._id}>{tableDataHtml}</td>;
     });
   }
 
-  renderRows() {
-    const self = this;
-    return this.props.rows.map(row => (
-        <tr key={row._id}>
-          {self.renderRow(row)}
-        </tr>
-      ));
-  }
-
+  /**
+   * Render all of the rows in the table in appropriate tags
+   */
   render() {
-    return (
-      <tbody>
-        {this.renderRows()}
-      </tbody>
-    );
+    const self = this;
+    return <tbody>
+        {this.props.rows.map(row => (
+          <tr key={row._id}>
+            {self.renderRow(row)}
+          </tr>
+        ))}
+      </tbody>;
   }
 }
 

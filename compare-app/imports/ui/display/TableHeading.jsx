@@ -119,7 +119,7 @@ export default class TableHeading extends Component {
    */
   buildHeaderHtml() {
     return this.props.cols.map((col, idx) => {
-      // this is the final html for our heare
+      // this is the final html for our header
       const tableHeaderHtml = [];
 
       // is this a deletable column (all except first column)
