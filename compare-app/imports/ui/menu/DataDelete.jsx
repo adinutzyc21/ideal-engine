@@ -2,7 +2,10 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
-// ButtonDelete component - use to add a delete button and perform delete operations
+/**
+ * DataDelete component - delete button (added next to the row headers or
+ * column headers) to delete options (rows) or criteria (columns)
+ */
 export default class DataDelete extends Component {
   /**
    * Initialize state variables and bind this to methods
@@ -10,21 +13,27 @@ export default class DataDelete extends Component {
   constructor(props) {
     super(props);
 
-    // make this available in these methods
+    // make 'this' available in these methods
     this.handleMouseOut = this.handleMouseOut.bind(this);
     this.handleMouseIn = this.handleMouseIn.bind(this);
   }
 
-  handleMouseOut() {
-    $('.' + this.props.params).removeClass('del-highlight');
-  }
-
+  /**
+   * Enable highlight when the mouse hovers over the 'x'
+   */
   handleMouseIn() {
     $('.' + this.props.params).addClass('del-highlight');
   }
 
   /**
-   * Delete a column from the Comparison collection given its id
+   * Disable highlight when the mouse leaves the 'x'
+   */
+  handleMouseOut() {
+    $('.' + this.props.params).removeClass('del-highlight');
+  }
+
+  /**
+   * Delete a column from Mongo given its id
    * @param id the id of the column we're deleting
    */
   deleteColumn(id) {
@@ -32,7 +41,7 @@ export default class DataDelete extends Component {
   }
 
   /**
-   * Delete a row from the Comparison collection, given its id
+   * Delete a row from Mongo given its id
    * @param id the id of the column
    */
   deleteRow(id) {
@@ -45,16 +54,16 @@ export default class DataDelete extends Component {
   render() {
     // set the callback depending on the type of delete (row/col)
     let callback = this.deleteRow; // row
-    let title = 'Delete Option';
+    let title = 'Delete Row';
     if (this.props.level === 'col') { // column
       callback = this.deleteColumn;
-      title = 'Delete Criterion';
+      title = 'Delete Column';
     }
 
     // display the button
     return (
       <a role='button' data-toggle='tooltip' title={title}
-        className={'glyphicon glyphicon-remove delbutton'}
+        className={'glyphicon glyphicon-remove del-button'}
         onClick={() => { callback(this.props.params); }}
         onMouseEnter={this.handleMouseIn}
         onMouseLeave={this.handleMouseOut} >

@@ -16,7 +16,7 @@ export default class DataRow extends Component {
       if (row[col._id]) {
         // display the first column as a header and show the delete button to the left
         if (idx === 0) {
-          classN = 'secondary-heading divdelete';
+          classN = 'secondary-heading div-delete';
           html.push(
             <DataDelete key='del' level='row' params={row._id} />);
           html.push(<span key='score-display' className='score-display'>{row.score}</span>);

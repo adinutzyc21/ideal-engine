@@ -5,6 +5,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
 import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
+import ColumnType from '../menu/ColumnType.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * TableHeading component - displays the header of the table given the data
@@ -46,8 +47,7 @@ export default class TableHeading extends Component {
       this.state.editingId === id &&
       this.state.editingType === type) {
       // handle rendering our edit fields here.
-      return <span key='edit_span'>
-        <input autoFocus
+      return <input autoFocus
           key={type + '-editing'}
           onKeyDown={this.handleEditField}
           onBlur={this.stopEditing}
@@ -56,8 +56,7 @@ export default class TableHeading extends Component {
           ref={type + '_' + id}
           name={type}
           defaultValue={data}
-        />
-      </span>;
+        />;
     }
 
     // display the static field
@@ -118,16 +117,18 @@ export default class TableHeading extends Component {
       // allow column deletion for all columns except the first ('Option Name') one
       if (idx !== 0) {
         // add the correct class
-        deletableCol = 'divdelete';
-
-        // add the data delete option to the html
-        tableHeaderHtml.push(
-          <DataDelete key='del' level='col' params={col._id} />);
+        deletableCol = 'div-delete';
 
         // add the score to the html
         tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.score, 'score'));
 
-        // TODO: add menu for type of column (glyphicon glyphicon-menu-down)
+        // TODO: add menu for type of column
+        tableHeaderHtml.push(
+          <ColumnType key='colMenu' colId={col._id} />);
+
+        // add the data delete option to the html
+        tableHeaderHtml.push(
+          <DataDelete key='del' level='col' params={col._id} />);
       }
       // add the column name to the html
       tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.name, 'name'));

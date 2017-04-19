@@ -127,8 +127,7 @@ export default class MenuBar extends Component {
           <span className='icon-bar'></span>
         </button>
         <a className='navbar-brand' href='/'>
-          <img alt='Brand' src='/logo.png' height='25px' />
-        </a>
+          <img alt='Brand' src='/logo.png' height='25px' /></a>
         <a href='/'><p className='navbar-text title'>compareApp</p></a>
       </div>;
 
@@ -145,7 +144,7 @@ export default class MenuBar extends Component {
           <a href='https://github.com/adinutzyc21/ideal-engine/blob/master/README.md'
             className='blue' target='_blank' title='Help' >
             <span className='glyphicon glyphicon-question-sign'></span> Help
-                    </a>
+          </a>
         </li>
       </ul>;
 
@@ -154,8 +153,7 @@ export default class MenuBar extends Component {
       <ul className='nav navbar-nav'>
         <li className='dropdown'>
           <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
-            <span className='glyphicon glyphicon-menu-hamburger'></span> File
-                    </a>
+            <span className='glyphicon glyphicon-menu-hamburger'></span> File</a>
           <ul className='dropdown-menu'>
             <li role='button' className={this.isActive('loadTable')}>
               <a role='button' onClick={this.loadTable}>Load Table</a></li>
@@ -173,8 +171,7 @@ export default class MenuBar extends Component {
         <ul className='nav navbar-nav'>
           <li className='dropdown'>
             <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
-              <span className='glyphicon glyphicon-pencil'></span> Edit
-                        </a>
+              <span className='glyphicon glyphicon-pencil'></span> Edit</a>
             <ul className='dropdown-menu'>
               <li className={this.disabledClass('addRow')}>
                 <DataInsert key='row' level='row'
