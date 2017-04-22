@@ -5,7 +5,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
 import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
-import ColumnType from '../menu/ColumnType.jsx'; // eslint-disable-line no-unused-vars
+import ColumnTypeMenu from '../menu/ColumnTypeMenu.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * TableHeading component - displays the header of the table given the data
@@ -43,34 +43,35 @@ export default class TableHeading extends Component {
  * @param {String} type - one of 'score' or 'name'
  */
   renderItemOrEditField(id, data, type) {
-    // display the edit fields
-    if (this.state.editInPlace === true &&
-      this.state.editingId === id &&
-      this.state.editingType === type) {
+    // IF: display the edit fields
+    if (this.state.editInPlace === true && this.state.editingId === id
+      && this.state.editingType === type) {
+      // if: changing a number (score)
       if (type === 'score') {
-        // changing a number
         return <input type='number' autoFocus
           min='0' max='10' autoComplete='off'
           key={type + '-editing'}
           onKeyDown={this.handleEditField}
           onBlur={this.stopEditing}
           className={type + '-editing'}
-          ref={type + '_' + id} name={type}
+          name={type}
+          defaultValue={data}
+        />;
+
+      // else: changing text (name)
+      } else if (type === 'name') {
+        return <input type='text' autoFocus
+          key={type + '-editing'}
+          onKeyDown={this.handleEditField}
+          onBlur={this.stopEditing}
+          className={type + '-editing'}
+          name={type}
           defaultValue={data}
         />;
       }
-      // changing text
-      return <input type='text' autoFocus
-        key={type + '-editing'}
-        onKeyDown={this.handleEditField}
-        onBlur={this.stopEditing}
-        className={type + '-editing'}
-        ref={type + '_' + id} name={type}
-        defaultValue={data}
-      />;
     }
 
-    // display the static item
+    // ELSE: display the static item
     return <span key={type + '-display'} className={type + '-display'}
         onClick={() => this.toggleEditing(id, type)}> {data} </span>;
   }
@@ -82,6 +83,7 @@ export default class TableHeading extends Component {
   handleEditField(event) {
     // if the key pressed was ENTER
     // TODO: probably need something better than enter here for multiline
+    // for example a v and x button appearing below on the right like in JIRA
     if (event.keyCode === 13) {
       const target = event.target;
 
@@ -135,7 +137,7 @@ export default class TableHeading extends Component {
 
         // add dropdown menu to format the column (choose type)
         tableHeaderHtml.push(
-          <ColumnType key='colMenu' colId={col._id} />);
+          <ColumnTypeMenu key='colMenu' colId={col._id} />);
 
         // add the data delete option to the html
         tableHeaderHtml.push(

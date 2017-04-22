@@ -91,14 +91,24 @@ a.col-menu-button{
     opacity: 0.8;
 }
 
-.name-display {
-    color: white;
-    text-transform: uppercase;
+.option-display, .data-display, .data-editing {
     line-height: 16px;
     margin: 15px 25px 0px 20px;
     padding:0;
     display: block;
     overflow: hidden;
+}
+
+.option-editing {
+    @extend .option-display;
+    padding:0;
+    border: 0;
+}
+
+.name-display {
+    @extend .option-display;
+    color: white;
+    text-transform: uppercase;
 }
 
 .name-editing {
@@ -111,8 +121,8 @@ a.col-menu-button{
 .score-display, .score-editing {
     font-weight: normal;
     font-style: italic;
-    font-size: 10px;
-    width: 27px;
+    font-size: 10px !important;
+    width: 30px;
     float: left;
     vertical-align: super;
     padding: 0; margin: 0;
