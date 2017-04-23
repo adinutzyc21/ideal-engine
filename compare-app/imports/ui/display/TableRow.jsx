@@ -102,9 +102,13 @@ export default class DataRow extends Component {
     if (event.keyCode === 13) {
       const target = event.target;
 
+      // let 'type' match Mongo options
+      let type = this.state.editingType;
+      if (type === 'data' || type === 'option') type = 'value';
+
       // update the field in Meteor
       Meteor.call('comparison.updateRowFieldInPlace', this.state.editingRowId,
-        this.state.editingColId, this.state.editingType, target.value, (error) => {
+        this.state.editingColId, type, target.value, (error) => {
           if (error) {
             Bert.alert(error.reason, 'danger');
           } else {
