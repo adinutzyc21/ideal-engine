@@ -2,10 +2,10 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 
 /**
- * ColumnTypeMenu component - add a dropdown menu to the right of delete button:
+ * FormatColumn component - add a dropdown menu to the right of delete button:
  * this should allow formatting of data in special ways
  */
-export default class ColumnTypeMenu extends Component {
+export default class FormatColumn extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -59,6 +59,6 @@ export default class ColumnTypeMenu extends Component {
 /**
   * colId: column id
   */
-ColumnTypeMenu.propTypes = {
+FormatColumn.propTypes = {
   colId: PropTypes.string.isRequired,
 };

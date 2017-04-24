@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
 // ButtonDelete component - use to add a delete button and perform delete operations
-export default class TableDelete extends Component {
+export default class DeleteTable extends Component {
 
   /**
    * Delete a row from the Tables collection, given its id
@@ -34,7 +34,7 @@ export default class TableDelete extends Component {
   }
 }
 
-TableDelete.propTypes = {
+DeleteTable.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string,
 };

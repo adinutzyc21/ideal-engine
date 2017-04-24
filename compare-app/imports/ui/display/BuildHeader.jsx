@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
-import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
-import ColumnTypeMenu from '../menu/ColumnTypeMenu.jsx'; // eslint-disable-line no-unused-vars
+import DeleteData from './cell-menu/DeleteData.jsx'; // eslint-disable-line no-unused-vars
+import FormatColumn from './cell-menu/FormatColumn.jsx'; // eslint-disable-line no-unused-vars
 
 /**
- * TableHeading component - displays the header of the table given the data
+ * BuildHeader component - displays the header of the table given the data
  */
-export default class TableHeading extends Component {
+export default class BuildHeader extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -19,10 +19,6 @@ export default class TableHeading extends Component {
 
     // initialize state variables
     this.state = {
-      // only allow edit in place if this is true
-      // TODO: add a menu button to toggle this
-      editInPlace: true,
-
       // this is the item id we are editing
       editingId: null,
 
@@ -44,7 +40,7 @@ export default class TableHeading extends Component {
  */
   renderItemOrEditField(id, data, type) {
     // IF: display the edit fields
-    if (this.state.editInPlace === true && this.state.editingId === id
+    if (this.props.editEnabled === true && this.state.editingId === id
       && this.state.editingType === type) {
       // if: changing a number (score)
       if (type === 'score') {
@@ -94,7 +90,7 @@ export default class TableHeading extends Component {
             Bert.alert(error.reason, 'danger');
           } else {
             this.stopEditing();
-            Bert.alert('Record updated!', 'success');
+            Bert.alert('Header updated!', 'success');
           }
         });
     }
@@ -137,11 +133,11 @@ export default class TableHeading extends Component {
 
         // add dropdown menu to format the column (choose type)
         tableHeaderHtml.push(
-          <ColumnTypeMenu key='colMenu' colId={col._id} />);
+          <FormatColumn key='colMenu' colId={col._id} />);
 
         // add the data delete option to the html
         tableHeaderHtml.push(
-          <DataDelete key='del' level='col' params={col._id} />);
+          <DeleteData key='del' level='col' params={col._id} />);
       }
       // add the column name to the html
       tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.name, 'name'));
@@ -168,6 +164,7 @@ export default class TableHeading extends Component {
  * The properties retrieved in this component:
  * cols {Array} - the data in the Mongo Cols table
  */
-TableHeading.propTypes = {
+BuildHeader.propTypes = {
   cols: PropTypes.array.isRequired,
+  editEnabled: PropTypes.bool,
 };

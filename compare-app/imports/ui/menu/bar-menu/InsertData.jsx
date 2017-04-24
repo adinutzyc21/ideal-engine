@@ -5,10 +5,10 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 /**
- * DataInsert component - open modal and allow data insertion in the table
+ * InsertData component - open modal and allow data insertion in the table
  * by adding to the Row and Col tables
  */
-export default class DataInsert extends Component {
+export default class InsertData extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -338,7 +338,7 @@ export default class DataInsert extends Component {
  * isDisabled {bool} - is this button enabled or not
  * optionIdx {string} - the id of the first column (that is, the option name id)
  */
-DataInsert.propTypes = {
+InsertData.propTypes = {
   level: PropTypes.oneOf(['row', 'col']).isRequired,
   data: PropTypes.array.isRequired,
   tableId: PropTypes.string.isRequired,

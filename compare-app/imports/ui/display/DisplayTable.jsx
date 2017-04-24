@@ -6,14 +6,14 @@ import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
 
 import { Row, Col } from '../../api/comparison.js';
 
-import TableHeading from './TableHeading.jsx'; // eslint-disable-line no-unused-vars
-import TableRow from './TableRow.jsx'; // eslint-disable-line no-unused-vars
+import BuildHeader from './BuildHeader.jsx'; // eslint-disable-line no-unused-vars
+import BuildRow from './BuildRow.jsx'; // eslint-disable-line no-unused-vars
 import MenuBar from '../menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
 /**
- * TableDisplay component - either display the loaded table or a loading / no data message
+ * DisplayTable component - either display the loaded table or a loading / no data message
  */
-class TableDisplay extends Component {
+class DisplayTable extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -23,9 +23,16 @@ class TableDisplay extends Component {
     // initialize state variables
     this.state = {
       height: 50,
+      editEnabled: false,
     };
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.toggleEditOnOff = this.toggleEditOnOff.bind(this);
+  }
+
+
+  toggleEditOnOff() {
+    this.setState({ editEnabled: !this.state.editEnabled });
   }
 
   /**
@@ -80,10 +87,12 @@ class TableDisplay extends Component {
       tableContainerHtml.push(
         <div key='table-container' className='table-container'>
           <table key='table'>
-            {/* Need a header of type TableHeading */}
-            <TableHeading key='heading' cols={this.props.cols} />
-            {/* Need a bunch of rows of type TableRow*/}
-            <TableRow key='row' rows={this.props.rows} cols={this.props.cols} />
+            {/* Need a header of type BuildHeader */}
+            <BuildHeader key='heading' cols={this.props.cols}
+              editEnabled={this.state.editEnabled}/>
+            {/* Need a bunch of rows of type BuildRow*/}
+            <BuildRow key='row' rows={this.props.rows} cols={this.props.cols}
+              editEnabled={this.state.editEnabled}/>
           </table>
         </div>);
     }
@@ -91,8 +100,10 @@ class TableDisplay extends Component {
     // display the constructed HTML
     return (
       <div className='react-bs-container-body'>
-        <MenuBar key='menu' currentView='tableDisplay' rows={this.props.rows}
-              cols={this.props.cols} tableId={this.props.tableId} />
+        <MenuBar key='menu' currentView='DisplayTable' rows={this.props.rows}
+              cols={this.props.cols} tableId={this.props.tableId}
+              editEnabled={this.state.editEnabled}
+              toggleEditOnOff={this.toggleEditOnOff}/>
         {tableContainerHtml}
       </div>
     );
@@ -107,7 +118,7 @@ class TableDisplay extends Component {
  * cols {Array} - the data in the Mongo Cols table
  * user {Object} - the current logged in user from Meteor
  */
-TableDisplay.propTypes = {
+DisplayTable.propTypes = {
   tableId: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   rows: PropTypes.array,
@@ -141,11 +152,11 @@ export default createContainer((props) => {
   // are we done loading everything?
   const loading = loadingR || loadingC || loadingU;
 
-  // pass this properties to TableDisplay in addition to what's already passed
+  // pass this properties to DisplayTable in addition to what's already passed
   return {
     loading,
     rows,
     cols,
     user,
   };
-}, TableDisplay);
+}, DisplayTable);

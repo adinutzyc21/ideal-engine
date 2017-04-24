@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import AccountsUIWrapper from '../login/AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
-import DataInsert from './DataInsert.jsx'; // eslint-disable-line no-unused-vars
+import InsertData from './bar-menu/InsertData.jsx'; // eslint-disable-line no-unused-vars
 
-import ComputeScore from './ComputeScore.jsx'; // eslint-disable-line no-unused-vars
-import TableSelect from '../select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
-import TableCreate from '../select/TableCreate.jsx'; // eslint-disable-line no-unused-vars
-import LoadCSV from '../select/LoadCSV.jsx'; // eslint-disable-line no-unused-vars
+import SelectTable from '../select/SelectTable.jsx'; // eslint-disable-line no-unused-vars
+import CreateTable from '../select/CreateTable.jsx'; // eslint-disable-line no-unused-vars
+import ImportCSV from '../select/ImportCSV.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * Menu Bar - create the menu bar depending on the current view
@@ -29,13 +28,14 @@ export default class MenuBar extends Component {
       currentView: 'loadTable',
     };
 
-    // make this available in these methods
+    // make 'this' available in these methods
     this.isActive = this.isActive.bind(this);
     this.loadTable = this.loadTable.bind(this);
     this.disabledClass = this.disabledClass.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
     this.populateDocument = this.populateDocument.bind(this);
     this.deleteDocument = this.deleteDocument.bind(this);
+    this.computeScore = this.computeScore.bind(this);
   }
 
   /**
@@ -48,7 +48,7 @@ export default class MenuBar extends Component {
   }
 
   loadTable() {
-    ReactDOM.render(<TableSelect />, document.getElementById('app-container'));
+    ReactDOM.render(<SelectTable />, document.getElementById('app-container'));
     this.setState({ currentView: 'loadTable' });
   }
 
@@ -117,7 +117,7 @@ export default class MenuBar extends Component {
 
   createHtml() {
     // the brand and title on the menu bar
-    const brandAndTitle =
+    const logo =
       <div className='navbar-header'>
         <button type='button' className='navbar-toggle collapsed' data-toggle='collapse'
           data-target='#collapsed-menu'>
@@ -128,17 +128,19 @@ export default class MenuBar extends Component {
         </button>
         <a className='navbar-brand' href='/'>
           <img alt='Brand' src='/logo.png' height='25px' /></a>
-        <a href='/'><p className='navbar-text title'>compareApp</p></a>
+        <a href='/'>
+        <p className='navbar-text title'>compareApp</p></a>
       </div>;
 
     // the login button on the menu bar
-    const loginButton =
-      <div className='nav navbar-nav navbar-right'>
+    const login =
+      <ul className='nav navbar-nav navbar-right'>
         <li><a href='#'><AccountsUIWrapper /></a></li>
-      </div>;
+      </ul>;
 
     // the help button on the menu bar
-    const helpButton =
+    // TODO: make this a tutorial instead
+    const help =
       <ul className='nav navbar-nav navbar-right'>
         <li>
           <a href='https://github.com/adinutzyc21/ideal-engine/blob/master/README.md'
@@ -155,16 +157,17 @@ export default class MenuBar extends Component {
           <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
             <span className='glyphicon glyphicon-menu-hamburger'></span> File</a>
           <ul className='dropdown-menu'>
-            <li role='button' className={this.isActive('loadTable')}>
+            <li className={this.isActive('loadTable')}>
               <a role='button' onClick={this.loadTable}>Load Table</a></li>
-            <li role='button' className={this.isActive('newTable')}>
-              <TableCreate /></li>
+            <li className={this.isActive('newTable')}>
+              <CreateTable /></li>
           </ul>
         </li>
       </ul>;
 
     let editMenu = <div></div>;
-    let calcScoreButton = <div></div>;
+    let calcScore = <div></div>;
+    let enableEdit = <div></div>;
 
     if (this.state.currentView !== 'loadTable' && this.props.cols !== undefined && this.props.rows !== undefined) {
       editMenu =
@@ -174,14 +177,14 @@ export default class MenuBar extends Component {
               <span className='glyphicon glyphicon-pencil'></span> Edit</a>
             <ul className='dropdown-menu'>
               <li className={this.disabledClass('addRow')}>
-                <DataInsert key='row' level='row'
+                <InsertData key='row' level='row'
                   data={this.props.cols}
                   tableId={this.props.tableId}
                   isDisabled={this.isDisabled('addRow')}
                 />
               </li>
               <li className={this.disabledClass('addCol')}>
-                <DataInsert key='col' level='col'
+                <InsertData key='col' level='col'
                   data={this.props.rows}
                   optionIdx={this.getOptionNameId()}
                   tableId={this.props.tableId}
@@ -189,8 +192,8 @@ export default class MenuBar extends Component {
               </li>
 
               <li role='separator' className='divider'></li>
-              <li role='button' className={this.isActive('loadCSV')}>
-                <LoadCSV tableId={this.props.tableId} /></li>
+              <li className={this.isActive('ImportCSV')}>
+                <ImportCSV tableId={this.props.tableId} /></li>
 
               <li role='separator' className='divider'></li>
               <li className={this.disabledClass('populateTable')}>
@@ -204,24 +207,71 @@ export default class MenuBar extends Component {
         </ul>;
 
       if (!this.isEmpty()) {
-        calcScoreButton = <ComputeScore rows={this.props.rows}
-          cols={this.props.cols} optionIdx={this.getOptionNameId()} />;
+        calcScore = <button title='Score Comparison!'
+          className='btn btn-default btn-xs green nav-btn'
+              onClick={() => this.computeScore(this.getOptionNameId())}>
+              <span className='glyphicon glyphicon-play'></span>Compare
+            </button>;
+
+        if (this.props.editEnabled === true) {
+          enableEdit = <div className="btn-group btn-group-xs btn-toggle nav-btn">
+            <button className="btn btn-primary active">
+              ON</button>
+            <button onClick={this.props.toggleEditOnOff} className="btn btn-default">
+              OFF</button>
+          </div>;
+        } else {
+          enableEdit = <div className="btn-group btn-group-xs btn-toggle nav-btn">
+            <button onClick={this.props.toggleEditOnOff} className="btn btn-default">
+              ON</button>
+            <button className="btn btn-primary active">
+              OFF</button>
+          </div>;
+        }
       }
     }
 
     return (
       <div className='container'>
-        {brandAndTitle}
+        {logo}
         <div className='collapse navbar-collapse' id='collapsed-menu'>
           {fileMenu}
           {editMenu}
-          {calcScoreButton}
-          {loginButton}
-          {helpButton}
+          <div className='nav navbar-nav navbar-center'>
+            {enableEdit}
+            {calcScore}
+          </div>
+          {login}
+          {help}
         </div>
       </div>
 
     );
+  }
+
+  /**
+   * for all rows calculate row[i][0].score
+   * = sum(for all columns j>=1) row[i][j].score*col[j].score
+   */
+  computeScore() {
+    const cols = this.props.cols;
+    const rows = this.props.rows;
+
+    let maxScore = 0;
+    const score = [];
+    // for all rows i
+    for (let i = 0, lenR = rows.length; i < lenR; i++) {
+      score[i] = 0;
+      // for all columns j
+      for (let j = 1, lenC = cols.length; j < lenC; j++) {
+        score[i] += rows[i][cols[j]._id].score * cols[j].score;
+      }
+      if (score[i] > maxScore) maxScore = score[i];
+    }
+    for (let i = 0, lenR = rows.length; i < lenR; i++) {
+      score[i] = Math.round((score[i] * 100) / maxScore) / 10;
+      Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+    }
   }
 
   render() {
@@ -238,4 +288,6 @@ MenuBar.propTypes = {
   rows: PropTypes.array,
   tableId: PropTypes.string,
   currentView: PropTypes.string,
+  toggleEditOnOff: PropTypes.any,
+  editEnabled: PropTypes.bool,
 };

@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Modal } from 'react-bootstrap'; // eslint-disable-line no-unused-vars
 
 // ButtonDelete component - use to add a delete button and perform delete operations
-export default class TableCreate extends Component {
+export default class CreateTable extends Component {
   /**
   * Initialize state variables and bind this to methods
   */

@@ -6,13 +6,13 @@ import { Meteor } from 'meteor/meteor';
 // import request from 'superagent/lib/client';
 import Papa from 'papaparse';
 
-export default class LoadCSV extends Component {
+export default class ImportCSV extends Component {
   /**
   * Initialize state variables and bind 'this' to methods
   */
   constructor(props) {
     super(props);
-    // this.loadCSV = this.loadCSV.bind(this);
+    // this.ImportCSV = this.ImportCSV.bind(this);
     this.parseCSV = this.parseCSV.bind(this);
   }
 
@@ -45,6 +45,6 @@ export default class LoadCSV extends Component {
     );
   }
 }
-LoadCSV.propTypes = {
+ImportCSV.propTypes = {
   tableId: PropTypes.string,
 };

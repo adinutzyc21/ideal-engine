@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
 
-import TableSelect from './select/TableSelect.jsx'; // eslint-disable-line no-unused-vars
+import SelectTable from './select/SelectTable.jsx'; // eslint-disable-line no-unused-vars
 import LoginPage from './login/LoginPage.jsx'; // eslint-disable-line no-unused-vars
 import MenuBar from './menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
@@ -19,7 +19,7 @@ class App extends Component {
 
     // initialize state variables
     this.state = {
-      showTableSelect: false,
+      showSelectTable: false,
       // currentView: 'logInPage'
     };
 
@@ -28,11 +28,11 @@ class App extends Component {
 
   /**
    * Allow the user to continue as a guest
-   * Sets the showTableSelect state variable to true,
+   * Sets the showSelectTable state variable to true,
    *  allowing the SelectTable screen to be displayed
    */
   continueAsGuest() {
-    this.setState({ showTableSelect: true });
+    this.setState({ showSelectTable: true });
   }
 
 
@@ -50,17 +50,17 @@ class App extends Component {
     } else {
       // show the table selection page if the user is logged in
       if (this.props.user !== null) {
-        this.state.showTableSelect = true;
+        this.state.showSelectTable = true;
       }
       // show the log in page if the user is not logged in unless he presses skip
-      if (!this.state.showTableSelect) {
+      if (!this.state.showSelectTable) {
         option.push(
           <div key="login" className="table-container table-container-no-data">
             <LoginPage />
             <a role="button" onClick={this.continueAsGuest}>Continue as Guest</a>
           </div>);
       } else {
-        option.push(<TableSelect key="select" />);
+        option.push(<SelectTable key="select" />);
       }
     }
 

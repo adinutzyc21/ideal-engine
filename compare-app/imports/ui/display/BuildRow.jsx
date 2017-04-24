@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
-import DataDelete from '../menu/DataDelete.jsx'; // eslint-disable-line no-unused-vars
+import DeleteData from './cell-menu/DeleteData.jsx'; // eslint-disable-line no-unused-vars
 
 /**
- * TableRow component - displays the contents of the table given the data
+ * BuildRow component - displays the contents of the table given the data
  */
-export default class DataRow extends Component {
+export default class BuildRow extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -18,10 +18,6 @@ export default class DataRow extends Component {
 
     // initialize state variables
     this.state = {
-      // only allow edit in place if this is true
-      // TODO: add a menu button to toggle this
-      editInPlace: true,
-
       // this is the item id we are editing (row and col)
       editingColId: null,
       editingRowId: null,
@@ -46,7 +42,7 @@ export default class DataRow extends Component {
    */
   renderItemOrEditField(rowId, colId, data, type) {
     // IF: display the edit fields
-    if (this.state.editInPlace === true && this.state.editingRowId === rowId
+    if (this.props.editEnabled === true && this.state.editingRowId === rowId
       && this.state.editingColId === colId && this.state.editingType === type) {
       // if: changing a number (score)
       if (type === 'score') {
@@ -113,7 +109,7 @@ export default class DataRow extends Component {
             Bert.alert(error.reason, 'danger');
           } else {
             this.stopEditing();
-            Bert.alert('Record updated!', 'success');
+            Bert.alert('Cell updated!', 'success');
           }
         });
     }
@@ -161,7 +157,7 @@ export default class DataRow extends Component {
 
           // add the data delete option to the html
           tableDataHtml.push(
-            <DataDelete key='del' level='row' params={row._id} />);
+            <DeleteData key='del' level='row' params={row._id} />);
 
           // add the 'option' to the html
           tableDataHtml.push(this.renderItemOrEditField(row._id, col._id, row[col._id].value, 'option'));
@@ -196,7 +192,8 @@ export default class DataRow extends Component {
   }
 }
 
-DataRow.propTypes = {
+BuildRow.propTypes = {
   cols: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
+  editEnabled: PropTypes.bool,
 };

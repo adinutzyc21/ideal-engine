@@ -2,10 +2,10 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import TableDisplay from '../display/TableDisplay.jsx'; // eslint-disable-line no-unused-vars
+import DisplayTable from '../display/DisplayTable.jsx'; // eslint-disable-line no-unused-vars
 
-// TableLoad component - use to load the selected table
-export default class TableLoad extends Component {
+// LoadTable component - use to load the selected table
+export default class LoadTable extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -17,7 +17,7 @@ export default class TableLoad extends Component {
   }
 
   loadTable() {
-    ReactDOM.render(<TableDisplay tableId={this.props.id} />, document.getElementById('app-container'));
+    ReactDOM.render(<DisplayTable tableId={this.props.id} />, document.getElementById('app-container'));
   }
 
   /**
@@ -40,7 +40,7 @@ export default class TableLoad extends Component {
   }
 }
 
-TableLoad.propTypes = {
+LoadTable.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string,
 };

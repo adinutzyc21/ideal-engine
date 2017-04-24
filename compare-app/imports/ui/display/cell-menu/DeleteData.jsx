@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
 /**
- * DataDelete component - delete button (added next to the row headers or
+ * DeleteData component - delete button (added next to the row headers or
  * column headers) to delete options (rows) or criteria (columns)
  */
-export default class DataDelete extends Component {
+export default class DeleteData extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -75,7 +75,7 @@ export default class DataDelete extends Component {
   * level: column/row
   * params: parameters to callback function
   */
-DataDelete.propTypes = {
+DeleteData.propTypes = {
   level: PropTypes.oneOf(['row', 'col']).isRequired,
   params: PropTypes.string.isRequired,
 };

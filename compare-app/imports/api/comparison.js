@@ -305,7 +305,7 @@ Meteor.methods({
   },
 
    /**
-   * Update the row field in Mongo (either 'option', 'data' or 'score')
+   * Update the row field in Mongo (either 'value' or 'score')
    * @param {String} rowId - the id of the row being edited
    * @param {String} colId - the id of the column being edited
    * @param {String} type - the type of element being edited ('option', 'data' or 'score')

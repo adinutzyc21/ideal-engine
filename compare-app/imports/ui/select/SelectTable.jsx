@@ -5,12 +5,12 @@ import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
 
 import { Tables } from '../../api/tables.js';
 
-import TableDelete from './TableDelete.jsx'; // eslint-disable-line no-unused-vars
-import TableLoad from './TableLoad.jsx'; // eslint-disable-line no-unused-vars
+import DeleteTable from './DeleteTable.jsx'; // eslint-disable-line no-unused-vars
+import LoadTable from './LoadTable.jsx'; // eslint-disable-line no-unused-vars
 import MenuBar from '../menu/MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
 // Column component - represents columns in the table
-class TableSelect extends Component {
+class SelectTable extends Component {
 
   render() {
     // this is the html that gets rendered
@@ -51,9 +51,9 @@ class TableSelect extends Component {
                 <p>{this.props.tables[i].description}</p>
               </div>
               <div>
-                <TableLoad key='load' id={this.props.tables[i]._id}
+                <LoadTable key='load' id={this.props.tables[i]._id}
                   name={this.props.tables[i].name} />
-                <TableDelete key='del' id={this.props.tables[i]._id}
+                <DeleteTable key='del' id={this.props.tables[i]._id}
                   name={this.props.tables[i].name} />
               </div>
             </div>
@@ -75,7 +75,7 @@ class TableSelect extends Component {
   }
 }
 
-TableSelect.propTypes = {
+SelectTable.propTypes = {
   loading: PropTypes.bool,
   user: PropTypes.object,
   tables: PropTypes.array,
@@ -101,4 +101,4 @@ export default createContainer((/* { params } */) => {
   return {
     user, tables, loading,
   };
-}, TableSelect);
+}, SelectTable);
