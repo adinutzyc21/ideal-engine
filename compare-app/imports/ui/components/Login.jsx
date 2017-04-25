@@ -5,7 +5,7 @@ export class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className='table-container table-container-no-data'>
         Please use the menu to log in if you want to (for now)
       </div>
     );

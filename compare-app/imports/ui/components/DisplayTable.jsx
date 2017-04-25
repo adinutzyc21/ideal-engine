@@ -8,7 +8,6 @@ import { Row, Col } from '../../api/comparison/comparison.js';
 
 import BuildHeader from './comparison/BuildHeader.jsx'; // eslint-disable-line no-unused-vars
 import BuildRow from './comparison/BuildRow.jsx'; // eslint-disable-line no-unused-vars
-import MenuBar from './MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * DisplayTable component - either display the loaded table or a loading / no data message
@@ -98,10 +97,10 @@ class DisplayTable extends Component {
     // display the constructed HTML
     return (
       <div className='react-bs-container-body'>
-        <MenuBar key='menu' currentView='DisplayTable' rows={this.props.rows}
+        { /* <MenuBar key='menu' currentView='DisplayTable' rows={this.props.rows}
           cols={this.props.cols} tableId={this.props.tableId}
           editEnabled={this.state.editEnabled}
-          toggleEditOnOff={this.toggleEditOnOff} />
+          toggleEditOnOff={this.toggleEditOnOff} />*/}
         {tableContainerHtml}
       </div>
     );
@@ -136,14 +135,14 @@ export default createContainer((props) => {
   // is the row data still loading
   const loadingR = !subscriptionR.ready();
   // get the row data from Mongo
-  const rows = Row.find({ tableId: props.tableId }, { sort: { score: -1 } }).fetch();
+  const rows = Row.find({ tableId }, { sort: { score: -1 } }).fetch();
 
   // subscribe to the col data from Mongo
   const subscriptionC = Meteor.subscribe('col');
   // is the col data still loading
   const loadingC = !subscriptionC.ready();
   // get the col data from Mongo
-  const cols = Col.find({ tableId: props.tableId }).fetch();
+  const cols = Col.find({ tableId }).fetch();
 
   // get the currently logged in user from Meteor
   const user = Meteor.user();

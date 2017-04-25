@@ -7,7 +7,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import DeleteTable from './tables/DeleteTable.jsx'; // eslint-disable-line no-unused-vars
 import LoadTable from './tables/LoadTable.jsx'; // eslint-disable-line no-unused-vars
-import MenuBar from './MenuBar.jsx'; // eslint-disable-line no-unused-vars
 
 import { Tables } from '../../api/tables/tables.js';
 
@@ -68,7 +67,6 @@ class SelectTable extends Component {
 
     return (
       <div className='table-container table-container-no-data'>
-        <MenuBar />
         {html}
       </div>
     );

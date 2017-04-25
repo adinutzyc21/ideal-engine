@@ -85,8 +85,7 @@ export default class CreateTable extends Component {
     // display the button
     return (
       <a role='button' onClick={this.open}>New Table
-
-                <div className='modal-example'>
+        <div className='modal-example'>
           <Modal className='modalStyle'
             show={this.state.showModal}
             onHide={this.close}>
