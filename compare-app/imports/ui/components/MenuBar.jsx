@@ -1,5 +1,4 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
-import PropTypes from 'prop-types';
 
 import { IndexLink, Link } from 'react-router'; // eslint-disable-line no-unused-vars
 
@@ -55,23 +54,6 @@ export default class MenuBar extends Component {
         <li><a href='#'><AccountsUIWrapper /></a></li>
       </ul>;
 
-    // TODO: this is just a test
-    const nav =
-      <ul className='nav navbar-nav'>
-        <li className='dropdown'>
-          <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
-            <span className='glyphicon glyphicon-menu-down'></span> Navigation
-          </a>
-          <ul className='dropdown-menu'>
-            <li><IndexLink to="/" activeClassName="active">Index</IndexLink></li>
-            <li><Link to="/One" activeClassName="active">Page One</Link></li>
-            <li><Link to="/Two" activeClassName="active">Page Two</Link></li>
-            <li><Link to="/Login" activeClassName="active">Log In</Link></li>
-            <li><Link to="/DisplayTable/f307f0792011fcabd64224ef" activeClassName="active">Open</Link></li>
-          </ul>
-        </li>
-      </ul>;
-
     // the help button on the menu bar
     // TODO: make this a tutorial instead
     const help =
@@ -89,7 +71,6 @@ export default class MenuBar extends Component {
         {logo}
         <div className='collapse navbar-collapse' id='collapsed-menu'>
           {file}
-          {nav}
           {login}
           {help}
         </div>
@@ -107,9 +88,7 @@ export default class MenuBar extends Component {
   }
 }
 
-MenuBar.propTypes = {
-  cols: PropTypes.array,
-  rows: PropTypes.array,
-  tableId: PropTypes.string,
-  editEnabled: PropTypes.bool,
-};
+    // this.toggleEditOnOff = this.toggleEditOnOff.bind(this);
+  // toggleEditOnOff() {
+  //   this.setState({ editEnabled: !this.state.editEnabled });
+  // }

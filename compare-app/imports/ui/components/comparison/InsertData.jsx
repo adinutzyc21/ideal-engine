@@ -340,7 +340,7 @@ export default class InsertData extends Component {
  */
 InsertData.propTypes = {
   level: PropTypes.oneOf(['row', 'col']).isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,//.isRequired,
   tableId: PropTypes.string,
   isDisabled: PropTypes.bool.isRequired,
   optionIdx: PropTypes.string,

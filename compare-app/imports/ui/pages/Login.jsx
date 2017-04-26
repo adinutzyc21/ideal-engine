@@ -11,3 +11,14 @@ export class Login extends Component {
     );
   }
 }
+{/*<a role="button" onClick={this.continueAsGuest}>Continue as Guest</a>*/}
+
+
+  // /**
+  //  * Allow the user to continue as a guest
+  //  * Sets the showSelectTable state variable to true,
+  //  *  allowing the SelectTable screen to be displayed
+  //  */
+  // continueAsGuest() {
+  //   this.setState({ showSelectTable: true });
+  // }

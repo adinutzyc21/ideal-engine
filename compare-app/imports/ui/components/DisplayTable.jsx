@@ -22,11 +22,10 @@ class DisplayTable extends Component {
     // initialize state variables
     this.state = {
       height: 50,
-      editEnabled: false,
+      editEnabled: this.props.location.query.edit === 'true',
     };
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
-    this.toggleEditOnOff = this.toggleEditOnOff.bind(this);
   }
 
   /**
@@ -47,9 +46,6 @@ class DisplayTable extends Component {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
-  toggleEditOnOff() {
-    this.setState({ editEnabled: !this.state.editEnabled });
-  }
   /**
    * Render the table
    */
@@ -97,10 +93,6 @@ class DisplayTable extends Component {
     // display the constructed HTML
     return (
       <div className='react-bs-container-body'>
-        { /* <MenuBar key='menu' currentView='DisplayTable' rows={this.props.rows}
-          cols={this.props.cols} tableId={this.props.tableId}
-          editEnabled={this.state.editEnabled}
-          toggleEditOnOff={this.toggleEditOnOff} />*/}
         {tableContainerHtml}
       </div>
     );

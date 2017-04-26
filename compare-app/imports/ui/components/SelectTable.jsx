@@ -5,13 +5,21 @@ import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import DeleteTable from './tables/DeleteTable.jsx'; // eslint-disable-line no-unused-vars
-import LoadTable from './tables/LoadTable.jsx'; // eslint-disable-line no-unused-vars
+import { Link } from 'react-router'; // eslint-disable-line no-unused-vars
 
 import { Tables } from '../../api/tables/tables.js';
 
+
 // Column component - represents columns in the table
 class SelectTable extends Component {
+  /**
+   * Delete a table given its id
+   * @param id the id of the table
+   */
+  deleteTable(id) {
+    Meteor.call('tables.removeTable', id);
+  }
+
   render() {
     // this is the html that gets rendered
     const html = [];
@@ -50,10 +58,14 @@ class SelectTable extends Component {
                 <p>{this.props.tables[i].description}</p>
               </div>
               <div>
-                <LoadTable key='load' id={this.props.tables[i]._id}
-                  name={this.props.tables[i].name} />
-                <DeleteTable key='del' id={this.props.tables[i]._id}
-                  name={this.props.tables[i].name} />
+                <Link to={'/DisplayTable/' + this.props.tables[i]._id}
+                  role='button' data-toggle='tooltip'
+                  title={'Load "' + this.props.tables[i].name + '"'}
+                  className={'btn btn-success glyphicon glyphicon-ok'} />
+                <a role='button' data-toggle='tooltip'
+                  title={'Delete "' + this.props.tables[i].name + '"'}
+                  className={'btn btn-danger glyphicon glyphicon-trash'}
+                  onClick={() => { this.deleteTable(this.props.tables[i]._id); }} />
               </div>
             </div>
           </div>);
