@@ -4,16 +4,16 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 export class Login extends Component {
 
   render() {
-    return (
-      <div className='table-container table-container-no-data'>
-        Please use the menu to log in if you want to (for now)
-      </div>
-    );
+    return <div id="not-found">
+        <div className="not-found-title">
+          <h1>This will be a Log In Page...</h1>
+          <a href="/" className="gotohomepage">Go to home</a>
+        </div>
+      </div>;
   }
 }
-{/*<a role="button" onClick={this.continueAsGuest}>Continue as Guest</a>*/}
 
-
+// <a role="button" onClick={this.continueAsGuest}>Continue as Guest</a>
   // /**
   //  * Allow the user to continue as a guest
   //  * Sets the showSelectTable state variable to true,

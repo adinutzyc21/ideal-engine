@@ -7,7 +7,7 @@ Meteor.methods({
    * Populate the table, given its id.
    * @param {string} tableId - the id of the table to populate
    */
-  'comparison.populateTables'(tableId) { // eslint-disable-line object-shorthand
+  'comparison.populateTable'(tableId) { // eslint-disable-line object-shorthand
     check(tableId, String);
 
     const rows = [
@@ -222,7 +222,7 @@ Meteor.methods({
     check(tableId, String);
     check(data, Array);
     check(cols, Array);
-
+    
     // id - name pair for the columns
     const colObj = [];
 

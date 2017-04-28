@@ -35,7 +35,6 @@
     color: green !important;
 }
 
-
 .blue {
     color: $lightBlue !important; 
 }
@@ -49,6 +48,6 @@
     margin-right: 10px;
 }
 
-span.glyphicon {
-    padding-right: 3px;
+i.glyphicon {
+    margin-right: 3px !important;
 }

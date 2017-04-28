@@ -1,18 +1,13 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import Spinner from 'react-spinkit'; // eslint-disable-line no-unused-vars
-
-import { Row, Col } from '../../api/comparison/comparison.js';
 
 import BuildHeader from './comparison/BuildHeader.jsx'; // eslint-disable-line no-unused-vars
 import BuildRow from './comparison/BuildRow.jsx'; // eslint-disable-line no-unused-vars
 
 /**
- * DisplayTable component - either display the loaded table or a loading / no data message
+ * DisplayTable component - either display the loaded table or a no data message
  */
-class DisplayTable extends Component {
+export class DisplayTable extends Component {
   /**
    * Initialize state variables and bind this to methods
    */
@@ -22,7 +17,6 @@ class DisplayTable extends Component {
     // initialize state variables
     this.state = {
       height: 50,
-      editEnabled: this.props.location.query.edit === 'true',
     };
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
@@ -55,20 +49,10 @@ class DisplayTable extends Component {
     // this is the final html for our table
     const tableContainerHtml = [];
 
-    // while the data is loading, the html is a spinner
-    if (this.props.loading) {
-      tableContainerHtml.push(
-        <div key='table-container' className='table-container table-container-no-data'>
-          <div key='loading'>
-            <span>Loading data...</span>
-            <Spinner key='spinner' spinnerName='three-bounce' />
-          </div>
-        </div>);
-
-      // if the data is empty, the html is no data available info
-    } else if (this.props.rows.length === 0) {
+    // if the data is empty, the html is no data available info
+    if (this.props.rows.length === 0) {
       // clear the residual columns
-      Meteor.call('comparison.clearTable', this.props.tableId);
+      Meteor.call('comparison.clearTable', this.props.params.tableId);
 
       tableContainerHtml.push(
         <div key='table-container' className='table-container table-container-no-data'>
@@ -82,10 +66,10 @@ class DisplayTable extends Component {
           <table key='table'>
             {/* Need a header of type BuildHeader */}
             <BuildHeader key='heading' cols={this.props.cols}
-              editEnabled={this.state.editEnabled} />
+              editEnabled={this.props.editEnabled} />
             {/* Need a bunch of rows of type BuildRow*/}
             <BuildRow key='row' rows={this.props.rows} cols={this.props.cols}
-              editEnabled={this.state.editEnabled} />
+              editEnabled={this.props.editEnabled} />
           </table>
         </div>);
     }
@@ -101,55 +85,13 @@ class DisplayTable extends Component {
 
 /**
  * The properties retrieved in this component:
- * tableId {String} - ID of the Mongo table TODO:
- * loading {Boolean} - is the data still loading or is it done
  * rows {Array} - the data in the Mongo Rows table
  * cols {Array} - the data in the Mongo Cols table
- * user {Object} - the current logged in user from Meteor
+ * TODO:
  */
 DisplayTable.propTypes = {
-  tableId: PropTypes.string.isRequired,
-  loading: PropTypes.bool.isRequired,
-  rows: PropTypes.array.isRequired,
-  cols: PropTypes.array.isRequired,
-  user: PropTypes.object,
+  rows: PropTypes.array,
+  cols: PropTypes.array,
+  toggleEditOnOff: PropTypes.any,
+  editEnabled: PropTypes.bool,
 };
-
-/**
- * A Meteor createContainer component which retrieves data from Meteor & Mongo
- */
-export default createContainer((props) => {
-  // get the tableId
-  const tableId = props.params.tableId;
-
-  // subscribe to the row data from Mongo
-  const subscriptionR = Meteor.subscribe('row');
-  // is the row data still loading
-  const loadingR = !subscriptionR.ready();
-  // get the row data from Mongo
-  const rows = Row.find({ tableId }, { sort: { score: -1 } }).fetch();
-
-  // subscribe to the col data from Mongo
-  const subscriptionC = Meteor.subscribe('col');
-  // is the col data still loading
-  const loadingC = !subscriptionC.ready();
-  // get the col data from Mongo
-  const cols = Col.find({ tableId }).fetch();
-
-  // get the currently logged in user from Meteor
-  const user = Meteor.user();
-  // are we done loading the user?
-  const loadingU = Meteor.user() === undefined;
-
-  // are we done loading everything?
-  const loading = loadingR || loadingC || loadingU;
-
-  // pass this properties to DisplayTable in addition to what's already passed
-  return {
-    tableId,
-    loading,
-    rows,
-    cols,
-    user,
-  };
-}, DisplayTable);

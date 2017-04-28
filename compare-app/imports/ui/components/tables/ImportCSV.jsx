@@ -38,7 +38,7 @@ export default class ImportCSV extends Component {
    */
   render() {
     // TODO: move this to private and use Assets
-    const filename = '/output.csv';
+    const filename = '/files/output.csv';
     // display the button
     return (
       <a role='button' onClick={() => this.parseCSV(filename)}>Load CSV</a>
