@@ -98,8 +98,7 @@ export default class MenuBar extends Component {
   // the run comparison button
   // TODO: make this like the edit enabled one
   calcScoreButton() {
-    return <ul className='nav navbar-right navbar-nav' key='score'>
-      <li className="divider-vertical"></li>
+    return <ul className='nav navbar-nav' key='score'>
       <li><a>
         <button key='run' title='Score Comparison'
           className=' btn btn-xs btn-default green run'
@@ -107,6 +106,7 @@ export default class MenuBar extends Component {
           <i className='glyphicon glyphicon-play'/>RUN
       </button>
       </a></li>
+      <li className="divider-vertical"></li>
     </ul>;
   }
 
@@ -122,9 +122,9 @@ export default class MenuBar extends Component {
         className='btn btn-xs btn-default red' title='Toggle Editing'>
         <span className='glyphicon glyphicon-pencil'/></button>;
     }
-    return <ul className='nav navbar-right navbar-nav' key='edit'>
-      <li><a> {html} </a></li>
+    return <ul className='nav navbar-nav' key='edit'>
       <li className="divider-vertical"></li>
+      <li><a> {html} </a></li>
       </ul>;
   }
 
@@ -212,23 +212,26 @@ export default class MenuBar extends Component {
   }
 
   composeMenuBar() {
-    const bar = [];
-    // everyone will have a file menu: you can add a new table from any page
+    const barHtm = [];
+
     // TODO: except the login
-    bar.push(this.fileMenu());
+    // everyone will have a file menu as well as a help and login option
+    barHtm.push(this.fileMenu());
+    barHtm.push(this.loginMenu());
+    barHtm.push(this.helpMenu());
+
+    // only if we're on the DisplayTable page do we have an edit menu
     if (this.props.route.path === '/DisplayTable/:tableId') {
-      bar.push(this.editMenu());
+      barHtm.push(this.editMenu());
+
+      // editing in-place and calculating scores only if we've loaded data
+      if (!this.isTableEmpty()) {
+        barHtm.push(this.editEnabledButton());
+        barHtm.push(this.calcScoreButton());
+      }
     }
 
-    bar.push(this.loginMenu());
-    bar.push(this.helpMenu());
-
-    if (this.props.route.path === '/DisplayTable/:tableId' && !this.isTableEmpty()) {
-      bar.push(this.editEnabledButton());
-      bar.push(this.calcScoreButton());
-    }
-
-    return bar;
+    return barHtm;
   }
 
   getHeaderHtml() {
