@@ -4,6 +4,7 @@ parserOptions:
   sourceType: 'module'
   ecmaFeatures:
     jsx: true # enable React's JSX
+    globalReturn: false
 
 # register plugins
 plugins:

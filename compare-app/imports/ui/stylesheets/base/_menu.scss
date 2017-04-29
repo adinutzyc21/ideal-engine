@@ -1,0 +1,107 @@
+#login-dropdown-list {
+    position: absolute;
+    top: 30px;
+    left: -180px;
+}
+
+#login-buttons .login-button,
+.accounts-dialog .login-button {
+    background-color: $lightBlue
+}
+
+#login-buttons a {
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.navbar-header .navbar-text {
+    color: $lightBlue;
+    font-weight: bolder;
+    margin-left: -8px;
+}
+
+.navbar {
+    max-height: 50px;
+    color: $lightBlue;
+    font-weight: bolder;
+}
+
+.dropdown-menu {
+    min-width: 100px;
+    padding: 10px 0;
+}
+
+.green {
+    color: green !important;
+}
+
+.red {
+    color: red !important;
+}
+
+.blue {
+    color: $lightBlue !important; 
+}
+
+.nav-btn {
+    margin-top: 15px;
+    font-weight: bolder;
+}
+
+.btn-group {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+i.glyphicon {
+    margin-right: 3px !important;
+}
+
+.in {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border: 1px solid transparent;
+    top: 0;
+    border-width: 0 0 1px;
+}
+
+.brand {
+    float: left;
+}
+a.brand {
+    &:hover {
+        color: $darkBlue;
+        text-decoration: none;
+    }
+}
+
+.on-off-switch {    
+    margin: 0px;
+    padding: 3px 20px;
+}
+
+.navbar .divider-vertical {
+    height: 50px;
+    margin: 0 9px;
+    border-right: 1px solid #ffffff;
+    border-left: 1px solid lightgrey;
+}
+
+.navbar-inverse .divider-vertical {
+    border-right-color: #222222;
+    border-left-color: #111111;
+}
+
+.run {
+    font-weight: bolder;
+}
+
+@media (max-width: 767px) {
+    .run {
+        float: none;
+        margin: 0;
+    }
+    .navbar-collapse .nav > .divider-vertical {
+        display: none;
+     }
+}

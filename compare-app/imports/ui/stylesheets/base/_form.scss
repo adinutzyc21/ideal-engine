@@ -1,0 +1,120 @@
+.modalStyle {
+    position: fixed;
+    z-index: 1040;
+    top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+
+.dialogStyle {
+    position: absolute;
+    width: 400px;
+    top: 10px;
+    left: 20%;
+    max-height: 500px;
+    overflow: scroll;
+    border: 1px solid #e5e5e5;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.input-text {
+    padding: 5px;
+    color: black;
+}
+
+span.input-text {
+    display: block;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+.form-header {
+    color: $lightBlue;
+}
+
+.tableForm {
+    color: gray;
+}
+
+.new-data input.form-header {
+    border: 2px solid #337ab7;
+    padding: 5px;
+    float: left;
+    width: 100%;
+}
+
+.content-form {
+    max-height: 400px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+.new-data input {
+    box-sizing: border-box;
+    padding: 5px;
+    background: transparent;
+    border: 2px solid gray;
+    border-radius: 2px;
+    width: calc(100% - #{$numberWidth+8px});;
+    font-size: 1em;
+    margin-bottom: 10px;
+    margin-right: 6px;
+}
+
+.new-table input {
+    box-sizing: border-box;
+    padding: 5px;
+    background: transparent;
+    border: 2px solid gray;
+    border-radius: 2px;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.new-table input[type=checkbox] {
+    margin-left: 10px;
+}
+
+.new-table label {
+    margin-left: 5px;
+}
+
+input[type=number] {
+    &.input-text {
+        width: $numberWidth;
+        font-size: 1em;
+        margin-right: 0px;
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            cursor: pointer;
+            display: block;
+            color: #333;
+            text-align: center;
+            background: #fff url('//i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;
+            opacity: 1;
+            width: 14px;
+            height: 14px;
+            padding: 2px;
+            position: relative;
+            right: 0px;
+            border-radius: 28px;
+        }
+    }
+}
+
+input[type=text].score-display {
+    width: $numberWidth;
+    font-size: 1em;
+    font-weight: bolder;
+    color: white;
+    background-color: lightgray;
+    text-shadow: #337ab7 1px 1px 3px;
+    text-align: center;
+    float: left;
+}
+
+textarea {
+    width: 100%;
+}
