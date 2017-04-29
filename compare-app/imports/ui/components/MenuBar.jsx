@@ -219,11 +219,11 @@ export default class MenuBar extends Component {
    */
   editEnabledButton() {
     if (this.props.editEnabled === true) {
-      return <button onClick={() => this.props.toggleEditOnOff(true)}
+      return <button onClick={() => this.props.toggleEditOnOff(false)}
         className='btn btn-xs btn-success' title='Inline Editing'>
         <span className='glyphicon glyphicon-pencil' /></button>;
     }
-    return <button onClick={() => this.props.toggleEditOnOff(true)}
+    return <button onClick={() => this.props.toggleEditOnOff(false)}
       className='btn btn-xs btn-default red' title='Inline Editing'>
       <span className='glyphicon glyphicon-pencil' /></button>;
   }
@@ -283,10 +283,8 @@ export default class MenuBar extends Component {
     const barHtml = [];
 
     // TODO: except the login
-    // everyone will have a file menu as well as a help and login option
+    // everyone will have a file menu
     barHtml.push(this.fileMenu());
-    barHtml.push(this.loginMenu());
-    barHtml.push(this.helpMenu());
 
     // only if we're on the DisplayTable page do we have an edit menu
     if (this.props.route.path === '/DisplayTable/:tableId') {
@@ -309,6 +307,10 @@ export default class MenuBar extends Component {
           </ul>);
       }
     }
+
+    // everyone will have a help and login option
+    barHtml.push(this.loginMenu());
+    barHtml.push(this.helpMenu());
 
     return <nav className='navbar navbar-default navbar-fixed-top'>
       <div className='container'>
