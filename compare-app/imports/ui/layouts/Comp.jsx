@@ -24,8 +24,10 @@ class Comp extends Component {
   }
 
   /** Is editing enabled or not */
-  toggleEditOnOff() {
-    this.setState({ editEnabled: !this.state.editEnabled });
+  toggleEditOnOff(isDisabled) {
+    if (!isDisabled) {
+      this.setState({ editEnabled: !this.state.editEnabled });
+    }
   }
 
   render() {

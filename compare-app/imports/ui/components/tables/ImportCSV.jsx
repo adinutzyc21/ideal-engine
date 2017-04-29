@@ -16,21 +16,23 @@ export default class ImportCSV extends Component {
     this.parseCSV = this.parseCSV.bind(this);
   }
 
-  parseCSV(filename) {
-    const self = this;
-    Papa.parse(filename, {
-      header: true,
-      download: true,
-      keepEmptyRows: false,
-      skipEmptyLines: true,
-      complete(result) {
-        const data = result.data;
-        const columns = result.meta.fields;
+  parseCSV(filename, isDisabled) {
+    if (!isDisabled) {
+      const self = this;
+      Papa.parse(filename, {
+        header: true,
+        download: true,
+        keepEmptyRows: false,
+        skipEmptyLines: true,
+        complete(result) {
+          const data = result.data;
+          const columns = result.meta.fields;
 
-        // insert this into the meteor table
-        Meteor.call('comparison.importCSV', self.props.tableId, data, columns);
-      },
-    });
+          // insert this into the meteor table
+          Meteor.call('comparison.importCSV', self.props.tableId, data, columns);
+        },
+      });
+    }
   }
 
   /**
@@ -41,10 +43,13 @@ export default class ImportCSV extends Component {
     const filename = '/files/output.csv';
     // display the button
     return (
-      <a role='button' onClick={() => this.parseCSV(filename)}>Load CSV</a>
+      <a role='button' onClick={() => this.parseCSV(filename, this.props.isDisabled)}>Load CSV</a>
     );
   }
 }
+
+// TODO: documentation
 ImportCSV.propTypes = {
   tableId: PropTypes.string,
+  isDisabled: PropTypes.bool,
 };

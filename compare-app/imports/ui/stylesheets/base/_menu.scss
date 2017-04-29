@@ -96,6 +96,11 @@ a.brand {
     font-weight: bolder;
 }
 
+.btn-spacing {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 @media (max-width: 767px) {
     .run {
         float: none;

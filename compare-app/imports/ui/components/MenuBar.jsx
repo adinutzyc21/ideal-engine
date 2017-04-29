@@ -1,18 +1,13 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
-
 import { IndexLink, Link } from 'react-router'; // eslint-disable-line no-unused-vars
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
-
 import CreateTable from './tables/CreateTable.jsx'; // eslint-disable-line no-unused-vars
-
 import ImportCSV from './tables/ImportCSV.jsx'; // eslint-disable-line no-unused-vars
-
 import InsertData from './comparison/InsertData.jsx'; // eslint-disable-line no-unused-vars
 
 export default class MenuBar extends Component {
-
   /**
    * Initialize state variables and bind 'this' to methods
    */
@@ -21,7 +16,7 @@ export default class MenuBar extends Component {
 
     // initialize state variables
     this.state = {
-      currentView: 'loadTable',
+      scoreOn: false,
     };
 
     // make 'this' available in these methods
@@ -53,208 +48,30 @@ export default class MenuBar extends Component {
    * Generate the table data using pre-existing values
    * (for testing/demo purposes)
    */
-  generateTestTable() {
-    Meteor.call('comparison.populateTable', this.props.params.tableId);
+  generateTestTable(isDisabled) {
+    if (!isDisabled) {
+      Meteor.call('comparison.populateTable', this.props.params.tableId);
+    }
   }
 
   /**
    * Delete the data in the current table
    */
-  clearTable() {
-    Meteor.call('comparison.clearTable', this.props.params.tableId);
-  }
-
-  editMenu() {
-    return <ul className='nav navbar-nav' key='table'>
-      <li className='dropdown'>
-        <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
-          <i className='glyphicon glyphicon-edit' />Edit
-          </a>
-        <ul className='dropdown-menu'>
-          <li className='dropdown-header'>In-line Editing</li>
-          <li>{this.editEnabledSwitch()}</li>
-          <li role='separator' className='divider'></li>
-          <li className='dropdown-header'>Create</li>
-
-          <li><InsertData level='row' tableId={this.props.params.tableId}
-            data={this.props.cols} isDisabled={false} /></li>
-
-           <li><InsertData level='col' tableId={this.props.params.tableId}
-            data={this.props.rows} isDisabled={false} optionId={this.getFirstColumnId()} /></li>
-
-          <li role='separator' className='divider'></li>
-          <li className='dropdown-header'>Generate</li>
-          <li><ImportCSV tableId={this.props.params.tableId} /></li>
-          <li><a role='button' onClick={this.generateTestTable}>Populate table</a></li>
-
-          <li role='separator' className='divider'></li>
-          <li className='dropdown-header'>Delete</li>
-          <li><a role='button' onClick={this.clearTable} >Clear table</a></li>
-        </ul>
-      </li>
-    </ul>;
-  }
-
-  // the run comparison button
-  // TODO: make this like the edit enabled one
-  calcScoreButton() {
-    return <ul className='nav navbar-nav' key='score'>
-      <li><a>
-        <button key='run' title='Score Comparison'
-          className=' btn btn-xs btn-default green run'
-          onClick={() => this.computeScore(this.getFirstColumnId())}>
-          <i className='glyphicon glyphicon-play'/>RUN
-      </button>
-      </a></li>
-      <li className="divider-vertical"></li>
-    </ul>;
-  }
-
-  // inline editing on/off button
-  editEnabledButton() {
-    let html;
-    if (this.props.editEnabled === true) {
-      html = <button onClick={this.props.toggleEditOnOff}
-        className='btn btn-xs btn-success' title='In-Line Editing'>
-        <span className='glyphicon glyphicon-pencil' /></button>;
-    } else {
-      html = <button onClick={this.props.toggleEditOnOff}
-        className='btn btn-xs btn-default red' title='Toggle Editing'>
-        <span className='glyphicon glyphicon-pencil'/></button>;
+  clearTable(isDisabled) {
+    if (!isDisabled) {
+      Meteor.call('comparison.clearTable', this.props.params.tableId);
     }
-    return <ul className='nav navbar-nav' key='edit'>
-      <li className="divider-vertical"></li>
-      <li><a> {html} </a></li>
-      </ul>;
   }
 
-  editEnabledSwitch() {
-    if (this.props.editEnabled === true) {
-      return <div className="btn-group btn-group-xs btn-toggle nav-btn on-off-switch">
-        <button className="btn btn-primary active">
-          ON</button>
-        <button onClick={this.props.toggleEditOnOff} className="btn btn-default">
-          OFF</button>
-      </div>;
-    }
-    return <div className="btn-group btn-group-xs btn-toggle nav-btn on-off-switch">
-      <button onClick={this.props.toggleEditOnOff} className="btn btn-default">
-        ON</button>
-      <button className="btn btn-primary active">
-        OFF</button>
-    </div>;
-  }
-
-  // the help button on the menu bar
-  // TODO: make this a tutorial instead
-  helpMenu() {
-    return <ul className='nav navbar-nav navbar-right' key='help-menu'>
-      <li>
-        <a href='https://github.com/adinutzyc21/ideal-engine/blob/master/README.md'
-          className='blue' target='_blank' title='Help' >
-          <i className='glyphicon glyphicon-question-sign'/> Help
-          </a>
-      </li>
-    </ul>;
-  }
-
-  loginMenu() {
-    // the login button on the menu bar
-    return <ul className='nav navbar-nav navbar-right' key='login-menu'>
-      <li><a href='#'><AccountsUIWrapper /></a></li>
-    </ul>;
-  }
-
-  fileMenu() {
-    // the file menu should allow 'Load Table', 'New Table', TODO: 'Table from CSV'
-    return <ul className='nav navbar-nav' key='file-menu' >
-      <li className='dropdown'>
-        <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
-          <i className='glyphicon glyphicon-menu-hamburger'/>File
-          </a>
-        <ul className='dropdown-menu'>
-          <li><Link to='/SelectTable' activeClassName='active'>Select Table</Link></li>
-          <li><CreateTable /></li>
-          <li><a href='/'>Table from CSV</a></li>
-        </ul>
-      </li>
-    </ul>;
-  }
-
-  logoAndBrand() {
-    // the brand and title on the menu bar
-    return <div key='brand' className='navbar-header'>
-      <button type='button' className='navbar-toggle collapsed' data-toggle='collapse'
-        data-target='#collapsed-menu'>
-        <span className='sr-only'>Toggle navigation</span>
-        <span className='icon-bar'></span>
-        <span className='icon-bar'></span>
-        <span className='icon-bar'></span>
-      </button>
-
-      <a className='navbar-brand' href='/'>
-        <img alt='Brand' src='/img/logo.png' height='25px' />
-      </a>
-      <a className='navbar-text brand' href='/'>compareApp</a>
-    </div>;
-  }
-
-  getFooterHtml() {
-    // get the year for the copyright
-    let year = new Date().getFullYear() + ' ';
-    if (year > 2016) year = '2016 - ' + year;
-
-    return <nav className='navbar navbar-default navbar-fixed-bottom'>
-      <div className='container' className='pager'>
-        Copyright &#169; {year}Adina Stoica. All rights reserved.
-          </div>
-    </nav>;
-  }
-
-  composeMenuBar() {
-    const barHtm = [];
-
-    // TODO: except the login
-    // everyone will have a file menu as well as a help and login option
-    barHtm.push(this.fileMenu());
-    barHtm.push(this.loginMenu());
-    barHtm.push(this.helpMenu());
-
-    // only if we're on the DisplayTable page do we have an edit menu
-    if (this.props.route.path === '/DisplayTable/:tableId') {
-      barHtm.push(this.editMenu());
-
-      // editing in-place and calculating scores only if we've loaded data
-      if (!this.isTableEmpty()) {
-        barHtm.push(this.editEnabledButton());
-        barHtm.push(this.calcScoreButton());
-      }
-    }
-
-    return barHtm;
-  }
-
-  getHeaderHtml() {
-    return <nav className='navbar navbar-default navbar-fixed-top'>
-      <div className='container'>
-        {this.logoAndBrand()}
-        <div className='collapse navbar-collapse' id='collapsed-menu'>
-          {this.composeMenuBar()}
-        </div>
-      </div>
-    </nav>;
-  }
-
-
-  // TODO: this should be better
   /**
-   * for all rows calculate row[i][0].score
-   * = sum(for all columns j>=1) row[i][j].score*col[j].score
+   * For all rows calculate the row's score based on criteria and options scores
    */
   computeScore() {
+    // TODO: this should be better math-wise
     const cols = this.props.cols;
     const rows = this.props.rows;
 
+    // row[i][0].score = sum(for all columns j>=1) row[i][j].score*col[j].score
     let maxScore = 0;
     const score = [];
     // for all rows i
@@ -272,6 +89,240 @@ export default class MenuBar extends Component {
     }
   }
 
+  /**
+   * Create the footer which displays copyright information
+   */
+  getFooterHtml() {
+    // get the year for the copyright
+    let year = new Date().getFullYear() + ' ';
+    if (year > 2016) year = '2016 - ' + year;
+
+    return <nav className='navbar navbar-default navbar-fixed-bottom'>
+      <div className='container' className='pager'>
+        Copyright &#169; {year}Adina Stoica. All rights reserved.
+          </div>
+    </nav>;
+  }
+
+  /**
+   * Create the 'Brand and Title' toolbar item
+   */
+  logoAndBrand() {
+    return <div key='brand' className='navbar-header'>
+      <button type='button' className='navbar-toggle collapsed' data-toggle='collapse'
+        data-target='#collapsed-menu'>
+        <span className='sr-only'>Toggle navigation</span>
+        <span className='icon-bar'></span>
+        <span className='icon-bar'></span>
+        <span className='icon-bar'></span>
+      </button>
+
+      <a className='navbar-brand' href='/'>
+        <img alt='Brand' src='/img/logo.png' height='25px' />
+      </a>
+      <a className='navbar-text brand' href='/'>compareApp</a>
+    </div>;
+  }
+
+  /**
+   * Create the 'File' toolbar drop-down that contains options for table loading
+   * - load existing table
+   * - create a new table
+   * - create a new table from an uploaded CSV file
+   */
+  fileMenu() {
+    return <ul className='nav navbar-nav' key='file-menu' >
+      <li className='dropdown'>
+        <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
+          <i className='glyphicon glyphicon-menu-hamburger'/>File
+          </a>
+        <ul className='dropdown-menu'>
+          <li><Link to='/SelectTable' activeClassName='active'>Load Table</Link></li>
+          <li><CreateTable /></li>
+          <li className='disabled'><a href='#'>From CSV</a></li>
+        </ul>
+      </li>
+    </ul>;
+  }
+
+  /**
+   * Create the 'Edit' toolbar drop-down that contains options for editing the current table
+   * - toggle inline editing
+   * - insert row
+   * - insert column
+   * - generate table
+   * - import CSV into table
+   * - delete all data in the current table
+   */
+  editMenu() {
+    return <ul className='nav navbar-nav' key='table'>
+      <li className='dropdown'>
+        <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
+          <i className='glyphicon glyphicon-edit' />Edit
+          </a>
+        <ul className='dropdown-menu'>
+          <li className='dropdown-header'>Inline Editing</li>
+          <li>{this.editEnabledToggle(this.isTableEmpty())}</li>
+          <li role='separator' className='divider'></li>
+          <li className='dropdown-header'>Create</li>
+
+          <li><InsertData level='row' tableId={this.props.params.tableId}
+            data={this.props.cols} isDisabled={false} /></li>
+
+          <li className={this.isTableEmpty() ? 'disabled' : ''}>
+            <InsertData level='col' tableId={this.props.params.tableId}
+              data={this.props.rows} isDisabled={this.isTableEmpty()}
+              optionId={this.getFirstColumnId()} /></li>
+
+          <li role='separator' className='divider'></li>
+          <li className='dropdown-header'>Generate</li>
+
+          <li className={!this.isTableEmpty() ? 'disabled' : ''}>
+            <ImportCSV tableId={this.props.params.tableId}
+              isDisabled={!this.isTableEmpty()} /></li>
+          <li className={!this.isTableEmpty() ? 'disabled' : ''}>
+            <a role='button' onClick={() => this.generateTestTable(!this.isTableEmpty())}>
+              Populate table</a></li>
+
+          <li role='separator' className='divider'></li>
+          <li className='dropdown-header'>Delete</li>
+          <li className={this.isTableEmpty() ? 'disabled' : ''}>
+            <a role='button' onClick={() => this.clearTable(this.isTableEmpty())}>
+              Clear table</a></li>
+        </ul>
+      </li>
+    </ul>;
+  }
+
+  /**
+   * Inline editing on/off toggle that is displayed in the 'Edit' drop-down
+   */
+  editEnabledToggle(isDisabled) {
+    let btnClass = '';
+    if (isDisabled) btnClass = 'disabled';
+    if (this.props.editEnabled === true) {
+      return <div className="btn-group btn-group-xs btn-toggle nav-btn on-off-switch">
+        <button className={'btn btn-primary ' + btnClass}>ON</button>
+        <button onClick={() => this.props.toggleEditOnOff(isDisabled)}
+          className={'btn btn-default ' + btnClass}>OFF</button>
+      </div>;
+    }
+    return <div className="btn-group btn-group-xs btn-toggle nav-btn on-off-switch">
+      <button onClick={() => this.props.toggleEditOnOff(isDisabled)}
+        className={'btn btn-default ' + btnClass}>ON</button>
+      <button className={'btn btn-primary ' + btnClass}>OFF</button>
+    </div>;
+  }
+
+  /**
+   * Inline editing on/off button that is displayed directly on the MenuBar
+   */
+  editEnabledButton() {
+    if (this.props.editEnabled === true) {
+      return <button onClick={() => this.props.toggleEditOnOff(true)}
+        className='btn btn-xs btn-success' title='Inline Editing'>
+        <span className='glyphicon glyphicon-pencil' /></button>;
+    }
+    return <button onClick={() => this.props.toggleEditOnOff(true)}
+      className='btn btn-xs btn-default red' title='Inline Editing'>
+      <span className='glyphicon glyphicon-pencil' /></button>;
+  }
+
+  /**
+   * Inline clear table button that is displayed directly on the MenuBar
+   */
+  clearTableButton() {
+    return <button key='del' title='Clear Table'
+      className=' btn btn-xs btn-danger'
+      onClick={() => this.clearTable(false)} >
+      <span className='glyphicon glyphicon-trash' />
+    </button>;
+  }
+
+  /**
+   * Create the 'run comparison' button
+   */
+  calcScoreButton() {
+    // TODO: make this like the edit enabled one
+    return <button key='run' title='Score Comparison'
+      className=' btn btn-xs btn-default green run'
+      onClick={() => this.computeScore(this.getFirstColumnId())} >
+      <span className='glyphicon glyphicon-play' />
+    </button>;
+  }
+
+  /**
+   * Create the 'Help' toolbar item
+   */
+  helpMenu() {
+    // TODO: make this a tutorial instead
+    return <ul className='nav navbar-nav navbar-right' key='help-menu'>
+      <li>
+        <a href='https://github.com/adinutzyc21/ideal-engine/blob/master/README.md'
+          className='blue' target='_blank' title='Help' >
+          <i className='glyphicon glyphicon-question-sign'/> Help
+          </a>
+      </li>
+    </ul>;
+  }
+
+  /**
+   * Create the 'Login' toolbar item
+   */
+  loginMenu() {
+    // the login button on the menu bar
+    return <ul className='nav navbar-nav navbar-right' key='login-menu'>
+      <li><a href='#'><AccountsUIWrapper /></a></li>
+    </ul>;
+  }
+
+  /**
+   * Create the MenuBar html based on the current view and data
+   */
+  getHeaderHtml() {
+    const barHtml = [];
+
+    // TODO: except the login
+    // everyone will have a file menu as well as a help and login option
+    barHtml.push(this.fileMenu());
+    barHtml.push(this.loginMenu());
+    barHtml.push(this.helpMenu());
+
+    // only if we're on the DisplayTable page do we have an edit menu
+    if (this.props.route.path === '/DisplayTable/:tableId') {
+      barHtml.push(this.editMenu());
+
+      // editing in-place and calculating scores only if we've loaded data
+      if (!this.isTableEmpty()) {
+        const spacing = <span className='btn-spacing' />;
+        barHtml.push(
+          <ul className='nav navbar-nav' key='inline-menu'>
+            <li className="divider-vertical"></li>
+            <li><a>
+              {this.editEnabledButton()}
+              {spacing}
+              {this.clearTableButton()}
+              {spacing}
+              {this.calcScoreButton()}
+            </a></li>
+            <li className="divider-vertical"></li>
+          </ul>);
+      }
+    }
+
+    return <nav className='navbar navbar-default navbar-fixed-top'>
+      <div className='container'>
+        {this.logoAndBrand()}
+        <div className='collapse navbar-collapse' id='collapsed-menu'>
+          {barHtml}
+        </div>
+      </div>
+    </nav>;
+  }
+
+  /**
+   * Render the MenuBar
+   */
   render() {
     return (
       <span>
