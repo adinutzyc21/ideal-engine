@@ -67,9 +67,12 @@ export default class BuildHeader extends Component {
       }
     }
 
-    // ELSE: display the static item
+    // ELSE: display the static item, with 0 as '-' for score
+    if (type === 'score' && data === '0') data = '--';
     return <span key={type + '-display'} className={type + '-display'}
-        onClick={() => this.toggleEditing(id, type)}> {data} </span>;
+        onClick={() => this.toggleEditing(id, type)}>
+          <span className={type === 'score' ? 'details-bar' : ''}>{data}</span>
+        </span>;
   }
 
   /**
@@ -121,29 +124,35 @@ export default class BuildHeader extends Component {
       const tableHeaderHtml = [];
 
       // is this a deletable column (all except first column)
-      let deletableCol = '';
+      let colCls = '';
 
-      // allow column deletion for all columns except the first ('Option Name') one
+      // allow column deletion and formatting for all columns except the first ('Option Name') one
       if (idx !== 0) {
         // add the correct class
-        deletableCol = 'div-delete';
+        colCls = 'div-delete';
+
+        const detailsHtml = [];
 
         // add the score to the html
-        tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.score, 'score'));
+        detailsHtml.push(this.renderItemOrEditField(col._id, col.score, 'score'));
 
         // add dropdown menu to format the column (choose type)
-        tableHeaderHtml.push(
+        detailsHtml.push(
           <FormatColumn key='colMenu' colId={col._id} />);
 
         // add the data delete option to the html
-        tableHeaderHtml.push(
+        detailsHtml.push(
           <DeleteData key='del' level='col' params={col._id} />);
+
+        tableHeaderHtml.push(detailsHtml);
+      } else {
+        colCls = 'header-head';
       }
       // add the column name to the html
       tableHeaderHtml.push(this.renderItemOrEditField(col._id, col.name, 'name'));
 
       // return a heading with column names and ButtonDeletes
-      return <th key={col._id} className={deletableCol + ' ' + col._id}>{tableHeaderHtml}</th>;
+      return <th key={col._id} className={colCls + ' ' + col._id}>{tableHeaderHtml}</th>;
     });
   }
 

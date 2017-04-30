@@ -220,11 +220,11 @@ export default class MenuBar extends Component {
   editEnabledButton() {
     if (this.props.editEnabled === true) {
       return <button onClick={() => this.props.toggleEditOnOff(false)}
-        className='btn btn-xs btn-success' title='Inline Editing'>
+        className='btn btn-xs btn-success active' title='Inline Editing'>
         <span className='glyphicon glyphicon-pencil' /></button>;
     }
     return <button onClick={() => this.props.toggleEditOnOff(false)}
-      className='btn btn-xs btn-default red' title='Inline Editing'>
+      className='btn btn-xs btn-default' title='Inline Editing'>
       <span className='glyphicon glyphicon-pencil' /></button>;
   }
 

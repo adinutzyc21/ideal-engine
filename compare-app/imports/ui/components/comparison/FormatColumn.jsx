@@ -48,7 +48,7 @@ export default class FormatColumn extends Component {
     // display the button
     return (
       <a role='button' data-toggle='tooltip' title='Format Column'
-        className={'glyphicon glyphicon-option-vertical col-menu-button'}
+        className={'glyphicon glyphicon-option-vertical col-menu-button details-bar'}
         onClick={() => { this.formatColumnMenu(this.props.colId); }}
         onMouseEnter={this.handleMouseIn}
         onMouseLeave={this.handleMouseOut} >

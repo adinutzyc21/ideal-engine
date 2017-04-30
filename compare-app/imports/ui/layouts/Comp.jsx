@@ -17,7 +17,7 @@ class Comp extends Component {
 
     // initialize state variables
     this.state = {
-      editEnabled: false,
+      editEnabled: true,
     };
     // make this available in these methods
     this.toggleEditOnOff = this.toggleEditOnOff.bind(this);

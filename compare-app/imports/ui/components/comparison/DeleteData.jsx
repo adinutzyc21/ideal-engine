@@ -63,7 +63,7 @@ export default class DeleteData extends Component {
     // display the button
     return (
       <a role='button' data-toggle='tooltip' title={title}
-        className={'glyphicon glyphicon-remove del-button'}
+        className={'glyphicon glyphicon-remove del-button details-bar'}
         onClick={() => { callback(this.props.params); }}
         onMouseEnter={this.handleMouseIn}
         onMouseLeave={this.handleMouseOut} >

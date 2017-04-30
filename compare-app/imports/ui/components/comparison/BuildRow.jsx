@@ -35,15 +35,15 @@ export default class BuildRow extends Component {
 
   /**
    * Either render the static item (row data / score) or render the edit field
-   * @param {String} rowId - the id of the row
-   * @param {String} colId - the id of the column
+   * @param {String} row - the row (we need _id and score and)
+   * @param {String} col - the column (we need _id and score)
    * @param {String} data - what we're displaying (row data or row score)
    * @param {String} type - one of 'score' or 'option' or 'data'
    */
-  renderItemOrEditField(rowId, colId, data, type) {
+  renderItemOrEditField(row, col, data, type) {
     // IF: display the edit fields
-    if (this.props.editEnabled === true && this.state.editingRowId === rowId
-      && this.state.editingColId === colId && this.state.editingType === type) {
+    if (this.props.editEnabled === true && this.state.editingRowId === row._id
+      && this.state.editingColId === col._id && this.state.editingType === type) {
       // if: changing a number (score)
       if (type === 'score') {
         return <input type='number' autoFocus
@@ -56,7 +56,7 @@ export default class BuildRow extends Component {
           defaultValue={data}
         />;
 
-      // else: changing text (option)
+        // else: changing text (option)
       } else if (type === 'option') {
         return <input type='text' autoFocus
           key={type + '-editing'}
@@ -67,7 +67,7 @@ export default class BuildRow extends Component {
           defaultValue={data}
         />;
 
-      // else: changing text (data)
+        // else: changing text (data)
       } else if (type === 'data') {
         return <div key={type + '-editing-key'}
           className={type + '-editing'}>
@@ -82,9 +82,33 @@ export default class BuildRow extends Component {
     }
 
     // ELSE: display the static item
-    if (data === '') data = '--';
+
+    // should the score be hidden
+    let hiddenCls = '';
+
+    // the row type is 'score'
+    if (type === 'score') {
+      if (data === '0' || col.score === '0') {
+        data = '--';
+      }
+      if (col.score === '0' || row[col._id].value === '') {
+        hiddenCls = 'no-display';
+      }
+
+    // the type is 'option' or 'data' and data is empty
+    } else if (data === '') {
+      data = '--';
+      // this cell is empty, make its score 0
+      if (row[col._id].value === '' && row[col._id].score !== '0') {
+        Meteor.call('comparison.updateRowFieldInPlace', row._id, col._id, 'score', '0');
+      }
+    }
+
     return <span key={type + '-display'} className={type + '-display'}
-        onClick={() => this.toggleEditing(rowId, colId, type)}> {data} </span>;
+      onClick={() => this.toggleEditing(row._id, col._id, type)}>
+        <span className={hiddenCls + ' ' +
+          (type === 'score' ? 'details-bar' : '')}>{data}</span>
+      </span>;
   }
 
   /**
@@ -143,36 +167,36 @@ export default class BuildRow extends Component {
       const tableDataHtml = [];
 
       // is this a deletable header row (basically the first row)
-      let headerDelRow = '';
+      let rowClass = '';
 
       // if the current column is populated in the row
       if (row[col._id]) {
         // IF: it's the first column,  display cell as header and allow deletion
         if (idx === 0) {
           // add the correct class
-          headerDelRow = 'secondary-heading div-delete';
+          rowClass = 'secondary-heading div-delete';
 
           // add the score to the html
-          tableDataHtml.push(this.renderItemOrEditField(row._id, col._id, row.score, 'score'));
+          tableDataHtml.push(this.renderItemOrEditField(row, col, row.score, 'score'));
 
           // add the data delete option to the html
           tableDataHtml.push(
             <DeleteData key='del' level='row' params={row._id} />);
 
           // add the 'option' to the html
-          tableDataHtml.push(this.renderItemOrEditField(row._id, col._id, row[col._id].value, 'option'));
+          tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].value, 'option'));
 
-        // ELSE: if it's not the first column, no delete button or special formatting
+          // ELSE: if it's not the first column, no delete button or special formatting
         } else {
           // add the score to the html
-          tableDataHtml.push(this.renderItemOrEditField(row._id, col._id, row[col._id].score, 'score'));
+          tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].score, 'score'));
 
           // add the 'data' to the html
-          tableDataHtml.push(this.renderItemOrEditField(row._id, col._id, row[col._id].value, 'data'));
+          tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].value, 'data'));
         }
       }
       // return a row with data and ButtonDeletes
-      return <td key={col._id} className={headerDelRow + ' ' + row._id + ' ' + col._id}>
+      return <td key={col._id} className={rowClass + ' ' + row._id + ' ' + col._id}>
         {tableDataHtml}</td>;
     });
   }
@@ -183,12 +207,12 @@ export default class BuildRow extends Component {
   render() {
     const self = this;
     return <tbody>
-        {this.props.rows.map(row => (
-          <tr key={row._id}>
-            {self.buildRowHtml(row)}
-          </tr>
-        ))}
-      </tbody>;
+      {this.props.rows.map(row => (
+        <tr key={row._id}>
+          {self.buildRowHtml(row)}
+        </tr>
+      ))}
+    </tbody>;
   }
 }
 

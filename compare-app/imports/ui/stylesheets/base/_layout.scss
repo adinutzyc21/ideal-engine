@@ -1,8 +1,11 @@
 
 .table-container {
-    overflow: auto;
-    margin: 60px 0px 60px;
-    border: solid 1px lighten($darkBlue,50%);
+    overflow: hidden;
+    margin: 80px 0px 80px;
+    border: solid 1px $lightBlue;
+    &:hover {
+        overflow: auto;
+    }
 }
 
 .table-container-no-data {
@@ -27,6 +30,6 @@
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: gray;
-    box-shadow: 0 0 10px lightgray;
-    -webkit-box-shadow: 0 0 10px lightgray;
+    box-shadow: 0 0 5px lightgray;
+    -webkit-box-shadow: 0 0 5px lightgray;
 }
