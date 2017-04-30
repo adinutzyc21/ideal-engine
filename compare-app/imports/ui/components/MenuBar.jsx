@@ -16,15 +16,17 @@ export default class MenuBar extends Component {
 
     // initialize state variables
     this.state = {
-      scoreOn: false,
+      scoreOn: true,
     };
 
     // make 'this' available in these methods
     this.generateTestTable = this.generateTestTable.bind(this);
     this.clearTable = this.clearTable.bind(this);
-    this.computeScore = this.computeScore.bind(this);
+    // this.computeScore = this.computeScore.bind(this);
     this.getFirstColumnId = this.getFirstColumnId.bind(this);
     this.isTableEmpty = this.isTableEmpty.bind(this);
+    this.toggleScoreOnOff = this.toggleScoreOnOff.bind(this);
+    this.backUpTable = this.backUpTable.bind(this);
   }
 
   /**
@@ -42,6 +44,13 @@ export default class MenuBar extends Component {
   getFirstColumnId() {
     if (this.isTableEmpty()) return '';
     return this.props.cols[0]._id;
+  }
+
+  /**
+   * Is live score calculation enabled or not
+   */
+  toggleScoreOnOff() {
+    this.setState({ scoreOn: !this.state.scoreOn });
   }
 
   /**
@@ -64,28 +73,37 @@ export default class MenuBar extends Component {
   }
 
   /**
+   * Back Up the current table
+   */
+  backUpTable() {
+    Meteor.call('comparison.backupTable', this.props.params.tableId);
+  }
+
+  /**
    * For all rows calculate the row's score based on criteria and options scores
    */
-  computeScore() {
+  componentDidUpdate() {
     // TODO: this should be better math-wise
-    const cols = this.props.cols;
-    const rows = this.props.rows;
+    if (this.state.scoreOn && !this.isTableEmpty()) {
+      const cols = this.props.cols;
+      const rows = this.props.rows;
 
-    // row[i][0].score = sum(for all columns j>=1) row[i][j].score*col[j].score
-    let maxScore = 0;
-    const score = [];
-    // for all rows i
-    for (let i = 0, lenR = rows.length; i < lenR; i++) {
-      score[i] = 0;
-      // for all columns j
-      for (let j = 1, lenC = cols.length; j < lenC; j++) {
-        score[i] += rows[i][cols[j]._id].score * cols[j].score;
+      // row[i][0].score = sum(for all columns j>=1) (row[i][j].score * col[j].score)
+      let maxScore = 0;
+      const score = [];
+      // for all rows i
+      for (let i = 0, lenR = rows.length; i < lenR; i++) {
+        score[i] = 0;
+        // for all columns j
+        for (let j = 1, lenC = cols.length; j < lenC; j++) {
+          score[i] += rows[i][cols[j]._id].score * cols[j].score;
+        }
+        if (score[i] > maxScore) maxScore = score[i];
       }
-      if (score[i] > maxScore) maxScore = score[i];
-    }
-    for (let i = 0, lenR = rows.length; i < lenR; i++) {
-      score[i] = Math.round((score[i] * 100) / maxScore) / 10;
-      Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+      for (let i = 0, lenR = rows.length; i < lenR; i++) {
+        score[i] = Math.round((score[i] * 100) / maxScore) / 10;
+        Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+      }
     }
   }
 
@@ -220,7 +238,7 @@ export default class MenuBar extends Component {
   editEnabledButton() {
     if (this.props.editEnabled === true) {
       return <button onClick={() => this.props.toggleEditOnOff(false)}
-        className='btn btn-xs btn-success active' title='Inline Editing'>
+        className='btn btn-xs btn-info active' title='Inline Editing'>
         <span className='glyphicon glyphicon-pencil' /></button>;
     }
     return <button onClick={() => this.props.toggleEditOnOff(false)}
@@ -243,12 +261,24 @@ export default class MenuBar extends Component {
    * Create the 'run comparison' button
    */
   calcScoreButton() {
-    // TODO: make this like the edit enabled one
-    return <button key='run' title='Score Comparison'
-      className=' btn btn-xs btn-default green run'
-      onClick={() => this.computeScore(this.getFirstColumnId())} >
-      <span className='glyphicon glyphicon-play' />
-    </button>;
+    if (this.state.scoreOn === true) {
+      return <button onClick={this.toggleScoreOnOff} key='run'
+        className='btn btn-sm nav-btn btn-success run active' title='Compare ON'>
+        <span className='glyphicon glyphicon-play' /></button>;
+    }
+    return <button onClick={this.toggleScoreOnOff} key='run'
+      className='btn btn-sm nav-btn btn-default green run' title='Compare OFF'>
+      <span className='glyphicon glyphicon-pause' /></button>;
+    // () => this.computeScore()
+  }
+
+  /**
+   * Create a 'Save' button to back up the table
+   */
+  backupButton() {
+    return <button onClick={this.backUpTable} key='save'
+      className='btn btn-xs btn-primary' title='Back Table Up'>
+      <span className='glyphicon glyphicon-floppy-save' /></button>;
   }
 
   /**
@@ -297,13 +327,15 @@ export default class MenuBar extends Component {
           <ul className='nav navbar-nav' key='inline-menu'>
             <li className="divider-vertical"></li>
             <li><a>
-              {this.editEnabledButton()}
-              {spacing}
-              {this.clearTableButton()}
-              {spacing}
               {this.calcScoreButton()}
             </a></li>
-            <li className="divider-vertical"></li>
+            <li><a>
+              {this.editEnabledButton()}
+              {spacing}
+              {this.backupButton()}
+              {spacing}
+              {this.clearTableButton()}
+            </a></li>
           </ul>);
       }
     }

@@ -130,10 +130,10 @@ export default class BuildRow extends Component {
       Meteor.call('comparison.updateRowFieldInPlace', this.state.editingRowId,
         this.state.editingColId, type, target.value, (error) => {
           if (error) {
-            Bert.alert(error.reason, 'danger');
+            Bert.alert(error.reason, 'danger', 'fixed-bottom');
           } else {
             this.stopEditing();
-            Bert.alert('Cell updated!', 'success');
+            Bert.alert('Cell updated!', 'success', 'fixed-bottom');
           }
         });
     }

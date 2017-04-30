@@ -90,10 +90,10 @@ export default class BuildHeader extends Component {
       Meteor.call('comparison.updateColumnFieldInPlace', this.state.editingId,
         this.state.editingType, target.value, (error) => {
           if (error) {
-            Bert.alert(error.reason, 'danger');
+            Bert.alert(error.reason, 'danger', 'fixed-bottom');
           } else {
             this.stopEditing();
-            Bert.alert('Header updated!', 'success');
+            Bert.alert('Header updated!', 'success', 'fixed-bottom');
           }
         });
     }
