@@ -17,16 +17,55 @@ class Comp extends Component {
 
     // initialize state variables
     this.state = {
-      editEnabled: true,
+      editOn: true,
+      scoreOn: false,
     };
-    // make this available in these methods
+    // make 'this' available in these methods
     this.toggleEditOnOff = this.toggleEditOnOff.bind(this);
+    this.toggleScoreOnOff = this.toggleScoreOnOff.bind(this);
   }
 
-  /** Is editing enabled or not */
+  /**
+   * Is editing enabled or not?
+   */
   toggleEditOnOff(isDisabled) {
     if (!isDisabled) {
-      this.setState({ editEnabled: !this.state.editEnabled });
+      this.setState({ editOn: !this.state.editOn });
+    }
+  }
+
+  /**
+   * Is live score calculation enabled or not? If it is, score the table once.
+   */
+  toggleScoreOnOff() {
+    this.setState({ scoreOn: !this.state.scoreOn });
+  }
+
+  /**
+   * Score the entire table. This happens only on first turn on of the 'Score' switch
+   */
+  componentDidUpdate() {
+    if (this.state.scoreOn && this.props.cols) {
+      const cols = this.props.cols;
+      const rows = this.props.rows;
+
+      // row[i][0].score = sum(for all columns j>=1) (row[i][j].score * col[j].score)
+      let maxScore = 0;
+      const score = [];
+      // for all rows i
+      for (let i = 0, lenR = rows.length; i < lenR; i++) {
+        score[i] = 0;
+        // for all columns j
+        for (let j = 1, lenC = cols.length; j < lenC; j++) {
+          score[i] += rows[i][cols[j]._id].score * cols[j].score;
+        }
+        if (score[i] > maxScore) maxScore = score[i];
+      }
+      for (let i = 0, lenR = rows.length; i < lenR; i++) {
+        if (maxScore === 0) score[i] = 0;
+        else score[i] = Math.round((score[i] * 100) / maxScore) / 10;
+        if (rows[i].score !== score[i]) Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+      }
     }
   }
 
@@ -48,15 +87,17 @@ class Comp extends Component {
       displayTable = React.Children.map(this.props.main, child => React.cloneElement(child, {
         rows: this.props.rows,
         cols: this.props.cols,
-        editEnabled: this.state.editEnabled,
-        toggleEditOnOff: this.toggleEditOnOff,
+        editOn: this.state.editOn,
+        scoreOn: this.state.scoreOn,
       }));
       // the Menu Bar properties
       menuBar = React.Children.map(this.props.sidebar, child => React.cloneElement(child, {
         rows: this.props.rows,
         cols: this.props.cols,
-        editEnabled: this.state.editEnabled,
+        editOn: this.state.editOn,
         toggleEditOnOff: this.toggleEditOnOff,
+        scoreOn: this.state.scoreOn,
+        toggleScoreOnOff: this.toggleScoreOnOff,
       }));
     }
 
@@ -65,9 +106,7 @@ class Comp extends Component {
         <div className="content">
           {displayTable}
         </div>
-        <div className="menu">
-          {menuBar}
-        </div>
+        {menuBar}
       </div>);
   }
 }

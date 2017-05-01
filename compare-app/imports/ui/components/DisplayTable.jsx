@@ -28,12 +28,18 @@ export class DisplayTable extends Component {
   updateDimensions() {
     let height = $(window).height() - 120;
     if (height < 150) height = 150;
-    this.setState({ height });
+
+    $('.table-container').css('max-height', height + 'px');
+
+    const minH = height - 20;
+    $('.table-container').css('min-height', minH + 'px');
+    $('.table-container').css('height', minH + 'px');
   }
   componentWillMount() {
     this.updateDimensions();
   }
   componentDidMount() {
+    this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
   }
   componentWillUnmount() {
@@ -44,8 +50,6 @@ export class DisplayTable extends Component {
    * Render the table
    */
   render() {
-    $('.table-container').css('max-height', this.state.height + 'px');
-
     // this is the final html for our table
     const tableContainerHtml = [];
 
@@ -66,10 +70,10 @@ export class DisplayTable extends Component {
           <table key='table'>
             {/* Need a header of type BuildHeader */}
             <BuildHeader key='heading' cols={this.props.cols}
-              editEnabled={this.props.editEnabled} />
+              editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
             {/* Need a bunch of rows of type BuildRow*/}
             <BuildRow key='row' rows={this.props.rows} cols={this.props.cols}
-              editEnabled={this.props.editEnabled} />
+              editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
           </table>
         </div>);
     }
@@ -92,6 +96,6 @@ export class DisplayTable extends Component {
 DisplayTable.propTypes = {
   rows: PropTypes.array,
   cols: PropTypes.array,
-  toggleEditOnOff: PropTypes.any,
-  editEnabled: PropTypes.bool,
+  editOn: PropTypes.bool,
+  scoreOn: PropTypes.bool,
 };

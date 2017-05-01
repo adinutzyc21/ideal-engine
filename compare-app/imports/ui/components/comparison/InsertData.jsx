@@ -56,7 +56,7 @@ export default class InsertData extends Component {
 
     // this should have failed in proptypes though
     } else {
-      Bert.alert('Level is wrong', 'danger');
+      Bert.alert('Level is wrong', 'danger', 'growl-bottom-left');
     }
   }
 

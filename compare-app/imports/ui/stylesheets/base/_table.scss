@@ -1,6 +1,7 @@
 table {
     min-width: 100%;
     border-collapse: collapse;
+    border: solid 1px $lightBlue;
 }
 
 th, td {
@@ -55,7 +56,7 @@ td{
             float: left;
         }
         > span.score-display, > input.score-editing {
-            display: none;
+            // display: none;
             float: right;
         }
     }

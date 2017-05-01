@@ -2,6 +2,8 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { IndexLink, Link } from 'react-router'; // eslint-disable-line no-unused-vars
 
+import { Bert } from 'meteor/themeteorchef:bert';
+
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
 import CreateTable from './tables/CreateTable.jsx'; // eslint-disable-line no-unused-vars
 import ImportCSV from './tables/ImportCSV.jsx'; // eslint-disable-line no-unused-vars
@@ -14,18 +16,11 @@ export default class MenuBar extends Component {
   constructor(props) {
     super(props);
 
-    // initialize state variables
-    this.state = {
-      scoreOn: true,
-    };
-
     // make 'this' available in these methods
     this.generateTestTable = this.generateTestTable.bind(this);
     this.clearTable = this.clearTable.bind(this);
-    // this.computeScore = this.computeScore.bind(this);
     this.getFirstColumnId = this.getFirstColumnId.bind(this);
     this.isTableEmpty = this.isTableEmpty.bind(this);
-    this.toggleScoreOnOff = this.toggleScoreOnOff.bind(this);
     this.backUpTable = this.backUpTable.bind(this);
   }
 
@@ -44,13 +39,6 @@ export default class MenuBar extends Component {
   getFirstColumnId() {
     if (this.isTableEmpty()) return '';
     return this.props.cols[0]._id;
-  }
-
-  /**
-   * Is live score calculation enabled or not
-   */
-  toggleScoreOnOff() {
-    this.setState({ scoreOn: !this.state.scoreOn });
   }
 
   /**
@@ -76,35 +64,14 @@ export default class MenuBar extends Component {
    * Back Up the current table
    */
   backUpTable() {
-    Meteor.call('comparison.backupTable', this.props.params.tableId);
-  }
-
-  /**
-   * For all rows calculate the row's score based on criteria and options scores
-   */
-  componentDidUpdate() {
-    // TODO: this should be better math-wise
-    if (this.state.scoreOn && !this.isTableEmpty()) {
-      const cols = this.props.cols;
-      const rows = this.props.rows;
-
-      // row[i][0].score = sum(for all columns j>=1) (row[i][j].score * col[j].score)
-      let maxScore = 0;
-      const score = [];
-      // for all rows i
-      for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        score[i] = 0;
-        // for all columns j
-        for (let j = 1, lenC = cols.length; j < lenC; j++) {
-          score[i] += rows[i][cols[j]._id].score * cols[j].score;
-        }
-        if (score[i] > maxScore) maxScore = score[i];
+    Meteor.call('comparison.backupTable', this.props.params.tableId, (error) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger', 'growl-bottom-left');
+      } else {
+        this.stopEditing();
+        Bert.alert('Cell updated!', 'success', 'growl-bottom-left');
       }
-      for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        score[i] = Math.round((score[i] * 100) / maxScore) / 10;
-        Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
-      }
-    }
+    });
   }
 
   /**
@@ -180,7 +147,7 @@ export default class MenuBar extends Component {
           </a>
         <ul className='dropdown-menu'>
           <li className='dropdown-header'>Inline Editing</li>
-          <li>{this.editEnabledToggle(this.isTableEmpty())}</li>
+          <li>{this.editOnToggle(this.isTableEmpty())}</li>
           <li role='separator' className='divider'></li>
           <li className='dropdown-header'>Create</li>
 
@@ -215,10 +182,10 @@ export default class MenuBar extends Component {
   /**
    * Inline editing on/off toggle that is displayed in the 'Edit' drop-down
    */
-  editEnabledToggle(isDisabled) {
+  editOnToggle(isDisabled) {
     let btnClass = '';
     if (isDisabled) btnClass = 'disabled';
-    if (this.props.editEnabled === true) {
+    if (this.props.editOn === true) {
       return <div className="btn-group btn-group-xs btn-toggle nav-btn on-off-switch">
         <button className={'btn btn-primary ' + btnClass}>ON</button>
         <button onClick={() => this.props.toggleEditOnOff(isDisabled)}
@@ -235,8 +202,8 @@ export default class MenuBar extends Component {
   /**
    * Inline editing on/off button that is displayed directly on the MenuBar
    */
-  editEnabledButton() {
-    if (this.props.editEnabled === true) {
+  editOnButton() {
+    if (this.props.editOn === true) {
       return <button onClick={() => this.props.toggleEditOnOff(false)}
         className='btn btn-xs btn-info active' title='Inline Editing'>
         <span className='glyphicon glyphicon-pencil' /></button>;
@@ -261,15 +228,14 @@ export default class MenuBar extends Component {
    * Create the 'run comparison' button
    */
   calcScoreButton() {
-    if (this.state.scoreOn === true) {
-      return <button onClick={this.toggleScoreOnOff} key='run'
+    if (this.props.scoreOn === true) {
+      return <button onClick={this.props.toggleScoreOnOff} key='run'
         className='btn btn-sm nav-btn btn-success run active' title='Compare ON'>
         <span className='glyphicon glyphicon-play' /></button>;
     }
-    return <button onClick={this.toggleScoreOnOff} key='run'
+    return <button onClick={this.props.toggleScoreOnOff} key='run'
       className='btn btn-sm nav-btn btn-default green run' title='Compare OFF'>
       <span className='glyphicon glyphicon-pause' /></button>;
-    // () => this.computeScore()
   }
 
   /**
@@ -330,7 +296,7 @@ export default class MenuBar extends Component {
               {this.calcScoreButton()}
             </a></li>
             <li><a>
-              {this.editEnabledButton()}
+              {this.editOnButton()}
               {spacing}
               {this.backupButton()}
               {spacing}
@@ -377,5 +343,7 @@ MenuBar.propTypes = {
   rows: PropTypes.array,
   cols: PropTypes.array,
   toggleEditOnOff: PropTypes.any,
-  editEnabled: PropTypes.bool,
+  editOn: PropTypes.bool,
+  toggleScoreOnOff: PropTypes.any,
+  scoreOn: PropTypes.bool,
 };

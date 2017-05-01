@@ -24,6 +24,9 @@ export default class BuildHeader extends Component {
 
       // this is the item type we are editing
       editingType: '',
+
+      // this is the previous value of the item
+      prevValue: '',
     };
     // make this available in these methods
     this.handleEditField = this.handleEditField.bind(this);
@@ -40,7 +43,7 @@ export default class BuildHeader extends Component {
  */
   renderItemOrEditField(id, data, type) {
     // IF: display the edit fields
-    if (this.props.editEnabled === true && this.state.editingId === id
+    if (this.props.editOn === true && this.state.editingId === id
       && this.state.editingType === type) {
       // if: changing a number (score)
       if (type === 'score') {
@@ -54,7 +57,7 @@ export default class BuildHeader extends Component {
           defaultValue={data}
         />;
 
-      // else: changing text (name)
+        // else: changing text (name)
       } else if (type === 'name') {
         return <input type='text' autoFocus
           key={type + '-editing'}
@@ -70,7 +73,7 @@ export default class BuildHeader extends Component {
     // ELSE: display the static item, with 0 as '-' for score
     if (type === 'score' && data === '0') data = '--';
     return <span key={type + '-display'} className={type + '-display'}
-        onClick={() => this.toggleEditing(id, type)}>
+        onClick={() => this.toggleEditing(id, type, data)}>
           <span className={type === 'score' ? 'details-bar' : ''}>{data}</span>
         </span>;
   }
@@ -84,16 +87,16 @@ export default class BuildHeader extends Component {
     // TODO: probably need something better than enter here for multiline
     // for example a v and x button appearing below on the right like in JIRA
     if (event.keyCode === 13) {
-      const target = event.target;
+      const value = event.target.value;
 
       // update the field in Meteor
       Meteor.call('comparison.updateColumnFieldInPlace', this.state.editingId,
-        this.state.editingType, target.value, (error) => {
+        this.state.editingType, value, (error) => {
           if (error) {
-            Bert.alert(error.reason, 'danger', 'fixed-bottom');
+            Bert.alert(error.reason, 'danger', 'growl-bottom-left');
           } else {
             this.stopEditing();
-            Bert.alert('Header updated!', 'success', 'fixed-bottom');
+            Bert.alert('Header updated!', 'success', 'growl-bottom-left');
           }
         });
     }
@@ -103,16 +106,17 @@ export default class BuildHeader extends Component {
    * Toggle editing on or off
    * @param {String} id - the id of the column
    * @param {String} type - one of 'score' or 'name'
+   * @param {String} data - this is the previous value
    */
-  toggleEditing(id, type) {
-    this.setState({ editingId: id, editingType: type });
+  toggleEditing(id, type, data) {
+    this.setState({ editingId: id, editingType: type, prevValue: data });
   }
 
   /**
    * Stop editing. Triggered either by click outside or by successful change
    */
   stopEditing() {
-    this.setState({ editingId: null, editingType: '' });
+    this.setState({ editingId: null, editingType: '', prevValue: '' });
   }
 
   /**
@@ -175,5 +179,6 @@ export default class BuildHeader extends Component {
  */
 BuildHeader.propTypes = {
   cols: PropTypes.array.isRequired,
-  editEnabled: PropTypes.bool,
+  editOn: PropTypes.bool,
+  scoreOn: PropTypes.bool,
 };

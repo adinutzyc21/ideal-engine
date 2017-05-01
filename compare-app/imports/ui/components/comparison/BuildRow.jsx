@@ -24,6 +24,9 @@ export default class BuildRow extends Component {
 
       // this is the item type we are editing
       editingType: '',
+
+      // this is the previous value of the item
+      prevValue: '',
     };
 
     // make this available in these methods
@@ -42,7 +45,7 @@ export default class BuildRow extends Component {
    */
   renderItemOrEditField(row, col, data, type) {
     // IF: display the edit fields
-    if (this.props.editEnabled === true && this.state.editingRowId === row._id
+    if (this.props.editOn === true && this.state.editingRowId === row._id
       && this.state.editingColId === col._id && this.state.editingType === type) {
       // if: changing a number (score)
       if (type === 'score') {
@@ -88,7 +91,7 @@ export default class BuildRow extends Component {
 
     // the row type is 'score'
     if (type === 'score') {
-      if (data === '0' || col.score === '0') {
+      if (data.toString() === '0' || col.score === '0') {
         data = '--';
       }
       if (col.score === '0' || row[col._id].value === '') {
@@ -105,7 +108,7 @@ export default class BuildRow extends Component {
     }
 
     return <span key={type + '-display'} className={type + '-display'}
-      onClick={() => this.toggleEditing(row._id, col._id, type)}>
+      onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
         <span className={hiddenCls + ' ' +
           (type === 'score' ? 'details-bar' : '')}>{data}</span>
       </span>;
@@ -120,7 +123,7 @@ export default class BuildRow extends Component {
     // TODO: probably need something better than enter here for multiline
     // for example a v and x button appearing below on the right like in JIRA
     if (event.keyCode === 13) {
-      const target = event.target;
+      const value = event.target.value;
 
       // let 'type' match Mongo options
       let type = this.state.editingType;
@@ -128,12 +131,12 @@ export default class BuildRow extends Component {
 
       // update the field in Meteor
       Meteor.call('comparison.updateRowFieldInPlace', this.state.editingRowId,
-        this.state.editingColId, type, target.value, (error) => {
+        this.state.editingColId, type, value, (error) => {
           if (error) {
-            Bert.alert(error.reason, 'danger', 'fixed-bottom');
+            Bert.alert(error.reason, 'danger', 'growl-bottom-left');
           } else {
             this.stopEditing();
-            Bert.alert('Cell updated!', 'success', 'fixed-bottom');
+            Bert.alert('Cell updated!', 'success', 'growl-bottom-left');
           }
         });
     }
@@ -144,16 +147,17 @@ export default class BuildRow extends Component {
    * @param {String} rowId - the id of the row
    * @param {String} colId - the id of the column
    * @param {String} type - one of 'score' or 'option' or 'data'
+   * @param {String} data - this is the previous value
    */
-  toggleEditing(rowId, colId, type) {
-    this.setState({ editingRowId: rowId, editingColId: colId, editingType: type });
+  toggleEditing(rowId, colId, type, data) {
+    this.setState({ editingRowId: rowId, editingColId: colId, editingType: type, prevValue: data });
   }
 
   /**
    * Stop editing. Triggered either by click outside or by successful change
    */
   stopEditing() {
-    this.setState({ editingRowId: null, editingColId: null, editingType: '' });
+    this.setState({ editingRowId: null, editingColId: null, editingType: '', prevValue: '' });
   }
 
   /**
@@ -219,5 +223,6 @@ export default class BuildRow extends Component {
 BuildRow.propTypes = {
   cols: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
-  editEnabled: PropTypes.bool,
+  editOn: PropTypes.bool,
+  scoreOn: PropTypes.bool,
 };
