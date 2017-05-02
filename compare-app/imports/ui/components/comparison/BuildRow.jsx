@@ -1,6 +1,8 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 
+import { markdown } from 'markdown'; // eslint-disable-line no-unused-vars
+
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
@@ -110,7 +112,8 @@ export default class BuildRow extends Component {
     return <span key={type + '-display'} className={type + '-display'}
       onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
         <span className={hiddenCls + ' ' +
-          (type === 'score' ? 'details-bar' : '')}>{data}</span>
+          (type === 'score' ? 'details-bar' : '')}
+          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data) }}/>
       </span>;
   }
 
