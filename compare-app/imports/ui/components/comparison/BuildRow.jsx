@@ -113,7 +113,7 @@ export default class BuildRow extends Component {
       onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
         <span className={hiddenCls + ' ' +
           (type === 'score' ? 'details-bar' : '')}
-          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data) }}/>
+          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data.toString()) }}/>
       </span>;
   }
 
