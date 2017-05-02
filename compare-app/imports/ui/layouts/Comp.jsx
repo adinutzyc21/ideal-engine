@@ -17,7 +17,7 @@ class Comp extends Component {
 
     // initialize state variables
     this.state = {
-      editOn: true,
+      editOn: false,
       scoreOn: false,
     };
     // make 'this' available in these methods
