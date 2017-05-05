@@ -36,6 +36,9 @@ export default class BuildRow extends Component {
     this.renderItemOrEditField = this.renderItemOrEditField.bind(this);
     this.stopEditing = this.stopEditing.bind(this);
     this.toggleEditing = this.toggleEditing.bind(this);
+
+    this.count = 0;
+    this.text = '';
   }
 
   /**
@@ -110,10 +113,9 @@ export default class BuildRow extends Component {
     }
 
     return <span key={type + '-display'} className={type + '-display'}
-      onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
-        <span className={hiddenCls + ' ' +
-          (type === 'score' ? 'details-bar' : '')}
-          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data.toString()) }}/>
+        onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
+        <span className={hiddenCls + ' ' + (type === 'score' ? 'details-bar' : '')}
+          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data.toString()) }} />
       </span>;
   }
 
@@ -183,12 +185,17 @@ export default class BuildRow extends Component {
           // add the correct class
           rowClass = 'secondary-heading div-delete';
 
+          this.count++;
+          this.text = <span className='option-count'> {this.count + '.'} </span>;
+
           // add the score to the html
           tableDataHtml.push(this.renderItemOrEditField(row, col, row.score, 'score'));
 
           // add the data delete option to the html
           tableDataHtml.push(
             <DeleteData key='del' level='row' params={row._id} />);
+
+          tableDataHtml.push(this.text);
 
           // add the 'option' to the html
           tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].value, 'option'));
@@ -213,6 +220,9 @@ export default class BuildRow extends Component {
    */
   render() {
     const self = this;
+
+    this.count = 0;
+
     return <tbody>
       {this.props.rows.map(row => (
         <tr key={row._id}>
