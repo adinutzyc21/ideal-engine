@@ -2,8 +2,6 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
-// import Dropzone from 'react-dropzone';
-// import request from 'superagent/lib/client';
 import Papa from 'papaparse';
 
 export default class ImportCSV extends Component {
@@ -12,7 +10,6 @@ export default class ImportCSV extends Component {
   */
   constructor(props) {
     super(props);
-    // this.ImportCSV = this.ImportCSV.bind(this);
     this.parseCSV = this.parseCSV.bind(this);
   }
 
@@ -20,16 +17,15 @@ export default class ImportCSV extends Component {
     if (!isDisabled) {
       const self = this;
       Papa.parse(filename, {
-        header: true,
+        header: false,
         download: true,
         keepEmptyRows: false,
         skipEmptyLines: true,
         complete(result) {
           const data = result.data;
-          const columns = result.meta.fields;
 
           // insert this into the meteor table
-          Meteor.call('comparison.importCSV', self.props.tableId, data, columns);
+          Meteor.call('comparison.importCSV', self.props.tableId, data);
         },
       });
     }
@@ -43,7 +39,7 @@ export default class ImportCSV extends Component {
     const filename = '/files/output.csv';
     // display the button
     return (
-      <a role='button' onClick={() => this.parseCSV(filename, this.props.isDisabled)}>Load CSV</a>
+      <a role='button' onClick={() => this.parseCSV(filename, this.props.isDisabled)}>Import CSV</a>
     );
   }
 }

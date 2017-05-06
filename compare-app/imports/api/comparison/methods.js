@@ -61,17 +61,15 @@ Meteor.methods({
     const colIds = [];
     // create the row
     for (let i = 0, len = cols.length; i < len; i++) {
-      // Create a new ObjectID for the column
-      const colId = new Meteor.Collection.ObjectID()._str;
       // create the column
       const colData = cols[i];
-      colData._id = colId;
 
       colData.tableId = tableId;
 
-      colIds.push(colId);
       // insert the column
-      Col.insert(colData);
+      const colId = Col.insert(colData);
+      // save the ObjectID for the column
+      colIds.push(colId);
     }
 
     // insert the corresponding row
@@ -216,39 +214,48 @@ Meteor.methods({
    * Import CSV file
    * @param {String} tableId - the Id of the current table
    * @param {Array} data - the data from CSV parsed by Papa Parse
-   * @param {Array} cols - the names of the columns retrieved by Papa Parse
    */
-  'comparison.importCSV'(tableId, data, cols) { // eslint-disable-line object-shorthand
+  'comparison.importCSV'(tableId, data) { // eslint-disable-line object-shorthand
     check(tableId, String);
     check(data, Array);
-    check(cols, Array);
-    
+    // check(cols, Array);
+    const cols = data[0];
+
     // id - name pair for the columns
     const colObj = [];
 
+    let step = 1;
+    let hasScore = false;
+    let score = 5;
+    // importing with scores?
+    if (cols[1] === 'score') {
+      step = 2;
+      hasScore = true;
+    }
     // insert the columns into Mongo
-    for (let i = 0, len = cols.length; i < len; i++) {
-      // Create a new ObjectID for the column
-      const colId = new Meteor.Collection.ObjectID()._str;
-
+    for (let i = 0, len = cols.length; i < len; i += step) {
       // create the column data to insert into Mongo
       const colData = {};
-      colData._id = colId;
       colData.tableId = tableId;
+
       colData.name = cols[i];
       // the first column does not have a score
       if (i !== 0) {
-        colData.score = 0;
+        if (hasScore) {
+          score = cols[i + 1];
+        }
+        colData.score = score;
       }
-      // insert the column into mongo
-      Col.insert(colData);
+
+      // insert the column into mongo;  save the ObjectID for the column
+      const colId = Col.insert(colData);
 
       // save the id-name pair for row insertion below
       colObj.push({ id: colId, name: cols[i] });
     }
 
     // insert the corresponding rows into Mongo
-    for (let i = 0, len = data.length; i < len; i++) {
+    for (let i = 1, len = data.length; i < len; i++) {
       // an object with the data on the current row
       const row = data[i];
 
@@ -256,10 +263,22 @@ Meteor.methods({
       const rowData = {};
       for (let j = 0, len2 = colObj.length; j < len2; j++) {
         const colId = colObj[j].id;
-        const colName = colObj[j].name;
-        rowData[colId] = { value: row[colName], score: 0 };
-        rowData.score = 0;
+
+        if (hasScore) {
+          score = row[(j * step) + 1];
+        }
+        if (j === 0) {
+          // this is the row score instead
+          rowData.score = score;
+          // insert without score
+          rowData[colId] = { value: row[j * step] };
+
+        // insert with score
+        } else {
+          rowData[colId] = { value: row[j * step], score };
+        }
       }
+
       rowData.tableId = tableId;
       // insert the row into Mongo
       Row.insert(rowData);

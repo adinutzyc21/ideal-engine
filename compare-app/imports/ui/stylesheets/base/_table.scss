@@ -40,7 +40,7 @@ th {
     }
 }
 
-td{
+td {
     vertical-align: top;
     &:hover {
         .details-bar {
@@ -58,6 +58,9 @@ td{
         > span.score-display, > input.score-editing {
             // display: none;
             float: right;
+            &:hover{
+                background-color: $lightBlue;
+            }
         }
     }
 }
@@ -141,6 +144,7 @@ a.col-menu-button{
 
 .option-editing {
     @extend .option-display;
+    background-color: $lightBlue;
     padding:0;
     border: 0;
 }
@@ -179,5 +183,10 @@ a.col-menu-button{
     float: left;
     margin-top: 15px;
     line-height: 16px;
+    min-width: 30px;
+}
+
+
+.table-table {
     margin-right: 10px;
 }

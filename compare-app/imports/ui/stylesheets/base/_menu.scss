@@ -116,3 +116,9 @@ a.brand {
         display: none;
      }
 }
+
+li > div {
+    position: relative;
+    display: block;
+    padding: 15px;
+}

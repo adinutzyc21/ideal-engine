@@ -14,10 +14,6 @@ export class DisplayTable extends Component {
   constructor(props) {
     super(props);
 
-    // initialize state variables
-    this.state = {
-      height: 50,
-    };
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
   }
@@ -30,10 +26,8 @@ export class DisplayTable extends Component {
     if (height < 150) height = 150;
 
     $('.table-container').css('max-height', height + 'px');
-
-    const minH = height - 20;
-    $('.table-container').css('min-height', minH + 'px');
-    $('.table-container').css('height', minH + 'px');
+    $('.table-container').css('min-height', height + 'px');
+    $('.table-container').css('height', height + 'px');
   }
   componentWillMount() {
     this.updateDimensions();
@@ -67,14 +61,16 @@ export class DisplayTable extends Component {
     } else {
       tableContainerHtml.push(
         <div key='table-container' className='table-container'>
-          <table key='table'>
-            {/* Need a header of type BuildHeader */}
-            <BuildHeader key='heading' cols={this.props.cols}
-              editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-            {/* Need a bunch of rows of type BuildRow*/}
-            <BuildRow key='row' rows={this.props.rows} cols={this.props.cols}
-              editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-          </table>
+          <div className='table-table'>
+            <table key='table'>
+              {/* Need a header of type BuildHeader */}
+              <BuildHeader key='heading' cols={this.props.cols}
+                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+              {/* Need a bunch of rows of type BuildRow*/}
+              <BuildRow key='row' rows={this.props.rows} cols={this.props.cols}
+                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+            </table>
+          </div>
         </div>);
     }
 

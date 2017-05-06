@@ -2,11 +2,10 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types';
 import { IndexLink, Link } from 'react-router'; // eslint-disable-line no-unused-vars
 
-import { Bert } from 'meteor/themeteorchef:bert';
-
 import AccountsUIWrapper from './AccountsUIWrapper.jsx'; // eslint-disable-line no-unused-vars
 import CreateTable from './tables/CreateTable.jsx'; // eslint-disable-line no-unused-vars
 import ImportCSV from './tables/ImportCSV.jsx'; // eslint-disable-line no-unused-vars
+import ExportCSV from './tables/ExportCSV.jsx'; // eslint-disable-line no-unused-vars
 import InsertData from './comparison/InsertData.jsx'; // eslint-disable-line no-unused-vars
 
 export default class MenuBar extends Component {
@@ -21,7 +20,6 @@ export default class MenuBar extends Component {
     this.clearTable = this.clearTable.bind(this);
     this.getFirstColumnId = this.getFirstColumnId.bind(this);
     this.isTableEmpty = this.isTableEmpty.bind(this);
-    this.backUpTable = this.backUpTable.bind(this);
   }
 
   /**
@@ -58,20 +56,6 @@ export default class MenuBar extends Component {
     if (!isDisabled) {
       Meteor.call('comparison.clearTable', this.props.params.tableId);
     }
-  }
-
-  /**
-   * Back Up the current table
-   */
-  backUpTable() {
-    Meteor.call('comparison.backupTable', this.props.params.tableId, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger', 'growl-bottom-left');
-      } else {
-        this.stopEditing();
-        Bert.alert('Cell updated!', 'success', 'growl-bottom-left');
-      }
-    });
   }
 
   /**
@@ -140,7 +124,7 @@ export default class MenuBar extends Component {
    * - delete all data in the current table
    */
   editMenu() {
-    return <ul className='nav navbar-nav' key='table'>
+    return <ul className='nav navbar-nav' key='edit'>
       <li className='dropdown'>
         <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
           <i className='glyphicon glyphicon-edit' />Edit
@@ -158,8 +142,19 @@ export default class MenuBar extends Component {
             <InsertData level='col' tableId={this.props.params.tableId}
               data={this.props.rows} isDisabled={this.isTableEmpty()}
               optionId={this.getFirstColumnId()} /></li>
+        </ul>
+      </li>
+    </ul>;
+  }
 
-          <li role='separator' className='divider'></li>
+  // TODO: document this, basically making Edit menu shorter
+  tableMenu() {
+    return <ul className='nav navbar-nav' key='table'>
+      <li className='dropdown'>
+        <a className='dropdown-toggle' data-toggle='dropdown' role='button'>
+          <i className='glyphicon glyphicon-th' />Table
+          </a>
+        <ul className='dropdown-menu'>
           <li className='dropdown-header'>Generate</li>
 
           <li className={!this.isTableEmpty() ? 'disabled' : ''}>
@@ -168,6 +163,13 @@ export default class MenuBar extends Component {
           <li className={!this.isTableEmpty() ? 'disabled' : ''}>
             <a role='button' onClick={() => this.generateTestTable(!this.isTableEmpty())}>
               Populate table</a></li>
+
+          <li role='separator' className='divider'></li>
+          <li className='dropdown-header'>Save</li>
+
+          <li className={this.isTableEmpty() ? 'disabled' : ''}>
+            <ExportCSV cols={this.props.cols} rows={this.props.rows}
+              isDisabled={this.isTableEmpty()} title='Export CSV' /> </li>
 
           <li role='separator' className='divider'></li>
           <li className='dropdown-header'>Delete</li>
@@ -241,10 +243,11 @@ export default class MenuBar extends Component {
   /**
    * Create a 'Save' button to back up the table
    */
-  backupButton() {
-    return <button onClick={this.backUpTable} key='save'
-      className='btn btn-xs btn-primary' title='Back Table Up'>
-      <span className='glyphicon glyphicon-floppy-save' /></button>;
+  exportButton() {
+    return <ExportCSV cols={this.props.cols} rows={this.props.rows}
+              isDisabled={this.isTableEmpty()} title=''
+              className='btn btn-xs btn-primary'
+              glyphicon='glyphicon glyphicon-save'/>;
   }
 
   /**
@@ -285,6 +288,7 @@ export default class MenuBar extends Component {
     // only if we're on the DisplayTable page do we have an edit menu
     if (this.props.route.path === '/DisplayTable/:tableId') {
       barHtml.push(this.editMenu());
+      barHtml.push(this.tableMenu());
 
       // editing in-place and calculating scores only if we've loaded data
       if (!this.isTableEmpty()) {
@@ -292,16 +296,16 @@ export default class MenuBar extends Component {
         barHtml.push(
           <ul className='nav navbar-nav' key='inline-menu'>
             <li className="divider-vertical"></li>
-            <li><a>
+            <li><div>
               {this.calcScoreButton()}
-            </a></li>
-            <li><a>
+            </div></li>
+            <li><div>
               {this.editOnButton()}
               {spacing}
-              {this.backupButton()}
+              {this.exportButton()}
               {spacing}
               {this.clearTableButton()}
-            </a></li>
+            </div></li>
           </ul>);
       }
     }

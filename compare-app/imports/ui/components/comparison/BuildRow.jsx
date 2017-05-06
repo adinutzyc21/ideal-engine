@@ -38,7 +38,6 @@ export default class BuildRow extends Component {
     this.toggleEditing = this.toggleEditing.bind(this);
 
     this.count = 0;
-    this.text = '';
   }
 
   /**
@@ -185,9 +184,6 @@ export default class BuildRow extends Component {
           // add the correct class
           rowClass = 'secondary-heading div-delete';
 
-          this.count++;
-          this.text = <span className='option-count'> {this.count + '.'} </span>;
-
           // add the score to the html
           tableDataHtml.push(this.renderItemOrEditField(row, col, row.score, 'score'));
 
@@ -195,7 +191,8 @@ export default class BuildRow extends Component {
           tableDataHtml.push(
             <DeleteData key='del' level='row' params={row._id} />);
 
-          tableDataHtml.push(this.text);
+          tableDataHtml.push(<span key ='option-count' className='option-count'>
+            {++this.count + '.'} </span>);
 
           // add the 'option' to the html
           tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].value, 'option'));

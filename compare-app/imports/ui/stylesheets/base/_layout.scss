@@ -1,16 +1,20 @@
 
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
 .table-container {
     overflow: hidden;
-    margin: 80px 0px 80px;
+    margin: 60px 0px 0px;
     &:hover {
-        overflow: auto;
+        overflow: overlay;
     }
 }
 
 .table-container-no-data {
     border: 0px;
     overflow: auto;
-    margin: 80px 0px 60px;
+    margin: 60px 0px 0px;
     text-align: center;
     font-weight: bold;
     color: $darkBlue;
@@ -22,13 +26,13 @@
 
 ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 4px;
-    height: 4px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: gray;
+    background-color: $colGreen;
     box-shadow: 0 0 5px lightgray;
     -webkit-box-shadow: 0 0 5px lightgray;
 }
