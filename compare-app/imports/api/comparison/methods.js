@@ -79,6 +79,7 @@ Meteor.methods({
         rowData[colIds[j]] = rows[i][j];
         rowData.score = 5;
       }
+      rowData.scoreModifier = 0;
       rowData.tableId = tableId;
       Row.insert(rowData);
     }
@@ -109,6 +110,8 @@ Meteor.methods({
       Col.insert(colData);
     }
 
+    // add the scoreModifier
+    rowData.scoreModifier = 0;
     // add the tableId to the row structure
     rowData.tableId = tableId;
     // insert the query into the Row table
@@ -210,6 +213,22 @@ Meteor.methods({
     });
   },
 
+    /**
+   * Update the scoreModifier field for the given row id
+   * @param {String} rowId - the id of the row to update
+   * @param {Number} value - the new value of the scoreModifier field
+   */
+  'comparison.updateScoreModifier'(rowId, scoreModifier) { // eslint-disable-line object-shorthand
+    check(rowId, String);
+    check(scoreModifier, Number);
+
+    Row.update(rowId, {
+      $set: {
+        scoreModifier,
+      },
+    });
+  },
+
   /**
    * Import CSV file
    * @param {String} tableId - the Id of the current table
@@ -233,7 +252,7 @@ Meteor.methods({
       hasScore = true;
     }
     // insert the columns into Mongo
-    for (let i = 0, len = cols.length; i < len; i += step) {
+    for (let i = 0, len = cols.length; i < len - 1; i += step) {
       // create the column data to insert into Mongo
       const colData = {};
       colData.tableId = tableId;
@@ -278,7 +297,9 @@ Meteor.methods({
           rowData[colId] = { value: row[j * step], score };
         }
       }
-
+      if (hasScore) {
+        rowData.scoreModifier = row[row.length - 1];
+      } else rowData.scoreModifier = 0;
       rowData.tableId = tableId;
       // insert the row into Mongo
       Row.insert(rowData);
