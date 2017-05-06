@@ -17,7 +17,7 @@ class SelectTable extends Component {
    * @param id the id of the table
    */
   deleteTable(id) {
-    Meteor.call('tables.removeTable', id);
+    Meteor.call('removeTable', id);
   }
 
   render() {

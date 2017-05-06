@@ -72,7 +72,7 @@ export default class CreateTable extends Component {
 
     query.description = this.state.tableDescription;
 
-    Meteor.call('tables.insertTable', query);
+    Meteor.call('insertTable', query);
 
     //  Close form
     this.close();

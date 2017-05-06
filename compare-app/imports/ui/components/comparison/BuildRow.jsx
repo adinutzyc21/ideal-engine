@@ -131,7 +131,7 @@ export default class BuildRow extends Component {
       if (type === 'data' || type === 'option') type = 'value';
 
       // update the field in Meteor
-      Meteor.call('comparison.updateRowFieldInPlace', this.state.editingRowId,
+      Meteor.call('updateRowFieldInPlace', this.state.editingRowId,
         this.state.editingColId, type, value, (error) => {
           if (error) {
             Bert.alert(error.reason, 'danger', 'growl-bottom-left');
@@ -150,7 +150,7 @@ export default class BuildRow extends Component {
     // set some limits after which stop changing
     if (val <= 100 && val >= -100) {
       // update the field in Meteor
-      Meteor.call('comparison.updateScoreModifier', rowId, val, (error) => {
+      Meteor.call('updateScoreModifier', rowId, val, (error) => {
         if (error) {
           Bert.alert(error.reason, 'danger', 'growl-bottom-left');
         } else {

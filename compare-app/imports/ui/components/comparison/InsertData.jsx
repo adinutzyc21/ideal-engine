@@ -275,7 +275,7 @@ export default class InsertData extends Component {
     }
 
     // insert a row in the Row and Col tables (if isFirst=true, a first column is added to Col)
-    Meteor.call('comparison.insertRow', this.props.tableId, colId, rowData, isFirst);
+    Meteor.call('insertRow', this.props.tableId, colId, rowData, isFirst);
   }
 
   /**
@@ -298,7 +298,7 @@ export default class InsertData extends Component {
       score: ReactDOM.findDOMNode(this.refs.criterionNameScore).value.trim(),
     };
     // insert the data into the Col table
-    Meteor.call('comparison.insertColumn', this.props.tableId, colId, colData);
+    Meteor.call('insertColumn', this.props.tableId, colId, colData);
 
     // for every row, add the corresponding column data to the Row table
     for (let i = 0, len = rows.length; i < len; i++) {
@@ -308,7 +308,7 @@ export default class InsertData extends Component {
         score: ReactDOM.findDOMNode(this.refs['criterionValueScore' + i]).value.trim(),
       };
       // update the Row table by inserting the column associated with colId
-      Meteor.call('comparison.updateRowInsertColumn', rows[i]._id, colId, colDataRow);
+      Meteor.call('updateRowInsertColumn', rows[i]._id, colId, colDataRow);
     }
   }
 

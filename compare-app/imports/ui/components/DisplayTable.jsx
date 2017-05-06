@@ -50,7 +50,7 @@ export class DisplayTable extends Component {
     // if the data is empty, the html is no data available info
     if (this.props.rows.length === 0) {
       // clear the residual columns
-      Meteor.call('comparison.clearTable', this.props.params.tableId);
+      Meteor.call('clearTable', this.props.params.tableId);
 
       tableContainerHtml.push(
         <div key='table-container' className='table-container table-container-no-data'>

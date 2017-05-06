@@ -45,7 +45,7 @@ export default class MenuBar extends Component {
    */
   generateTestTable(isDisabled) {
     if (!isDisabled) {
-      Meteor.call('comparison.populateTable', this.props.params.tableId);
+      Meteor.call('populateTable', this.props.params.tableId);
     }
   }
 
@@ -53,7 +53,7 @@ export default class MenuBar extends Component {
    * Delete the data in the current table
    */
   clearTable() {
-    Meteor.call('comparison.clearTable', this.props.params.tableId);
+    Meteor.call('clearTable', this.props.params.tableId);
   }
 
   /**

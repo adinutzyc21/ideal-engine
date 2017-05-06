@@ -25,7 +25,7 @@ export default class ImportCSV extends Component {
           const data = result.data;
 
           // insert this into the meteor table
-          Meteor.call('comparison.importCSV', self.props.tableId, data);
+          Meteor.call('importCSV', self.props.tableId, data);
         },
       });
     }

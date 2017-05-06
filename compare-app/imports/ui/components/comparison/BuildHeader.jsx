@@ -90,7 +90,7 @@ export default class BuildHeader extends Component {
       const value = event.target.value;
 
       // update the field in Meteor
-      Meteor.call('comparison.updateColumnFieldInPlace', this.state.editingId,
+      Meteor.call('updateColumnFieldInPlace', this.state.editingId,
         this.state.editingType, value, (error) => {
           if (error) {
             Bert.alert(error.reason, 'danger', 'growl-bottom-left');

@@ -37,7 +37,7 @@ export default class DeleteData extends Component {
    * @param id the id of the column we're deleting
    */
   deleteColumn(id) {
-    Meteor.call('comparison.deleteColumn', id);
+    Meteor.call('deleteColumn', id);
   }
 
   /**
@@ -45,7 +45,7 @@ export default class DeleteData extends Component {
    * @param id the id of the column
    */
   deleteRow(id) {
-    Meteor.call('comparison.deleteRow', id);
+    Meteor.call('deleteRow', id);
   }
 
   /**

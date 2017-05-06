@@ -78,7 +78,7 @@ class Comp extends Component {
 
         // only write the score if it's changed
         if (rows[i].score !== score[i]) {
-          Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+          Meteor.call('updateRowInsertScore', rows[i]._id, score[i]);
         }
       }
     }
