@@ -10,6 +10,7 @@ th, td {
     border-left: 1px solid white;
     min-width: 240px;
     max-width: 240px;
+    overflow: auto;
 }
 
 th {
@@ -134,12 +135,22 @@ a.col-menu-button{
     opacity: 0.8;
 }
 
-.option-display, .data-display, .data-editing {
+.option-display {
     line-height: 16px;
-    margin: -5px 25px 0px 15px;
+    margin: -5px 5px 0px 5px;
     padding: 0;
     display: block;
+}
+
+.data-display, .data-editing {
+    @extend .option-display;
+    min-height: 105px;
+    max-height: 105px;
+    height: 105px;
     overflow: hidden;
+    &:hover {
+        overflow: overlay;
+    }
 }
 
 .option-editing {

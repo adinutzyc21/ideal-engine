@@ -217,11 +217,11 @@ export default class BuildRow extends Component {
             className='btn-group like-dislike'>
             <span className='row-score'>{row.scoreModifier}</span>
             <button className='btn btn-xs btn-success'
-              onClick={() => this.likeDislike(row._id, row.scoreModifier + 5)}>
+              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) + 5)}>
               <span className="glyphicon glyphicon-thumbs-up"/>
             </button>
             <button className='btn btn-xs btn-danger'
-              onClick={() => this.likeDislike(row._id, row.scoreModifier - 5)}>
+              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) - 5)}>
             <span className="glyphicon glyphicon-thumbs-down" />
             </button>
           </div>);

@@ -52,10 +52,8 @@ export default class MenuBar extends Component {
   /**
    * Delete the data in the current table
    */
-  clearTable(isDisabled) {
-    if (!isDisabled) {
-      Meteor.call('comparison.clearTable', this.props.params.tableId);
-    }
+  clearTable() {
+    Meteor.call('comparison.clearTable', this.props.params.tableId);
   }
 
   /**
@@ -173,9 +171,7 @@ export default class MenuBar extends Component {
 
           <li role='separator' className='divider'></li>
           <li className='dropdown-header'>Delete</li>
-          <li className={this.isTableEmpty() ? 'disabled' : ''}>
-            <a role='button' onClick={() => this.clearTable(this.isTableEmpty())}>
-              Clear table</a></li>
+          <li> <a role='button' onClick={this.clearTable}>Clear table</a></li>
         </ul>
       </li>
     </ul>;

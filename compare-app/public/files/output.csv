@@ -1,7 +1,272 @@
-Option Name,score,Contact,5,Size,5,Rent,5,modifier
-[357 E 68th St](https://www.apartments.com/357-e-68th-st-new-york-ny/dkqq9fj/),5,,5,650 Sq Ft,5,"$1,925 ",5,0
-[424 E 66th St Unit 1RE](https://www.apartments.com/424-e-66th-st-new-york-ny/y323nct/),5,844-500-1856,5,700 Sq Ft,5,"$1,925 ",5,0
-[1073 1st Avenue](https://www.apartments.com/1073-1st-avenue-new-york-ny/2pg0nnc/),5,484-685-5059,5,650 Sq Ft,5,"$1,969 ",5,0
-[410 W 56th St Unit 4A](https://www.apartments.com/410-w-56th-st-new-york-ny/dzy0xxj/),5,844-880-7144,5,600 Sq Ft,5,"$2,000 ",5,0
-[47 E 52nd St](https://www.apartments.com/47-e-52nd-st-new-york-ny/pr1trwv/),5,844-750-3881,5,850 Sq Ft,5,"$2,000 ",5,10
-[340 East 62nd Street](https://www.apartments.com/340-east-62nd-street-new-york-ny/pqqqnkr/),5,,5,600 Sq Ft,5,"$2,050 ",5,0
+Option Name,score,Contact,5,Address,5,Size,5,Rent,5,Monthly Fees,5,One Time Fees,5,Pet Policy,5,Distance,5,Parking,5,Gym,5,Kitchen,5,Amenities,5,Features,5,Living Space,5,Lease Info,5,Services,5,Property Info,5,Indoor Info,5,Outdoor Info,5,modifier
+[357 E 68th St](https://www.apartments.com/357-e-68th-st-new-york-ny/dkqq9fj/),5,,5,"[357 E 68th St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/357+E+68th+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$1,925",5,"* Dog Rent: $30
+* Water, Trash Removal, Sewer: Included",5,"* Admin Fee: $100
+* Application Fee: $75",5,"Dogs and Cats Allowed
+* $30 Monthly Pet Rent",5,"* morning: 0.8 mi (16 mins)
+* evening: 0.8 mi (16 mins)",5,,5,,5,,5,,5,,5,,5,,5,,5,"* Built in 1910
+* 21 Units/5 Stories",5,,5,,5,0
+[424 E 66th St Unit 1RE](https://www.apartments.com/424-e-66th-st-new-york-ny/y323nct/),5,844-500-1856,5,"[424 E 66th St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/424+E+66th+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$1,925",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.8 mi (16 mins)
+* evening: 0.8 mi (16 mins)",5,,5,,5,,5,,5,* Smoke Free,5,,5,12 Months,5,,5,,5,,5,,5,0
+[1073 1st Avenue](https://www.apartments.com/1073-1st-avenue-new-york-ny/2pg0nnc/),5,484-685-5059,5,"[1073 1st Avenue, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/1073+1st+Avenue,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$1,969",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (8 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[410 W 56th St Unit 4A](https://www.apartments.com/410-w-56th-st-new-york-ny/dzy0xxj/),5,844-880-7144,5,"[410 W 56th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/410+W+56th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (26 mins)
+* evening: 1.2 mi (25 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[47 E 52nd St](https://www.apartments.com/47-e-52nd-st-new-york-ny/pr1trwv/),5,844-750-3881,5,"[47 E 52nd St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/47+E+52nd+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,850 Sq Ft,5,"$2,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (11 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,,5,,5,* Wheelchair Accessible (Rooms),5,,5,12 Months,5,,5,,5,,5,,5,0
+[340 East 62nd Street](https://www.apartments.com/340-east-62nd-street-new-york-ny/pqqqnkr/),5,,5,"[340 E 62nd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/340+E+62nd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,050",5,"* Water, Heat: Included",5,* Application Fee: $100,5,"Dogs, Cats, Birds, Fish and Reptiles Allowed
+* 1 Pet Limit",5,"* morning: 0.4 mi (9 mins)
+* evening: 0.4 mi (9 mins)",5,,5,,5,"* Kitchen
+* Refrigerator",5,"* $15 Monthly Cooking Gas Fee
+* Great Location
+* Heat/Hot Water Included
+* High Ceilings
+* Laundry In Building
+* Near All
+* Near Buses
+* Near Subway
+* Quiet Tree-Lined Block
+* Breakfast Bar
+* Charming
+* Dishwasher
+* Exposed Brick
+* Granite Bathroom
+* Granite Countertops
+* Granite Kitchen
+* Great Sunlight
+* Hardwood Floors
+* Kitchen
+* Laundry In Building
+* Marble Bathroom
+* Microwave
+* Renovated
+* Separate Kitchen
+* Stainless Steel Appliances",5,* Heating,5,,5,,5,,5,"* Built in 1910
+* 27 Units/6 Stories",5,,5,,5,0
+[116 E 36th St](https://www.apartments.com/116-e-36th-st-new-york-ny/rx37y33/),5,929-200-4581,5,"[116 E 36th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/116+E+36th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,050",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (24 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[414 E 58th St](https://www.apartments.com/414-e-58th-st-new-york-ny/vhglqge/),5,484-318-2793,5,"[414 E 58th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/414+E+58th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,695 Sq Ft,5,"$2,100",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (9 mins)
+* evening: 0.5 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[349 E 51st St](https://www.apartments.com/349-e-51st-st-new-york-ny/rh87qp2/),5,484-801-0826,5,"[349 E 51st St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/349+E+51st+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,100",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (15 mins)
+* evening: 0.7 mi (15 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[414 E 58th St](https://www.apartments.com/414-e-58th-st-new-york-ny/gcsqrfy/),5,484-801-0837,5,"[414 E 58th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/414+E+58th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,100",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (9 mins)
+* evening: 0.5 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[987 1st Avenue](https://www.apartments.com/987-1st-avenue-new-york-ny/wf47hvk/),5,484-318-2792,5,"[987 1st Avenue, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/987+1st+Avenue,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,150",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (12 mins)
+* evening: 0.6 mi (12 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[309 E 37th St Unit 1c](https://www.apartments.com/309-e-37th-st-new-york-ny/l4bhdpf/),5,845-208-2539,5,"[309 E 37th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/309+E+37th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,150",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (27 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[309 W 54th St Unit 3A](https://www.apartments.com/309-w-54th-st-new-york-ny/hjprx61/),5,844-758-4841,5,"[309 W 54th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/309+W+54th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,200",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.1 mi (24 mins)
+* evening: 1.1 mi (23 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[322 E 61st St Unit 2RW](https://www.apartments.com/322-e-61st-st-new-york-ny/24kfd3c/),5,,5,"[322 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/322+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,250",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (8 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[311 E 61st St Unit 14](https://www.apartments.com/311-e-61st-st-new-york-ny/9139fk6/),5,844-312-4376,5,"[311 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/311+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,295",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (7 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[311 E 61st St Unit #13](https://www.apartments.com/311-e-61st-st-new-york-ny/cbmshyf/),5,844-251-0332,5,"[311 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/311+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,295",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (7 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[237 E 53rd St Unit 4B](https://www.apartments.com/237-e-53rd-st-new-york-ny/5kzzjjq/),5,844-732-3173,5,"[237 E 53rd St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/237+E+53rd+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,295",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (9 mins)
+* evening: 0.5 mi (10 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[309 E 69th St](https://www.apartments.com/309-e-69th-st-new-york-ny/enllzgp/),5,844-899-5883,5,"[309 E 69th St, New York, NY 10021](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/309+E+69th+St,+New+York,+NY+10021/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,300",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (16 mins)
+* evening: 0.7 mi (15 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[309 E 37th St](https://www.apartments.com/309-e-37th-st-new-york-ny/8q7mrc2/),5,,5,"[309 E 37th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/309+E+37th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,300",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (27 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[149 E 72nd St](https://www.apartments.com/149-e-72nd-st-new-york-ny/whwq0bh/),5,484-318-2790,5,"[149 E 72nd St, New York, NY 10021](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/149+E+72nd+St,+New+York,+NY+10021/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,350",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (15 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[711 2nd Ave Unit 2](https://www.apartments.com/711-2nd-ave-new-york-ny/6539m6s/),5,844-781-9376,5,"[711 2nd Ave, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/711+2nd+Ave,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,400",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (25 mins)
+* evening: 1.3 mi (26 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[355 E 72nd St Unit 3B](https://www.apartments.com/355-e-72nd-st-new-york-ny/wzwtvwk/),5,,5,"[355 E 72nd St, New York, NY 10021](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/355+E+72nd+St,+New+York,+NY+10021/data=!4m2!4m1!3e2)",5,675 Sq Ft,5,"$2,450",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.0 mi (20 mins)
+* evening: 1.0 mi (20 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[333 E 49th St Unit 1R](https://www.apartments.com/333-e-49th-st-new-york-ny/hjg88w3/),5,844-234-9726,5,"[333 E 49th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/333+E+49th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,782 Sq Ft,5,"$2,450",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.8 mi (16 mins)
+* evening: 0.8 mi (16 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[223 E 32nd St Unit 2C](https://www.apartments.com/223-e-32nd-st-new-york-ny/p3sk85s/),5,888-686-1946,5,"[223 E 32nd St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/223+E+32nd+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,450",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.5 mi (30 mins)
+* evening: 1.5 mi (31 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[324 E 61st St](https://www.apartments.com/324-e-61st-st-new-york-ny/fqb3wvr/),5,,5,"[324 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/324+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,459",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (8 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[876 Lexington Ave Unit 1B](https://www.apartments.com/876-lexington-ave-new-york-ny/er71e9p/),5,,5,"[876 Lexington Ave, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/876+Lexington+Ave,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,495",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.3 mi (7 mins)
+* evening: 0.3 mi (7 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[240 E 35th St Unit 9J](https://www.apartments.com/240-e-35th-st-new-york-ny/848s293/),5,347-554-5502,5,"[240 E 35th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/240+E+35th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,500",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (27 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[326 E 61st St Unit 5-RE](https://www.apartments.com/326-e-61st-st-new-york-ny/gjtvbxw/),5,,5,"[326 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/326+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,500",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (8 mins)",5,,5,,5,,5,,5,* Washer/Dryer,5,,5,12 Months,5,,5,,5,,5,,5,0
+[231 E 53rd St](https://www.apartments.com/231-e-53rd-st-new-york-ny/xh87klq/),5,866-984-9603,5,"[231 E 53rd St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/231+E+53rd+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,500",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (9 mins)
+* evening: 0.5 mi (10 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[241 E 38th St](https://www.apartments.com/241-e-38th-st-new-york-ny/zj1xf0w/),5,929-368-3379,5,"[241 E 38th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/241+E+38th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,525",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,Street,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[241 E 38th St Unit 5B](https://www.apartments.com/241-e-38th-st-new-york-ny/k9ljfnc/),5,929-358-7687,5,"[241 E 38th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/241+E+38th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,525",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[66 W 69th St Unit 4F](https://www.apartments.com/66-w-69th-st-new-york-ny/pjclkjv/),5,,5,"[66 W 69th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/66+W+69th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,750 Sq Ft,5,"$2,550",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (28 mins)
+* evening: 1.3 mi (27 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[71 W 71st St](https://www.apartments.com/71-w-71st-st-new-york-ny/qt801zx/),5,,5,"[71 W 71st St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/71+W+71st+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,550",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (29 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[245 W 51st St](https://www.apartments.com/245-w-51st-st-new-york-ny/j36nwl7/),5,,5,"[245 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/245+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,550",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[241 E 38th St Unit 4B](https://www.apartments.com/241-e-38th-st-new-york-ny/nvrdm1m/),5,929-358-7719,5,"[241 E 38th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/241+E+38th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,550",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[64 W 69th St Unit 3A](https://www.apartments.com/64-w-69th-st-new-york-ny/nqhbd6q/),5,,5,"[64 W 69th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/64+W+69th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,750 Sq Ft,5,"$2,595",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (28 mins)
+* evening: 1.3 mi (27 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[232 E 58th St Unit 15](https://www.apartments.com/232-e-58th-st-new-york-ny/8l7fel0/),5,,5,"[232 E 58th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/232+E+58th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,625 Sq Ft,5,"$2,595",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.2 mi (4 mins)
+* evening: 0.2 mi (4 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[358 W 51st St Unit BH](https://www.apartments.com/358-w-51st-st-new-york-ny/v3zke8d/),5,844-553-5104,5,"[358 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/358+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,595",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (28 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,* Washer/Dryer,5,,5,12 Months,5,,5,,5,,5,,5,0
+[402 W 51st St Unit 4E](https://www.apartments.com/402-w-51st-st-new-york-ny/w5jv8sl/),5,,5,"[402 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/402+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,720 Sq Ft,5,"$2,600",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (30 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[342 E 61st St Unit 1B](https://www.apartments.com/342-e-61st-st-new-york-ny/cvedr4e/),5,,5,"[342 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/342+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,600",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (9 mins)
+* evening: 0.4 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[1173 York Ave Unit 11-A](https://www.apartments.com/1173-york-ave-new-york-ny/2h3zldb/),5,,5,"[1173 York Ave, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/1173+York+Ave,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,600",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (15 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[402 W 51st St Unit 4](https://www.apartments.com/402-w-51st-st-new-york-ny/e648cfq/),5,844-320-1809,5,"[402 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/402+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,600",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (30 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[49 W 70th St Unit D](https://www.apartments.com/49-w-70th-st-new-york-ny/fl0chct/),5,,5,"[49 W 70th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/49+W+70th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,725 Sq Ft,5,"$2,650",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (28 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[332 E 71st St](https://www.apartments.com/332-e-71st-st-new-york-ny/n4wprvp/),5,,5,"[332 E 71st St, New York, NY 10021](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/332+E+71st+St,+New+York,+NY+10021/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,650",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.9 mi (18 mins)
+* evening: 0.9 mi (18 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[243 E 38th St Unit 4b](https://www.apartments.com/243-e-38th-st-new-york-ny/ejkgvpn/),5,,5,"[243 E 38th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/243+E+38th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,675",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[404 E 56th St](https://www.apartments.com/404-e-56th-st-new-york-ny/tretscc/),5,844-665-5620,5,"[404 E 56th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/404+E+56th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,695",5,,5,,5,Dogs Allowed,5,"* morning: 0.6 mi (11 mins)
+* evening: 0.6 mi (12 mins)",5,,5,,5,,5,,5,,5,,5,12 Month,5,,5,,5,,5,,5,0
+[115 E 34th St Unit 705](https://www.apartments.com/115-e-34th-st-new-york-ny/n0tkspm/),5,844-600-5862,5,"[115 E 34th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/115+E+34th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,695",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (27 mins)
+* evening: 1.3 mi (27 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[110 W 55th St](https://www.apartments.com/110-w-55th-st-new-york-ny/3wjvnrf/),5,,5,"[110 W 55th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/110+W+55th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,695",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (16 mins)
+* evening: 0.7 mi (15 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 W 55th St Unit 9B](https://www.apartments.com/140-w-55th-st-new-york-ny/r6zw2p3/),5,929-368-3879,5,"[140 W 55th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+W+55th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,780 Sq Ft,5,"$2,699",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.8 mi (17 mins)
+* evening: 0.8 mi (17 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[32 W 71st St Unit 1A](https://www.apartments.com/32-w-71st-st-new-york-ny/wsbs2pl/),5,,5,"[32 W 71st St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/32+W+71st+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,750 Sq Ft,5,"$2,750",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (29 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[68 W 69th St Unit 2C](https://www.apartments.com/68-w-69th-st-new-york-ny/wv2s06k/),5,,5,"[68 W 69th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/68+W+69th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,725 Sq Ft,5,"$2,750",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (28 mins)
+* evening: 1.3 mi (27 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[402 W 51st St Unit 4E](https://www.apartments.com/402-w-51st-st-new-york-ny/x006bsn/),5,,5,"[402 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/402+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,750",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (30 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[340 E 55th St](https://www.apartments.com/340-e-55th-st-new-york-ny/zx40vlx/),5,,5,"[340 E 55th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/340+E+55th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,610 Sq Ft,5,"$2,750",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[412 E 64th St Unit 21](https://www.apartments.com/412-e-64th-st-new-york-ny/knngpr9/),5,,5,"[412 E 64th St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/412+E+64th+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,750",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (13 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[440 3rd Ave](https://www.apartments.com/440-3rd-ave-new-york-ny/qny04jy/),5,,5,"[440 3rd Ave, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/440+3rd+Ave,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,775",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.5 mi (30 mins)
+* evening: 1.5 mi (31 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St](https://www.apartments.com/140-e-46th-st-new-york-ny/hhbtey3/),5,929-368-3241,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,799",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[316 E 63rd St Unit 3E](https://www.apartments.com/316-e-63rd-st-new-york-ny/p6s84vs/),5,,5,"[316 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/316+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,800",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[241 E 58th St](https://www.apartments.com/241-e-58th-st-new-york-ny/0fyrtv2/),5,,5,"[241 E 58th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/241+E+58th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,800",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.2 mi (5 mins)
+* evening: 0.2 mi (5 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[140 E 46th St Unit 9P](https://www.apartments.com/140-e-46th-st-new-york-ny/850ng03/),5,844-410-8449,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,823 Sq Ft,5,"$2,800",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,Garage,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[230 E 33rd St](https://www.apartments.com/230-e-33rd-st-new-york-ny/ee9xqqm/),5,,5,"[230 E 33rd St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/230+E+33rd+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,800",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.5 mi (29 mins)
+* evening: 1.5 mi (30 mins)",5,,5,,5,,5,,5,* Washer/Dryer,5,,5,12 Months,5,,5,,5,,5,,5,0
+[404 E 63rd St Unit 2](https://www.apartments.com/404-e-63rd-st-new-york-ny/fjfdkss/),5,973-821-7579,5,"[404 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/404+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,831",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (12 mins)
+* evening: 0.6 mi (12 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[119 W 69th St Unit 4A](https://www.apartments.com/119-w-69th-st-new-york-ny/wrfs3fl/),5,,5,"[119 W 69th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/119+W+69th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,750 Sq Ft,5,"$2,850",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (29 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[420 E 64th St](https://www.apartments.com/420-e-64th-st-new-york-ny/qfwrz9x/),5,,5,"[420 E 64th St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/420+E+64th+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,850",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 47th St](https://www.apartments.com/140-e-47th-st-new-york-ny/5dzjchm/),5,,5,"[140 E 47th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+47th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,621 Sq Ft,5,"$2,850",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (13 mins)
+* evening: 0.6 mi (13 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[117 W 58th St Unit 4I](https://www.apartments.com/117-w-58th-st-new-york-ny/36x1lbd/),5,646-891-1802,5,"[117 W 58th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/117+W+58th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,895",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (13 mins)
+* evening: 0.6 mi (12 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[72 W 69th St Unit 5C](https://www.apartments.com/72-w-69th-st-new-york-ny/94zpg76/),5,,5,"[72 W 69th St, New York, NY 10023](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/72+W+69th+St,+New+York,+NY+10023/data=!4m2!4m1!3e2)",5,750 Sq Ft,5,"$2,895",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (28 mins)
+* evening: 1.3 mi (27 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[402 W 51st St Unit 2D](https://www.apartments.com/402-w-51st-st-new-york-ny/eg2g88m/),5,,5,"[402 W 51st St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/402+W+51st+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,709 Sq Ft,5,"$2,895",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (30 mins)
+* evening: 1.4 mi (30 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,,5,,5,,5,,5,0
+[135 E 50th St Unit a](https://www.apartments.com/135-e-50th-st-new-york-ny/tp6gfd8/),5,,5,"[135 E 50th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/135+E+50th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,"1,000,000 Sq Ft",5,"$2,895",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (10 mins)",5,,5,,5,,5,,5,* Washer/Dryer Hookup,5,,5,12 Months,5,,5,,5,,5,,5,0
+[240 E 35th St Unit 3K](https://www.apartments.com/240-e-35th-st-new-york-ny/nqsftrp/),5,347-448-4004,5,"[240 E 35th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/240+E+35th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.4 mi (27 mins)
+* evening: 1.4 mi (28 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[332 E 71st St Unit 3C](https://www.apartments.com/332-e-71st-st-new-york-ny/pz0bqdr/),5,,5,"[332 E 71st St, New York, NY 10021](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/332+E+71st+St,+New+York,+NY+10021/data=!4m2!4m1!3e2)",5,800 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.9 mi (18 mins)
+* evening: 0.9 mi (18 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[340 E 61st St](https://www.apartments.com/340-e-61st-st-new-york-ny/syvptd7/),5,,5,"[340 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/340+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (9 mins)
+* evening: 0.4 mi (9 mins)",5,,5,,5,,5,,5,* Washer/Dryer,5,,5,12 Months,5,,5,,5,,5,,5,0
+[220 E 36th St](https://www.apartments.com/220-e-36th-st-new-york-ny/9gbm6c5/),5,914-361-4218,5,"[220 E 36th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/220+E+36th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,650 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.3 mi (26 mins)
+* evening: 1.3 mi (26 mins)",5,,5,,5,,5,,5,* Washer/Dryer,5,,5,12 Month,5,,5,,5,,5,,5,0
+[100 W 57th St Unit 19I](https://www.apartments.com/100-w-57th-st-new-york-ny/k85ztv9/),5,201-630-0926,5,"[100 W 57th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/100+W+57th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (13 mins)
+* evening: 0.6 mi (13 mins)",5,Garage: $475,5,,5,,5,,5,* Smoke Free,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[340 E 61st St Unit 5A](https://www.apartments.com/340-e-61st-st-new-york-ny/1j29cy6/),5,,5,"[340 E 61st St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/340+E+61st+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,720 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (9 mins)
+* evening: 0.4 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[137 E 38th St Unit 1B](https://www.apartments.com/137-e-38th-st-new-york-ny/ftme6xt/),5,844-332-8992,5,"[137 E 38th St, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/137+E+38th+St,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,900",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.1 mi (22 mins)
+* evening: 1.1 mi (22 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St](https://www.apartments.com/140-e-46th-st-new-york-ny/sweew05/),5,,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,950",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St](https://www.apartments.com/140-e-46th-st-new-york-ny/fjbxx7s/),5,484-253-6487,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,950 Sq Ft,5,"$2,950",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,* Wheelchair Accessible (Rooms),5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St](https://www.apartments.com/140-e-46th-st-new-york-ny/fh82tht/),5,,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,800 Sq Ft,5,"$2,950",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St Unit 10P](https://www.apartments.com/140-e-46th-st-new-york-ny/z0h8elz/),5,201-372-4971,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,950",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[888 8th Ave Unit 15B](https://www.apartments.com/888-8th-ave-new-york-ny/phn0f4t/),5,347-384-9507,5,"[888 8th Ave, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/888+8th+Ave,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$2,995",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (24 mins)
+* evening: 1.2 mi (24 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[252 E 63rd St Unit 14H](https://www.apartments.com/252-e-63rd-st-new-york-ny/q8tq7tz/),5,,5,"[252 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/252+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,725 Sq Ft,5,"$2,995",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.4 mi (8 mins)
+* evening: 0.4 mi (8 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[316 E 63rd St](https://www.apartments.com/316-e-63rd-st-new-york-ny/eth70xq/),5,,5,"[316 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/316+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,629 Sq Ft,5,"$2,995",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[350 W 55th St Unit 6G](https://www.apartments.com/350-w-55th-st-new-york-ny/5yfxdcp/),5,347-748-9632,5,"[350 W 55th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/350+W+55th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,995",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (24 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[316 E 63rd St Unit B](https://www.apartments.com/316-e-63rd-st-new-york-ny/vl2k3ce/),5,347-305-1540,5,"[316 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/316+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$2,995",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (9 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[55 W 56th St Unit 8D](https://www.apartments.com/55-w-56th-st-new-york-ny/cexdn8f/),5,844-274-8660,5,"[55 W 56th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/55+W+56th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,800 Sq Ft,5,"$2,999",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (13 mins)
+* evening: 0.6 mi (13 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[55 W 55th St Unit 8B](https://www.apartments.com/55-w-55th-st-new-york-ny/j6sz107/),5,844-785-6419,5,"[55 W 55th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/55+W+55th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,720 Sq Ft,5,"$2,999",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (14 mins)
+* evening: 0.6 mi (13 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[Timston](https://www.apartments.com/timston-new-york-ny/3cske9f/),5,,5,"[713-721 Second Ave, New York, NY 10016](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/713-721+Second+Ave,+New+York,+NY+10016/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$3,000",5,"* Water, Heat, Trash Removal: Included",5,"* Application Fee: $75
+* Dog Deposit: $350",5,"Dogs Allowed
+* $350 Deposit
+* 30 lb Weight Limit
+* 1 Pet Limit",5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (25 mins)",5,"Surface Lot
+1 space. Offered by third party to residents of Timston",5,,5,* Kitchen,5,,5,"* Heating
+* Alarm",5,,5,,5,"* Laundry Facilities
+* Doorman",5,"* Built in 1955
+* Renovated in Jan 1988
+* 172 Units/13 Stories",5,* Elevator,5,,5,0
+[Ruradan](https://www.apartments.com/ruradan-new-york-ny/6r91qqs/),5,,5,"[6-8 E 48th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/6-8+E+48th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,730 Sq Ft,5,"$3,000",5,"* Water, Heat, Trash Removal: Included",5,"* Application Fee: $75
+* Dog Deposit: $350",5,"Dogs Allowed
+* $350 Deposit
+* 30 lb Weight Limit
+* 1 Pet Limit",5,"* morning: 0.8 mi (17 mins)
+* evening: 0.8 mi (17 mins)",5,,5,,5,* Kitchen,5,,5,"* Heating
+* Alarm",5,,5,,5,* On-Site Retail,5,"* Built in 1942
+* 35 Units/6 Stories",5,* Elevator,5,,5,0
+[330 W 56th St Unit 10P](https://www.apartments.com/330-w-56th-st-new-york-ny/206vqw8/),5,855-891-4250,5,"[330 W 56th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/330+W+56th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.1 mi (23 mins)
+* evening: 1.1 mi (22 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[321 W 54th St Unit 314](https://www.apartments.com/321-w-54th-st-new-york-ny/j3wrv47/),5,929-274-4961,5,"[321 W 54th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/321+W+54th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 1.2 mi (25 mins)
+* evening: 1.2 mi (24 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[425 E 63rd St Unit E-1F](https://www.apartments.com/425-e-63rd-st-new-york-ny/eyf0bbq/),5,347-352-8055,5,"[425 E 63rd St, New York, NY 10065](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/425+E+63rd+St,+New+York,+NY+10065/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.6 mi (13 mins)
+* evening: 0.6 mi (13 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[321 E 48th St Unit 11D](https://www.apartments.com/321-e-48th-st-new-york-ny/21k9238/),5,844-813-0119,5,"[321 E 48th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/321+E+48th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,700 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.8 mi (17 mins)
+* evening: 0.8 mi (17 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[342 E 55th St](https://www.apartments.com/342-e-55th-st-new-york-ny/jxpys26/),5,,5,"[342 E 55th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/342+E+55th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (11 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[342 E 55th St Unit 4B](https://www.apartments.com/342-e-55th-st-new-york-ny/cv1qjbe/),5,646-868-3026,5,"[342 E 55th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/342+E+55th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (11 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[140 E 46th St Unit 9E](https://www.apartments.com/140-e-46th-st-new-york-ny/z4089lw/),5,862-290-3899,5,"[140 E 46th St, New York, NY 10017](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/140+E+46th+St,+New+York,+NY+10017/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.7 mi (14 mins)
+* evening: 0.7 mi (14 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[342 E 55th St Unit 3D](https://www.apartments.com/342-e-55th-st-new-york-ny/m1wj7sh/),5,855-400-5346,5,"[342 E 55th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/342+E+55th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,600 Sq Ft,5,"$3,000",5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (11 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,,5,,5,,5,,5,12 Months,5,* Laundry Facilities,5,,5,,5,,5,0
+[The Coronet Condominium](https://www.apartments.com/the-coronet-condominium-new-york-ny/wsk6kwk/),5,,5,"[56-62 W 58th St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/56-62+W+58th+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,,5,,5,,5,,5,Dogs and Cats Allowed,5,"* morning: 0.5 mi (11 mins)
+* evening: 0.5 mi (11 mins)",5,"Covered
+Parking Available",5,,5,,5,"* Elevator
+* Full-Time Doorman
+* Heat/Hot Water Included
+* Laundry In Building
+* Live-In Super
+* Window Units
+* Decorative Fireplace
+* Dishwasher
+* French Doors
+* Hardwood Floors
+* Renovated",5,"* High Speed Internet Access
+* Smoke Free",5,,5,12 - 24 Month Leases,5,,5,"* Built in 1969
+* 85 Units/33 Stories",5,,5,* Balcony,5,0
+[458 West 52nd St.](https://www.apartments.com/458-west-52nd-st-new-york-ny/vd0hgld/),5,,5,"[458 W 52nd St, New York, NY 10019](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/458+W+52nd+St,+New+York,+NY+10019/data=!4m2!4m1!3e2)",5,,5,,5,,5,,5,Pets Negotiable,5,"* morning: 1.5 mi (31 mins)
+* evening: 1.5 mi (31 mins)",5,,5,,5,"* Oven
+* Refrigerator",5,"* Air Conditioning
+* Elevator
+* Laundry In Building
+* Live-In Super
+* Dishwasher
+* Hardwood Floors",5,,5,,5,,5,* Security System,5,"* Built in 1910
+* 26 Units/6 Stories",5,,5,,5,0
+[340 E 55th St](https://www.apartments.com/340-e-55th-st-new-york-ny/e2qw8ym/),5,,5,"[340 E 55th St, New York, NY 10022](https://www.google.com/maps/dir/731+Lexington+Ave,+New+York,+NY+10022/340+E+55th+St,+New+York,+NY+10022/data=!4m2!4m1!3e2)",5,,5,,5,,5,,5,"Dogs Allowed
+Rents and/or deposit may be higher for larger pets",5,"* morning: 0.5 mi (10 mins)
+* evening: 0.5 mi (11 mins)",5,,5,,5,"* Oven
+* Range
+* Refrigerator",5,,5,,5,,5,,5,"* Laundry Facilities
+* Controlled Access
+* 24 Hour Availability",5,"* Built in 1920
+* Renovated in Jan 1956
+* 20 Units/5 Stories",5,,5,,5,0
