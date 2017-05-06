@@ -56,11 +56,10 @@ td {
         > a.del-button {
             float: left;
         }
-        > span.score-display, > input.score-editing {
-            display: none;
-            float: right;
-            &:hover{
-                background-color: $lightBlue;
+        > span.score-display {
+            > span.details-bar {
+                float: right;
+                cursor: default;
             }
         }
     }
@@ -178,7 +177,8 @@ a.col-menu-button{
     font-style: italic;
     font-size: 10px !important;
     width: 30px;
-    padding: 0; margin: 0;
+    padding: 0; 
+    margin: 0;
 }
 
 .details-bar {

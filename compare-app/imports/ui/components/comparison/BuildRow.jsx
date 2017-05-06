@@ -147,17 +147,17 @@ export default class BuildRow extends Component {
    * When thumbs-up or thumbs-down is pressed, update the row modifier to val
    */
   likeDislike(rowId, val) {
-    // set some limits
-    if (val > 100) val = 100;
-    if (val < -100) val = -100;
-    // update the field in Meteor
-    Meteor.call('comparison.updateScoreModifier', rowId, val, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger', 'growl-bottom-left');
-      } else {
-        Bert.alert('Score modifier updated!', 'success', 'growl-bottom-left');
-      }
-    });
+    // set some limits after which stop changing
+    if (val <= 100 && val >= -100) {
+      // update the field in Meteor
+      Meteor.call('comparison.updateScoreModifier', rowId, val, (error) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger', 'growl-bottom-left');
+        } else {
+          Bert.alert('Score modifier updated!', 'success', 'growl-bottom-left');
+        }
+      });
+    }
   }
 
   /**
@@ -198,8 +198,9 @@ export default class BuildRow extends Component {
           // add the correct class
           rowClass = 'secondary-heading div-delete';
 
-          // add the score to the html
-          tableDataHtml.push(this.renderItemOrEditField(row, col, row.score, 'score'));
+          // add the non-editable score to the html
+          tableDataHtml.push(<span key='score-display' className='score-display' >
+            <span className='details-bar'>{row.score}</span> </span>);
 
           // add the data delete option to the html
           tableDataHtml.push(

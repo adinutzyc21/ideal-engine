@@ -54,7 +54,7 @@ class Comp extends Component {
       const score = [];
       // for all rows i
       for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        score[i] = rows[i].scoreModifier;
+        score[i] = 0;
         // for all columns j
         for (let j = 1, lenC = cols.length; j < lenC; j++) {
           // compute the score
@@ -69,8 +69,12 @@ class Comp extends Component {
         if (maxScore <= 0) score[i] = 0;
         // round to 1 decimal!
         else score[i] = Math.round((score[i] / maxScore) * 1000) / 10;
+
+        score[i] += rows[i].scoreModifier;
         // set the upper limit
         if (score[i] > 100) score[i] = 100;
+        // set the lower limit
+        else if (score[i] < -100) score[i] = -100;
 
         // only write the score if it's changed
         if (rows[i].score !== score[i]) {
