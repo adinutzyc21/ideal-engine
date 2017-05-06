@@ -49,22 +49,33 @@ class Comp extends Component {
       const cols = this.props.cols;
       const rows = this.props.rows;
 
-      // row[i][0].score = sum(for all columns j>=1) (row[i][j].score * col[j].score)
-      let maxScore = 0;
+      // row[i][0].score = modifier + sum(for all columns j>=1) (row[i][j].score * col[j].score)
+      let maxScore = 1;
       const score = [];
       // for all rows i
       for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        score[i] = 0;
+        score[i] = rows[i].scoreModifier;
         // for all columns j
         for (let j = 1, lenC = cols.length; j < lenC; j++) {
+          // compute the score
           score[i] += rows[i][cols[j]._id].score * cols[j].score;
         }
+        // save the max score
         if (score[i] > maxScore) maxScore = score[i];
       }
+      // normalize the scores
       for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        if (maxScore === 0) score[i] = 0;
-        else score[i] = Math.round((score[i] * 100) / maxScore) / 10;
-        if (rows[i].score !== score[i]) Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+        // set the lower limit
+        if (maxScore <= 0) score[i] = 0;
+        // round to 1 decimal!
+        else score[i] = Math.round((score[i] / maxScore) * 1000) / 10;
+        // set the upper limit
+        if (score[i] > 100) score[i] = 100;
+
+        // only write the score if it's changed
+        if (rows[i].score !== score[i]) {
+          Meteor.call('comparison.updateRowInsertScore', rows[i]._id, score[i]);
+        }
       }
     }
   }

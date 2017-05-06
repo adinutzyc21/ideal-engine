@@ -26,6 +26,7 @@ export default class ExportCSV extends Component {
         data.push(opt.score);
       }
     }
+    data.push('modifier');
     csvData.push(data);
 
     for (let i = 0, len0 = this.props.rows.length; i < len0; i++) {
@@ -40,6 +41,7 @@ export default class ExportCSV extends Component {
           data.push(val.score);
         }
       }
+      data.push(row.scoreModifier);
       csvData.push(data);
     }
 
@@ -54,7 +56,7 @@ export default class ExportCSV extends Component {
     }
     return (
       <CSVLink className={this.props.className} data={this.generateCSV()} role='button'
-        filename='output.csv'>{this.props.title}
+        filename='exported.csv'>{this.props.title}
         <span className={this.props.glyphicon} />
         </CSVLink>
     );

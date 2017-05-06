@@ -36,6 +36,7 @@ export default class BuildRow extends Component {
     this.renderItemOrEditField = this.renderItemOrEditField.bind(this);
     this.stopEditing = this.stopEditing.bind(this);
     this.toggleEditing = this.toggleEditing.bind(this);
+    this.likeDislike = this.likeDislike.bind(this);
 
     this.count = 0;
   }
@@ -105,10 +106,6 @@ export default class BuildRow extends Component {
     // the type is 'option' or 'data' and data is empty
     } else if (data === '') {
       data = '--';
-      // this cell is empty, make its score 0
-      if (row[col._id].value === '' && row[col._id].score !== '0') {
-        Meteor.call('comparison.updateRowFieldInPlace', row._id, col._id, 'score', '0');
-      }
     }
 
     return <span key={type + '-display'} className={type + '-display'}
@@ -144,6 +141,23 @@ export default class BuildRow extends Component {
           }
         });
     }
+  }
+
+  /**
+   * When thumbs-up or thumbs-down is pressed, update the row modifier to val
+   */
+  likeDislike(rowId, val) {
+    // set some limits
+    if (val > 100) val = 100;
+    if (val < -100) val = -100;
+    // update the field in Meteor
+    Meteor.call('comparison.updateScoreModifier', rowId, val, (error) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger', 'growl-bottom-left');
+      } else {
+        Bert.alert('Score modifier updated!', 'success', 'growl-bottom-left');
+      }
+    });
   }
 
   /**
@@ -191,11 +205,26 @@ export default class BuildRow extends Component {
           tableDataHtml.push(
             <DeleteData key='del' level='row' params={row._id} />);
 
+          // add the # of the option
           tableDataHtml.push(<span key ='option-count' className='option-count'>
             {++this.count + '.'} </span>);
 
           // add the 'option' to the html
           tableDataHtml.push(this.renderItemOrEditField(row, col, row[col._id].value, 'option'));
+
+          // add a like/dislike button TODO: make this once per person somehow
+          tableDataHtml.push(<div role="group" key='like-dislike'
+            className='btn-group like-dislike'>
+            <span className='row-score'>{row.scoreModifier}</span>
+            <button className='btn btn-xs btn-success'
+              onClick={() => this.likeDislike(row._id, row.scoreModifier + 5)}>
+              <span className="glyphicon glyphicon-thumbs-up"/>
+            </button>
+            <button className='btn btn-xs btn-danger'
+              onClick={() => this.likeDislike(row._id, row.scoreModifier - 5)}>
+            <span className="glyphicon glyphicon-thumbs-down" />
+            </button>
+          </div>);
 
           // ELSE: if it's not the first column, no delete button or special formatting
         } else {
