@@ -30,6 +30,11 @@ Meteor.methods({
     check(type, String);
     check(value, String);
 
+    if (type === 'score') {
+      value = parseInt(value, 10);
+      check(value, Number);
+    }
+
     Col.update(colId, {
       $set: {
         [type]: value,
@@ -49,6 +54,11 @@ Meteor.methods({
     check(colId, String);
     check(type, String);
     check(value, String);
+
+    if (type === 'score') {
+      value = parseInt(value, 10);
+      check(value, Number);
+    }
 
     const element = colId + '.' + type;
 

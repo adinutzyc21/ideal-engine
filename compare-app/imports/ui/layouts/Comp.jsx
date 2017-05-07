@@ -154,7 +154,7 @@ export default createContainer((props) => {
   // is the col data still loading
   const loadingC = !subscriptionC.ready();
   // get the col data from Mongo
-  const cols = Col.find({ tableId }).fetch();
+  const cols = Col.find({ tableId }, { sort: { score: -1 } }).fetch();
 
   // get the currently logged in user from Meteor
   const user = Meteor.user();

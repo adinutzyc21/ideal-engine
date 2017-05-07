@@ -128,9 +128,6 @@ export default class MenuBar extends Component {
           <i className='glyphicon glyphicon-edit' />Edit
           </a>
         <ul className='dropdown-menu'>
-          <li className='dropdown-header'>Inline Editing</li>
-          <li>{this.editOnToggle(this.isTableEmpty())}</li>
-          <li role='separator' className='divider'></li>
           <li className='dropdown-header'>Create</li>
 
           <li><InsertData level='row' tableId={this.props.params.tableId}
@@ -140,6 +137,10 @@ export default class MenuBar extends Component {
             <InsertData level='col' tableId={this.props.params.tableId}
               data={this.props.rows} isDisabled={this.isTableEmpty()}
               optionId={this.getFirstColumnId()} /></li>
+          
+          <li role='separator' className='divider'></li>
+          <li className='dropdown-header'>Inline Editing</li>
+          <li>{this.editOnToggle(this.isTableEmpty())}</li>
         </ul>
       </li>
     </ul>;

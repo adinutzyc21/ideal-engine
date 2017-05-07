@@ -50,7 +50,7 @@ Meteor.methods({
     ];
 
     const cols = [
-      { name: 'Option Name' },
+      { name: 'Option Name', score: 200 },
       { name: 'The Rent', score: 9 },
       { name: 'My Deposit', score: 2 },
       { name: 'Rating', score: 7 },
@@ -114,7 +114,8 @@ Meteor.methods({
       colData.tableId = tableId;
 
       colData.name = cols[i];
-      // the first column does not have a score
+      colData.score = 200;
+      // the first column has a set score
       if (i !== 0) {
         if (hasScore) {
           score = cols[i + 1];

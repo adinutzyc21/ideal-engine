@@ -23,6 +23,7 @@ Meteor.methods({
     if (isFirst) {
       const colData = {};
       colData._id = colId;
+      colData.score = 100;
       colData.tableId = tableId;
       colData.name = 'Option Name';
       Col.insert(colData);

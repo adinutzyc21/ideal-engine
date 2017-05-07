@@ -270,7 +270,7 @@ export default class InsertData extends Component {
     for (let i = 1, len = cols.length; i < len; i++) {
       rowData[cols[i]._id] = {
         value: ReactDOM.findDOMNode(this.refs['optionValue' + i]).value.trim(),
-        score: ReactDOM.findDOMNode(this.refs['optionValueScore' + i]).value.trim(),
+        score: parseInt(ReactDOM.findDOMNode(this.refs['optionValueScore' + i]).value.trim(), 10),
       };
     }
 
@@ -295,7 +295,7 @@ export default class InsertData extends Component {
     // the object containing the data we need to insert into the Row table
     const colData = {
       name: ReactDOM.findDOMNode(this.refs.criterionName).value.trim(),
-      score: ReactDOM.findDOMNode(this.refs.criterionNameScore).value.trim(),
+      score: parseInt(ReactDOM.findDOMNode(this.refs.criterionNameScore).value.trim(), 10),
     };
     // insert the data into the Col table
     Meteor.call('insertColumn', this.props.tableId, colId, colData);
@@ -305,7 +305,7 @@ export default class InsertData extends Component {
       // create the corresponding column data for this row
       const colDataRow = {
         value: ReactDOM.findDOMNode(this.refs['criterionValue' + i]).value.trim(),
-        score: ReactDOM.findDOMNode(this.refs['criterionValueScore' + i]).value.trim(),
+        score: parseInt(ReactDOM.findDOMNode(this.refs['criterionValueScore' + i]).value.trim(), 10),
       };
       // update the Row table by inserting the column associated with colId
       Meteor.call('updateRowInsertColumn', rows[i]._id, colId, colDataRow);
