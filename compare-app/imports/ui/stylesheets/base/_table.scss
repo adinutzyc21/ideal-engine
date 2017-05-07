@@ -1,5 +1,5 @@
 table {
-    min-width: 100%;
+    width: 100%;
     border-collapse: collapse;
     border: solid 1px $lightBlue;
 }
@@ -197,11 +197,6 @@ a.col-menu-button{
     min-width: 30px;
 }
 
-
-.table-table {
-    margin-right: 5px;
-}
-
 .like-dislike {
     margin-top: 15px;
     line-height: 16px;
@@ -217,4 +212,17 @@ a.col-menu-button{
     margin-top: 8px;
     float: left;
     color: $btnRed;
+}
+
+// fixed header
+.fixed-header tr {
+    position: relative;
+    display: block;
+}
+
+.scroll-content {
+	display: block;
+	height: 262px;
+	overflow: auto;
+	width: 100%
 }

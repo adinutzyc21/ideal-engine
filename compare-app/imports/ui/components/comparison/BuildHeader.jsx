@@ -165,7 +165,7 @@ export default class BuildHeader extends Component {
    */
   render() {
     return (
-      <thead>
+      <thead className='fixed-header'>
         <tr>
           {this.buildHeaderHtml()}
         </tr>

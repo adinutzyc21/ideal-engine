@@ -28,6 +28,7 @@ export class DisplayTable extends Component {
     $('.table-container').css('max-height', height + 'px');
     $('.table-container').css('min-height', height + 'px');
     $('.table-container').css('height', height + 'px');
+    $('.scroll-content').css('height', (height - 65) + 'px');
   }
   componentWillMount() {
     this.updateDimensions();

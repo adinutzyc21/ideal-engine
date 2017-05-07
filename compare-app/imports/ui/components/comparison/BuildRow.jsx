@@ -250,7 +250,7 @@ export default class BuildRow extends Component {
 
     this.count = 0;
 
-    return <tbody>
+    return <tbody className='scroll-content' >
       {this.props.rows.map(row => (
         <tr key={row._id}>
           {self.buildRowHtml(row)}
