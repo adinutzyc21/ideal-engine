@@ -109,6 +109,7 @@ export class DisplayTable extends Component {
         _id: row._id,
         [firstColData._id]: row[firstColData._id],
         score: row.score,
+        scoreModifier: row.scoreModifier,
       }));
 
       const restColRows = this.props.rows.map((row) => {
