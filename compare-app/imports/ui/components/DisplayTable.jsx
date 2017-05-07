@@ -23,7 +23,7 @@ export class DisplayTable extends Component {
    * Update dimensions to set table-container height correctly based on the window size
    */
   updateDimensions() {
-    let height = $(window).height() - 120;
+    let height = $(window).height() - 90;
     if (height < 150) height = 150;
 
     $('#table-container').css('max-height', height + 'px');
@@ -56,6 +56,7 @@ export class DisplayTable extends Component {
   }
   componentDidMount() {
     this.updateDimensions();
+
     window.addEventListener('resize', this.updateDimensions);
     const self = this;
     Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
