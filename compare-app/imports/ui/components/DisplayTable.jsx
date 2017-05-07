@@ -23,13 +23,14 @@ export class DisplayTable extends Component {
    * Update dimensions to set table-container height correctly based on the window size
    */
   updateDimensions() {
-    let height = $(window).height() - 90;
+    let height = $(window).height() - 120;
     if (height < 150) height = 150;
 
     $('#table-container').css('max-height', height + 'px');
     $('#table-container').css('min-height', height + 'px');
     $('#table-container').css('height', height + 'px');
-    $('.scroll-content').css('height', (height - 80) + 'px');
+
+    $('.scroll-content').css('height', (height - 62) + 'px');
     $('#options-column').css('height', height + 'px');
   }
 
@@ -55,6 +56,15 @@ export class DisplayTable extends Component {
     this.updateDimensions();
   }
   componentDidMount() {
+    this.updateDimensions();
+
+    window.addEventListener('resize', this.updateDimensions);
+    const self = this;
+    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
+      element.addEventListener('scroll', self.scrollDivsTogether);
+    });
+  }
+  componentDidUpdate() {
     this.updateDimensions();
 
     window.addEventListener('resize', this.updateDimensions);

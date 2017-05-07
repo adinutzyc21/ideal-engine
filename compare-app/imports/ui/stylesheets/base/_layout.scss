@@ -4,6 +4,7 @@
     padding-right: 0;
 }
 #table-container {
+    border-right: solid 1px $lightBlue;
     overflow: hidden;
     margin: 60px 0px 0px;
     &:hover {
@@ -38,7 +39,7 @@
 }
 
 #options-column {
-    border-right: solid 1px $lightBlue;
+    border: solid 1px $lightBlue;
     position: fixed;
     max-width: 240px;
     min-width: 240px;
@@ -47,6 +48,7 @@
     z-index: 1;
 }
 #options-contents {
+    overflow: auto;
     margin-left: 240px;
     z-index: -1;
 }
