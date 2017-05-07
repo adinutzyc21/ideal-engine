@@ -3,16 +3,12 @@
     padding-left: 0;
     padding-right: 0;
 }
-.table-container {
+#table-container {
     overflow: hidden;
     margin: 60px 0px 0px;
     &:hover {
-        overflow: overlay;
+        overflow-x: overlay;
     }
-}
-
-.table-table {
-    margin-right: 5px;
 }
 
 .table-container-no-data {
@@ -39,4 +35,18 @@
     background-color: $colGreen;
     box-shadow: 0 0 5px lightgray;
     -webkit-box-shadow: 0 0 5px lightgray;
+}
+
+#options-column {
+    border-right: solid 1px $lightBlue;
+    position: fixed;
+    max-width: 240px;
+    min-width: 240px;
+    width: 240px;
+    overflow: hidden;
+    z-index: 1;
+}
+#options-contents {
+    margin-left: 240px;
+    z-index: -1;
 }

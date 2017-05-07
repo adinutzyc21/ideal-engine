@@ -123,7 +123,7 @@ export default class BuildHeader extends Component {
    * Construct the table header html from the cols array
    */
   buildHeaderHtml() {
-    return this.props.cols.map((col, idx) => {
+    return this.props.cols.map((col) => {
       // this is the final html for our header
       const tableHeaderHtml = [];
 
@@ -131,7 +131,7 @@ export default class BuildHeader extends Component {
       let colCls = '';
 
       // allow column deletion and formatting for all columns except the first ('Option Name') one
-      if (idx !== 0) {
+      if (this.props.type !== 'header') {
         // add the correct class
         colCls = 'div-delete';
 
@@ -181,4 +181,5 @@ BuildHeader.propTypes = {
   cols: PropTypes.array.isRequired,
   editOn: PropTypes.bool,
   scoreOn: PropTypes.bool,
+  type: PropTypes.string,
 };

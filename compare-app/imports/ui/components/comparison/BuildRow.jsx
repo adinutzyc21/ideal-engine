@@ -184,7 +184,7 @@ export default class BuildRow extends Component {
    */
   buildRowHtml(row) {
     // for each column
-    return this.props.cols.map((col, idx) => {
+    return this.props.cols.map((col) => {
       // this is the final html for our table data
       const tableDataHtml = [];
 
@@ -194,7 +194,7 @@ export default class BuildRow extends Component {
       // if the current column is populated in the row
       if (row[col._id]) {
         // IF: it's the first column,  display cell as header and allow deletion
-        if (idx === 0) {
+        if (this.props.type === 'header') {
           // add the correct class
           rowClass = 'secondary-heading div-delete';
 
@@ -265,4 +265,5 @@ BuildRow.propTypes = {
   rows: PropTypes.array.isRequired,
   editOn: PropTypes.bool,
   scoreOn: PropTypes.bool,
+  type: PropTypes.string,
 };
