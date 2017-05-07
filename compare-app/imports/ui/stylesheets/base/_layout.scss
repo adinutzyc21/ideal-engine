@@ -5,6 +5,7 @@
 }
 #table-container {
     border-right: solid 1px $lightBlue;
+    border-bottom: solid 1px $lightBlue;
     overflow: hidden;
     margin: 60px 0px 0px;
     &:hover {
@@ -33,9 +34,7 @@
 
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: $colGreen;
-    box-shadow: 0 0 5px lightgray;
-    -webkit-box-shadow: 0 0 5px lightgray;
+    background-color: $darkBlue;
 }
 
 #options-column {
@@ -48,7 +47,7 @@
     z-index: 1;
 }
 #options-contents {
-    overflow: hidden;
+    overflow: overlay;
     margin-left: 240px;
     z-index: -1;
 }

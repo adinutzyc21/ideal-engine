@@ -105,7 +105,7 @@ export class DisplayTable extends Component {
       Meteor.call('clearTable', this.props.params.tableId);
 
       tableContainerHtml.push(
-        <div key='table-container' id='table-container' className='table-container-no-data'>
+        <div key='table-container' className='table-container-no-data'>
           <span>No data available. Use the menu to add data.</span>
         </div>);
 

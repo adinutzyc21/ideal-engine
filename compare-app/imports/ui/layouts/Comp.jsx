@@ -91,7 +91,7 @@ class Comp extends Component {
     // while the data is loading, the html is a spinner
     if (this.props.loading) {
       displayTable.push(
-        <div key='table-container' id='table-container' className='table-container-no-data'>
+        <div key='table-container' className='table-container-no-data'>
           <div key='loading'>
             <span>Loading data...</span>
             <Spinner key='spinner' spinnerName='three-bounce' />

@@ -78,7 +78,7 @@ class SelectTable extends Component {
     }
 
     return (
-      <div id='table-container' className='table-container-no-data'>
+      <div className='table-container-no-data'>
         {html}
       </div>
     );
