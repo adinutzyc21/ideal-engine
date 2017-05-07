@@ -40,12 +40,23 @@ export class DisplayTable extends Component {
   scrollDivsTogether() {
     const opt = $('#options-column>table>tbody.scroll-content');
     const cont = $('#options-contents>table>tbody.scroll-content');
-    opt.on('scroll', function () {
-      cont.scrollTop($(this).scrollTop());
-    });
 
-    cont.on('scroll', function () {
-      opt.scrollTop($(this).scrollTop());
+    let lastScroll = 0;
+    opt.scroll(function () {
+      const el = $(this);
+      const scroll = el.scrollTop();
+      const round = lastScroll < scroll ? Math.ceil : Math.floor;
+      lastScroll = round(scroll / 16) * 16;
+      el.scrollTop(lastScroll);
+      cont.scrollTop(lastScroll);
+    });
+    cont.scroll(function () {
+      const el = $(this);
+      const scroll = el.scrollTop();
+      const round = lastScroll < scroll ? Math.ceil : Math.floor;
+      lastScroll = round(scroll / 16) * 16;
+      el.scrollTop(lastScroll);
+      opt.scrollTop(lastScroll);
     });
   }
 
