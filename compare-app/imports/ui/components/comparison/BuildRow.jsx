@@ -108,11 +108,32 @@ export default class BuildRow extends Component {
       data = '--';
     }
 
+    data = this.formatMarkdownHTML(data);
     return <span key={type + '-display'} className={type + '-display'}
         onClick={() => this.toggleEditing(row._id, col._id, type, data)}>
         <span className={hiddenCls + ' ' + (type === 'score' ? 'details-bar' : '')}
-          dangerouslySetInnerHTML={{ __html: markdown.toHTML(data.toString()) }} />
+          dangerouslySetInnerHTML={{ __html: data }} />
       </span>;
+  }
+
+  /**
+   * Special cases for converting markdown to HTML
+   */
+  formatMarkdownHTML(content) {
+    content = markdown.toHTML(content.toString());
+
+    // make all links open in a new page
+    if (content.includes('<a ')) {
+      content = content.replace('<a ', '<a target="_blank"');
+    }
+
+    // make images fit and open url on click
+    if (content.includes('<img ')) {
+      content = content.replace('<img', '<img class="img-thumbnail img-thumb"');
+      // TODO: also make this a link
+    }
+
+    return content;
   }
 
   /**

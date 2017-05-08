@@ -33,29 +33,6 @@ export class DisplayTable extends Component {
     $('.scroll-content').css('height', (height - 62) + 'px');
     $('#options-column').css('height', height + 'px');
   }
-
-  /**
-   * Make the options-column and options-contents divs scroll together
-   */
-  scrollDivsTogether() {
-    const opt = $('#options-column>table>tbody.scroll-content');
-    const cont = $('#options-contents>table>tbody.scroll-content');
-
-    opt.scroll(function () {
-      const el = $(this);
-      const scroll = el.scrollTop();
-      el.scrollTop(scroll);
-      cont.scrollTop(scroll);
-    });
-
-    cont.scroll(function () {
-      const el = $(this);
-      const scroll = el.scrollTop();
-      el.scrollTop(scroll);
-      opt.scrollTop(scroll);
-    });
-  }
-
   /**
    * Add the necessary event listeners
    */
@@ -66,25 +43,30 @@ export class DisplayTable extends Component {
     this.updateDimensions();
 
     window.addEventListener('resize', this.updateDimensions);
-    const self = this;
-    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
-      element.addEventListener('scroll', self.scrollDivsTogether);
-    });
   }
   componentDidUpdate() {
     this.updateDimensions();
 
     window.addEventListener('resize', this.updateDimensions);
-    const self = this;
-    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
-      element.addEventListener('scroll', self.scrollDivsTogether);
-    });
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
-    const self = this;
-    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
-      element.removeEventListener('scroll', self.scrollDivsTogether);
+  }
+
+  /**
+   * Make the options-column and options-contents divs scroll together
+   */
+  scrollDivsTogether() {
+    const opt = $('#options-column>table>tbody.scroll-content');
+    const cont = $('#options-contents>table>tbody.scroll-content');
+
+    opt.on('scroll', function () {
+      cont.scrollTop($(this).scrollTop());
+    });
+
+    cont.on('scroll', function () {
+      opt.scrollTop($(this).scrollTop());
     });
   }
 
@@ -132,7 +114,8 @@ export class DisplayTable extends Component {
 
 
       tableContainerHtml.push(
-        <div key='table-container' id='table-container'>
+        <div key='table-container' id='table-container'
+          onScroll={this.scrollDivsTogether}>
           {/* This displays only the options column to the left with corresponding header*/}
           <div id='options-column'>
             <table key='table1'>
