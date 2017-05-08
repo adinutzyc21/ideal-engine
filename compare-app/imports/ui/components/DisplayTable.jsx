@@ -41,22 +41,18 @@ export class DisplayTable extends Component {
     const opt = $('#options-column>table>tbody.scroll-content');
     const cont = $('#options-contents>table>tbody.scroll-content');
 
-    let lastScroll = 0;
     opt.scroll(function () {
       const el = $(this);
       const scroll = el.scrollTop();
-      const round = lastScroll < scroll ? Math.ceil : Math.floor;
-      lastScroll = round(scroll / 16) * 16;
-      el.scrollTop(lastScroll);
-      cont.scrollTop(lastScroll);
+      el.scrollTop(scroll);
+      cont.scrollTop(scroll);
     });
+
     cont.scroll(function () {
       const el = $(this);
       const scroll = el.scrollTop();
-      const round = lastScroll < scroll ? Math.ceil : Math.floor;
-      lastScroll = round(scroll / 16) * 16;
-      el.scrollTop(lastScroll);
-      opt.scrollTop(lastScroll);
+      el.scrollTop(scroll);
+      opt.scrollTop(scroll);
     });
   }
 
