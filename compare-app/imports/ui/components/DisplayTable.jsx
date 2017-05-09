@@ -43,31 +43,46 @@ export class DisplayTable extends Component {
     this.updateDimensions();
 
     window.addEventListener('resize', this.updateDimensions);
+    const self = this;
+    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
+      element.addEventListener('scroll',
+        () => self.scrollDivsTogether(element.parentElement.parentElement.id));
+    });
   }
   componentDidUpdate() {
     this.updateDimensions();
 
     window.addEventListener('resize', this.updateDimensions);
+    const self = this;
+    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
+      element.addEventListener('scroll',
+        () => self.scrollDivsTogether(element.parentElement.parentElement.id));
+    });
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
+    const self = this;
+    Array.from(document.getElementsByClassName('scroll-content')).forEach((element) => {
+      element.removeEventListener('scroll', 
+        () => self.scrollDivsTogether(element.parentElement.parentElement.id));
+    });
   }
 
   /**
    * Make the options-column and options-contents divs scroll together
    */
-  scrollDivsTogether() {
+  scrollDivsTogether(id) {
     const opt = $('#options-column>table>tbody.scroll-content');
     const cont = $('#options-contents>table>tbody.scroll-content');
 
-    opt.on('scroll', function () {
-      cont.scrollTop($(this).scrollTop());
-    });
-
-    cont.on('scroll', function () {
-      opt.scrollTop($(this).scrollTop());
-    });
+    if (cont.scrollTop() !== opt.scrollTop()) {
+      if (id === 'options-column') {
+        cont.scrollTop(opt.scrollTop());
+      } else {
+        opt.scrollTop(cont.scrollTop());
+      }
+    }
   }
 
   /**
@@ -114,8 +129,7 @@ export class DisplayTable extends Component {
 
 
       tableContainerHtml.push(
-        <div key='table-container' id='table-container'
-          onScroll={this.scrollDivsTogether}>
+        <div key='table-container' id='table-container'>
           {/* This displays only the options column to the left with corresponding header*/}
           <div id='options-column'>
             <table key='table1'>

@@ -120,20 +120,24 @@ export default class BuildRow extends Component {
    * Special cases for converting markdown to HTML
    */
   formatMarkdownHTML(content) {
-    content = markdown.toHTML(content.toString());
+    // parse the HTML
+    const html = $($.parseHTML(markdown.toHTML(content.toString())));
 
     // make all links open in a new page
-    if (content.includes('<a ')) {
-      content = content.replace('<a ', '<a target="_blank"');
+    const links = html.find('a');
+    for (let i = 0, len = links.length; i < len; i++) {
+      links[i].target = '_blank';
     }
 
-    // make images fit and open url on click
-    if (content.includes('<img ')) {
-      content = content.replace('<img', '<img class="img-thumbnail img-thumb"');
-      // TODO: also make this a link
+    // make images fit
+    const images = html.find('img');
+    for (let i = 0, len = images.length; i < len; i++) {
+      images[i].className = 'img-thumbnail img-thumb';
+      html.find(images[i]).replaceWith("<a target='_blank' href='" + images[i].getAttribute('src') + "'>" +
+                images[i].outerHTML + '</a>');
     }
 
-    return content;
+    return html[0].outerHTML;
   }
 
   /**
