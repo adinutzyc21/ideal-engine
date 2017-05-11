@@ -49,6 +49,8 @@ export class DisplayTable extends Component {
   }
   componentDidUpdate() {
     this.updateDimensions();
+    this.scrollDivsTogether();
+    this.scrollHorizontal();
 
     window.addEventListener('resize', this.updateDimensions);
   }
@@ -59,6 +61,9 @@ export class DisplayTable extends Component {
 
   scrollHorizontal() {
     const cont = $('#options-contents');
+
+    if (cont.length === 0) return;
+
     // make this 1/8 of the width of a colun (240)
     const scrollSize = 30;
     const width = cont[0].scrollWidth - cont[0].clientWidth;
@@ -87,6 +92,9 @@ export class DisplayTable extends Component {
   scrollDivsTogether() {
     const opt = $('#options-column>table>tbody.scroll-content');
     const cont = $('#options-contents>table>tbody.scroll-content');
+
+    if (cont.length === 0 || opt.length === 0) return;
+
     let optTimeout;
     let contTimeout;
 

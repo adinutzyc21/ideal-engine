@@ -102,13 +102,19 @@ Meteor.methods({
     let step = 1;
     let hasScore = false;
     let score = 5;
+
+    // number of columns, including the scores but excluding the modifier
+    let colLen = cols.length;
+
     // importing with scores?
     if (cols[1] === 'score') {
       step = 2;
       hasScore = true;
+      // the last column is the modifier
+      colLen--;
     }
     // insert the columns into Mongo
-    for (let i = 0, len = cols.length; i < len - 1; i += step) {
+    for (let i = 0; i < colLen; i += step) {
       // create the column data to insert into Mongo
       const colData = {};
       colData.tableId = tableId;
