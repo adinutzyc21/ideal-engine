@@ -1,7 +1,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    border: solid 1px $lightBlue;
+    border-top: 1px solid $lightBlue;
 }
 
 th, td {
@@ -72,7 +72,6 @@ td {
         }
     }
 }
-
 .no-display, .no-display:hover {
     visibility: hidden !important;
 }
@@ -222,9 +221,11 @@ a.col-menu-button{
     color: $btnRed;
 }
 
-.fixed-header tr {
-    position: relative;
-    display: block;
+.fixed-header {
+    tr {
+        position: relative;
+        display: block;
+    }
 }
 
 .scroll-content {

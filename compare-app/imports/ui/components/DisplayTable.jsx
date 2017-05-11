@@ -17,6 +17,7 @@ export class DisplayTable extends Component {
     // make this available in these methods
     this.updateDimensions = this.updateDimensions.bind(this);
     this.scrollDivsTogether = this.scrollDivsTogether.bind(this);
+    this.scrollHorizontal = this.scrollHorizontal.bind(this);
   }
 
   /**
@@ -42,6 +43,7 @@ export class DisplayTable extends Component {
   componentDidMount() {
     this.updateDimensions();
     this.scrollDivsTogether();
+    this.scrollHorizontal();
 
     window.addEventListener('resize', this.updateDimensions);
   }
@@ -53,6 +55,30 @@ export class DisplayTable extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  scrollHorizontal() {
+    const cont = $('#options-contents');
+    // make this 1/8 of the width of a colun (240)
+    const scrollSize = 30;
+    const width = cont[0].scrollWidth - cont[0].clientWidth;
+    let lastScroll = 0;
+
+    cont.on('scroll', function () {
+      // horizontal scroll
+      // calculate the scroll
+      const scroll = $(this).scrollLeft();
+
+      // increments of scrollSizeHorizontal if content is large enough
+      if (width > lastScroll) {
+        const round = lastScroll < scroll ? Math.ceil : Math.floor;
+        lastScroll = round(scroll / scrollSize) * scrollSize;
+        // default otherwise
+      } else lastScroll = scroll;
+
+      // scroll the divs
+      cont.scrollLeft(lastScroll);
+    });
   }
 
   /**
@@ -67,11 +93,10 @@ export class DisplayTable extends Component {
     // get the height of the scrollable section
     const height = opt[0].scrollHeight;
 
-    // move one row at once
-    const scrollSize = 240;
+    // move 1/8 a row at once (a row is 160 px)
+    const scrollSize = 20;
     // keep track of this for scroll up / down
     let lastScroll = 0;
-
 
     opt.on('scroll', function () {
       // don't fire both events at once
@@ -112,13 +137,13 @@ export class DisplayTable extends Component {
       }, 50);
 
       // calculate the scroll
-      const scroll = $(this).scrollTop();
+      const scrollVertical = $(this).scrollTop();
       // increments of scrollSize if content is large enough
       if (height > scrollSize + lastScroll) {
-        const round = lastScroll < scroll ? Math.ceil : Math.floor;
-        lastScroll = round(scroll / scrollSize) * scrollSize;
+        const round = lastScroll < scrollVertical ? Math.ceil : Math.floor;
+        lastScroll = round(scrollVertical / scrollSize) * scrollSize;
       // default otherwise
-      } else lastScroll = scroll;
+      } else lastScroll = scrollVertical;
 
       // scroll the divs
       cont.scrollTop(lastScroll);
@@ -183,15 +208,17 @@ export class DisplayTable extends Component {
             </table>
           </div>
           {/* This displays the rest of the table, including the headers*/}
-          <div id='options-contents'>
-            <table key='table2'>
-              {/* Need a header of type BuildHeader */}
-              <BuildHeader key='heading2' type='content' cols={restCols}
-                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-              {/* Need a bunch of rows of type BuildRow*/}
-              <BuildRow key='row2' type='content' rows={restColRows} cols={restCols}
-                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-            </table>
+          <div id='contents-container'>
+            <div id='options-contents'>
+              <table key='table2'>
+                {/* Need a header of type BuildHeader */}
+                <BuildHeader key='heading2' type='content' cols={restCols}
+                  editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+                {/* Need a bunch of rows of type BuildRow*/}
+                <BuildRow key='row2' type='content' rows={restColRows} cols={restCols}
+                  editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+              </table>
+            </div>
           </div>
         </div>);
     }

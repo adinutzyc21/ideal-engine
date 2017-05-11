@@ -7,9 +7,6 @@
     border-bottom: solid 1px $lightBlue;
     overflow: hidden;
     margin: 60px 0px 0px;
-    &:hover {
-        overflow-x: overlay;
-    }
 }
 
 .table-container-no-data {
@@ -29,6 +26,8 @@
     -webkit-appearance: none;
     width: 5px;
     height: 5px;
+    background: white;
+    border: solid 1px $lightBlue;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -37,7 +36,6 @@
 }
 
 #options-column {
-    border: solid 1px $lightBlue;
     position: fixed;
     max-width: 240px;
     min-width: 240px;
@@ -46,9 +44,12 @@
     z-index: 1;
 }
 #options-contents {
-    overflow: visible;
-    margin-left: 240px;
     z-index: -1;
+    overflow-x: overlay;
+}
+
+#contents-container {
+    margin-left: 240px;
 }
 
 .img-thumb {
