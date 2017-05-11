@@ -142,19 +142,27 @@ export default createContainer((props) => {
   // get the tableId
   const tableId = props.params.tableId;
 
-  // subscribe to the row data from Mongo
-  const subscriptionR = Meteor.subscribe('row');
-  // is the row data still loading
-  const loadingR = !subscriptionR.ready();
-  // get the row data from Mongo
-  const rows = Row.find({ tableId }, { sort: { score: -1 } }).fetch();
-
   // subscribe to the col data from Mongo
   const subscriptionC = Meteor.subscribe('col');
   // is the col data still loading
   const loadingC = !subscriptionC.ready();
+  // find the Option Name column
+  const col0 = Col.find({ score: 200 }).fetch();
   // get the col data from Mongo
   const cols = Col.find({ tableId }, { sort: { score: -1 } }).fetch();
+
+  // get the rows
+  let rows = [];
+
+  // subscribe to the row data from Mongo
+  const subscriptionR = Meteor.subscribe('row');
+  // is the row data still loading
+  const loadingR = !subscriptionR.ready();
+  if (!loadingC) {
+    const optionName = col0[0]._id + '.value';
+    // get the row data from Mongo
+    rows = Row.find({ tableId }, { sort: { score: -1, [optionName]: 1 } }).fetch();
+  }
 
   // get the currently logged in user from Meteor
   const user = Meteor.user();
