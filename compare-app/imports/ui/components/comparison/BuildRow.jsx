@@ -173,7 +173,7 @@ export default class BuildRow extends Component {
    */
   likeDislike(rowId, val) {
     // set some limits after which stop changing
-    if (val <= 100 && val >= -100) {
+    if (val <= 500 && val >= -500) {
       // update the field in Meteor
       Meteor.call('updateScoreModifier', rowId, val, (error) => {
         if (error) {
@@ -243,11 +243,11 @@ export default class BuildRow extends Component {
             className='btn-group like-dislike'>
             <span className='row-score'>{row.scoreModifier}</span>
             <button className='btn btn-xs btn-success'
-              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) + 5)}>
+              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) + 10)}>
               <span className="glyphicon glyphicon-thumbs-up"/>
             </button>
             <button className='btn btn-xs btn-danger'
-              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) - 5)}>
+              onClick={() => this.likeDislike(row._id, parseInt(row.scoreModifier, 10) - 10)}>
             <span className="glyphicon glyphicon-thumbs-down" />
             </button>
           </div>);

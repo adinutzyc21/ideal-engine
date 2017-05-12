@@ -50,31 +50,28 @@ class Comp extends Component {
       const rows = this.props.rows;
 
       // row[i][0].score = modifier + sum(for all columns j>=1) (row[i][j].score * col[j].score)
-      let maxScore = 1;
+      let maxScore = 0;
+      let minScore = 100;
+
       const score = [];
       // for all rows i
       for (let i = 0, lenR = rows.length; i < lenR; i++) {
-        score[i] = 0;
+        score[i] = rows[i].scoreModifier;
         // for all columns j
         for (let j = 1, lenC = cols.length; j < lenC; j++) {
           // compute the score
           score[i] += rows[i][cols[j]._id].score * cols[j].score;
         }
-        // save the max score
+        // save the max and min scores
         if (score[i] > maxScore) maxScore = score[i];
+        if (score[i] < minScore) minScore = score[i];
       }
       // normalize the scores
       for (let i = 0, lenR = rows.length; i < lenR; i++) {
         // set the lower limit
-        if (maxScore <= 0) score[i] = 0;
+        if (maxScore === minScore) score[i] = 0;
         // round to 1 decimal!
-        else score[i] = Math.round((score[i] / maxScore) * 1000) / 10;
-
-        score[i] += rows[i].scoreModifier;
-        // set the upper limit
-        if (score[i] > 100) score[i] = 100;
-        // set the lower limit
-        else if (score[i] < -100) score[i] = -100;
+        else score[i] = Math.round(((score[i] - minScore) / (maxScore - minScore)) * 1000) / 10;
 
         // only write the score if it's changed
         if (rows[i].score !== score[i]) {
