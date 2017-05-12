@@ -3,9 +3,9 @@
     padding-right: 0;
 }
 #table-container {
-    border: solid 1px $lightBlue;
+    border: solid 1px lightgray;
     overflow: hidden;
-    margin: 60px 0px 0px;
+    margin: -5px 0px 0px;
 }
 
 .table-container-no-data {
@@ -55,4 +55,15 @@
 .img-thumb {
     height: 95px;
     max-height: 95px;
+}
+
+#table-title {
+    overflow: visible;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 30px;
+    color: $darkBlue;
 }

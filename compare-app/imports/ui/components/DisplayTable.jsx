@@ -24,7 +24,7 @@ export class DisplayTable extends Component {
    * Update dimensions to set table-container height correctly based on the window size
    */
   updateDimensions() {
-    let height = $(window).height() - 120;
+    let height = $(window).height() - 145;
     if (height < 150) height = 150;
 
     $('#table-container').css('max-height', height + 'px');
@@ -201,31 +201,35 @@ export class DisplayTable extends Component {
         return rowColObj;
       });
 
-
       tableContainerHtml.push(
-        <div key='table-container' id='table-container'>
-          {/* This displays only the options column to the left with corresponding header*/}
-          <div id='options-column'>
-            <table key='table1'>
-              {/* Need a header of type BuildHeader */}
-              <BuildHeader key='heading1' type='header' cols={[firstColData]}
-                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-              {/* Need a bunch of rows of type BuildRow*/}
-              <BuildRow key='row1' type='header' rows={firstColRows} cols={[firstColData]}
-                editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
-            </table>
+        <div>
+          <div key='table-title' id='table-title'>
+            ..:: {this.props.location.query.name} ::..
           </div>
-          {/* This displays the rest of the table, including the headers*/}
-          <div id='contents-container'>
-            <div id='options-contents'>
-              <table key='table2'>
+          <div key='table-container' id='table-container'>
+            {/* This displays only the options column to the left with corresponding header*/}
+            <div id='options-column'>
+              <table key='table1'>
                 {/* Need a header of type BuildHeader */}
-                <BuildHeader key='heading2' type='content' cols={restCols}
+                <BuildHeader key='heading1' type='header' cols={[firstColData]}
                   editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
                 {/* Need a bunch of rows of type BuildRow*/}
-                <BuildRow key='row2' type='content' rows={restColRows} cols={restCols}
+                <BuildRow key='row1' type='header' rows={firstColRows} cols={[firstColData]}
                   editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
               </table>
+            </div>
+            {/* This displays the rest of the table, including the headers*/}
+            <div id='contents-container'>
+              <div id='options-contents'>
+                <table key='table2'>
+                  {/* Need a header of type BuildHeader */}
+                  <BuildHeader key='heading2' type='content' cols={restCols}
+                    editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+                  {/* Need a bunch of rows of type BuildRow*/}
+                  <BuildRow key='row2' type='content' rows={restColRows} cols={restCols}
+                    editOn={this.props.editOn} scoreOn={this.props.scoreOn} />
+                </table>
+              </div>
             </div>
           </div>
         </div>);

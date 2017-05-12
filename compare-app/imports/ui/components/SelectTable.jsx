@@ -58,7 +58,8 @@ class SelectTable extends Component {
                 <p>{this.props.tables[i].description}</p>
               </div>
               <div>
-                <Link to={'/DisplayTable/' + this.props.tables[i]._id}
+                <Link to={'/DisplayTable/' + this.props.tables[i]._id + '?name=' +
+                  this.props.tables[i].name}
                   role='button' data-toggle='tooltip'
                   title={'Load "' + this.props.tables[i].name + '"'}
                   className={'btn btn-success glyphicon glyphicon-ok'} />
