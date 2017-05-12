@@ -120,11 +120,12 @@ Meteor.methods({
       colData.tableId = tableId;
 
       colData.name = cols[i];
+
       colData.score = 200;
       // the first column has a set score
       if (i !== 0) {
         if (hasScore) {
-          score = cols[i + 1];
+          score = parseInt(cols[i + 1], 10);
         }
         colData.score = score;
       }
@@ -147,7 +148,7 @@ Meteor.methods({
         const colId = colObj[j].id;
 
         if (hasScore) {
-          score = row[(j * step) + 1];
+          score = parseInt(row[(j * step) + 1], 10);
         }
         if (j === 0) {
           // this is the row score instead
@@ -161,7 +162,7 @@ Meteor.methods({
         }
       }
       if (hasScore) {
-        rowData.scoreModifier = row[row.length - 1];
+        rowData.scoreModifier = parseInt(row[row.length - 1], 10);
       } else rowData.scoreModifier = 0;
       rowData.tableId = tableId;
       // insert the row into Mongo

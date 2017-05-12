@@ -158,7 +158,7 @@ export default createContainer((props) => {
   const subscriptionR = Meteor.subscribe('row');
   // is the row data still loading
   const loadingR = !subscriptionR.ready();
-  if (!loadingC) {
+  if (!loadingC && col0.length > 0) {
     const optionName = col0[0]._id + '.value';
     // get the row data from Mongo
     rows = Row.find({ tableId }, { sort: { score: -1, [optionName]: 1 } }).fetch();
