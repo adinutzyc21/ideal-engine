@@ -202,11 +202,11 @@ export class DisplayTable extends Component {
       });
 
       tableContainerHtml.push(
-        <div>
-          <div key='table-title' id='table-title'>
+        <div key='table-container'>
+          <div id='table-title'>
             ..:: {this.props.location.query.name} ::..
           </div>
-          <div key='table-container' id='table-container'>
+          <div id='table-container'>
             {/* This displays only the options column to the left with corresponding header*/}
             <div id='options-column'>
               <table key='table1'>
