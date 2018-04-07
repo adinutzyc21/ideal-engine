@@ -1,5 +1,5 @@
 {
-  "name": "compare-app",  
+  "name": "compare-app",
   "description": "app to custom-compare things",
   "version": "0.0.1",
   "engines": {
@@ -11,8 +11,9 @@
     "pretest": "npm run lint --silent"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.44",
     "babel-runtime": "6.18.0",
-    "bcrypt": "^1.0.0",
+    "bcrypt": "^1.0.3",
     "markdown": "^0.5.0",
     "meteor-node-stubs": "^0.2.4",
     "papaparse": "^4.2.0",

@@ -56,9 +56,10 @@ export default class ExportCSV extends Component {
     }
     return (
       <CSVLink className={this.props.className} data={this.generateCSV()} role='button'
-        filename='exported.csv'>{this.props.title}
-        <span className={this.props.glyphicon} />
-        </CSVLink>
+      filename='exported.csv' target="">{this.props.title}
+      <span className={this.props.glyphicon} />
+      </CSVLink>
+
     );
   }
 }
